@@ -2,7 +2,7 @@
 Uma rede social para programadores/desenvolvedores e amantes de tecnologias.
 Você pode encontrar o aplicativo na <a href="https://play.google.com/store/apps/details?id=com.pedromassango.programmers">Play Store</a>.
 
-# Contribuião
+# Contribuição
 Você pode contribuir para este projeto, fazendo o Fork, e o pull request. Ajude a manter o projeto, contribuindo.
 
 # Contactos
