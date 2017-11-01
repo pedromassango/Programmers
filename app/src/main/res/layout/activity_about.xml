@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pedromassango.programmers.mvp.about.AboutActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/size16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/v1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/v2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/v1"
+                    android:layout_toRightOf="@id/v1"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="20dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/primaryText"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/v2"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/v1"
+                    android:layout_toRightOf="@id/v1"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="2dp"
+                    android:textSize="12sp"
+                    android:text="@string/app_developer"
+                    android:textColor="@color/primaryText" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="24dp"
+                android:text="@string/app_developed_and_designed"
+                android:textColor="@color/primaryText"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="24dp"
+                android:text="@string/app_description"
+                android:textColor="@color/primaryText" />
+
+            <TextView
+                android:id="@+id/link_terms_and_conditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/size16dp"
+                android:text="@string/privacy_police"
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/btn_donate"
+                style="@style/Button.Circle.Accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/size32dp"
+                android:text="@string/make_an_donation" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

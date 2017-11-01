@@ -1,0 +1,58 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:selectable="false"
+        android:title="@string/general_settings">
+
+        <!--category notifications-->
+        <Preference
+            android:enabled="true"
+            android:key="pref_key_category_notifications"
+            android:title="@string/notifications" />
+
+        <Preference
+            android:enabled="true"
+            android:key="pref_key_share_app"
+            android:summary="@string/share_this_app"
+            android:title="@string/share" />
+
+        <Preference
+            android:key="pref_key_repport_bug"
+            android:summary="@string/tell_me_if_you_find_a_bug"
+            android:title="@string/bug_repport" />
+    </PreferenceCategory>
+
+
+    <!--System settings-->
+    <PreferenceCategory
+        android:selectable="false"
+        android:title="@string/account_settings">
+
+        <Preference
+            android:key="pref_key_reset_password"
+            android:title="@string/new_password" />
+
+        <Preference
+            android:key="pref_key_category_quit"
+            android:title="@string/end_session" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:selectable="false"
+        android:title="@string/system_settings">
+
+        <Preference
+            android:key="pref_key_category_about"
+            android:title="@string/about" />
+
+        <Preference
+            android:key="pref_key_category_app_updates"
+            android:title="@string/updates" />
+
+        <Preference
+            android:key="pref_key_category_privacy_police"
+            android:title="@string/privacy_police" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

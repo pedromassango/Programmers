@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".mvp.post.edit.EditPostActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/btn_publish_seletor"
+            android:text="@string/done"
+            android:textColor="@color/primaryText" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.Toolbar
+        style="@style/ToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <Spinner
+            android:id="@+id/new_post_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:spinnerMode="dialog" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/size16dp">
+
+        <EditText
+            android:id="@+id/edt_newPost_title"
+            style="@style/EditText.Post.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edt_newPost_Container"
+            style="@style/EditText.Post.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edt_newPost_title" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            style="@style/Button.Circle.LessWhite"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/size16dp"
+            android:text="@string/action_delete" />
+    </RelativeLayout>
+</LinearLayout>

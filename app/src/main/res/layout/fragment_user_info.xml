@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:divider="@color/blue"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/reputacao"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_reputation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/size8dp"
+                    android:text="180" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/level"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/size8dp"
+                    android:text="@string/beginner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/phone"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="@dimen/size8dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--Basic Info-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--Title 2-->
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/developer"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/i1"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:paddingTop="8dp"
+                    android:src="@drawable/code"
+                    android:tint="@color/primaryText"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t1"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/language" />
+
+                <TextView
+                    android:id="@+id/tv_programming_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/i1"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/size16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_programming_language"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/platform" />
+
+                <TextView
+                    android:id="@+id/tv_platform"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_programming_language"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/size16dp" />
+            </RelativeLayout>
+
+            <!--More info-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/rowInfo_marginLeft"
+                    android:layout_marginStart="@dimen/size16dp"
+                    android:text="@string/outras_informa_es"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t2"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/age" />
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/t2"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/size16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_age"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/gender" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_age"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/size16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_gender"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/country" />
+
+                <TextView
+                    android:id="@+id/tv_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_gender"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/size16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_country"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="@dimen/size16dp"
+                    android:paddingTop="@dimen/size16dp"
+                    android:text="@string/city" />
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tv_country"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/size16dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

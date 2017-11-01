@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_margin_bottom"
+    android:layout_marginEnd="@dimen/card_margin_right"
+    android:layout_marginLeft="@dimen/card_marign_left"
+    android:layout_marginRight="@dimen/card_margin_right"
+    android:layout_marginStart="@dimen/card_marign_left"
+    android:layout_marginTop="@dimen/card_magin_top"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_ripple"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_funcional_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/tv_category"
+                android:layout_toStartOf="@id/tv_category"
+                android:ellipsize="end"
+                android:paddingEnd="@dimen/size16dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/size16dp"
+                android:paddingStart="0dp"
+                android:text="Desenvolvedor java, c#"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="JAVA"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_funcional_area"
+                android:ellipsize="end"
+                android:ems="20"
+                android:maxLines="1"
+                android:paddingTop="2dp"
+                android:text="@string/app_developer"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/secondaryText"
+                android:textSize="12sp"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/tv_author"
+                android:paddingBottom="@dimen/size16dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="16dp"
+                android:paddingStart="0dp"
+                android:text="ha 2 hrs"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/v1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_date"
+                android:layout_marginBottom="@dimen/size4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="8dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/str_empregador_name"
+                    android:textColor="@color/primaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/tv_empregador_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="4"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/v2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v1"
+                android:layout_marginBottom="@dimen/size4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="8dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/anos_de_experiencia"
+                    android:textColor="@color/primaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/tv_needed_experience"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="4"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/v3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v2"
+                android:layout_marginBottom="@dimen/size4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="8dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/trabalhador_remoto"
+                    android:textColor="@color/primaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/tv_remote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="4"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/v4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v3"
+                android:layout_marginBottom="@dimen/size4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="8dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/country"
+                    android:textColor="@color/primaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/tv_country"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="4"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v4"
+                android:layout_marginBottom="@dimen/size4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="8dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/city"
+                    android:textColor="@color/primaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="4"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="12sp"
+                    android:typeface="serif" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_send_curriculum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/linearLayout1"
+            android:background="@drawable/btn_row_job"
+            android:text="@string/enviar_candidatura"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

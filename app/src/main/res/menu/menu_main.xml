@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:enabled="true"
+        android:visible="true">
+
+        <item
+            android:id="@+id/action_search_post"
+            android:icon="@drawable/ic_search"
+            android:orderInCategory="100"
+            android:title="@string/search"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            app:showAsAction="ifRoom|collapseActionView" />
+        
+        <item
+            android:id="@+id/about"
+            android:orderInCategory="100"
+            android:title="@string/about"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/donate"
+            android:title="@string/donate_title"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/rate"
+            android:title="@string/rate"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/settings"
+            android:orderInCategory="100"
+            android:title="@string/settings"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_bug_report"
+            android:orderInCategory="100"
+            android:title="@string/bug_repport"
+            app:showAsAction="never" />
+    </group>
+</menu>

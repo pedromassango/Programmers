@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_margin_bottom"
+    android:layout_marginEnd="@dimen/card_margin_right"
+    android:layout_marginLeft="@dimen/card_marign_left"
+    android:layout_marginRight="@dimen/card_margin_right"
+    android:layout_marginStart="@dimen/card_marign_left"
+    android:layout_marginTop="@dimen/card_magin_top"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="?android:dividerHorizontal"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_ripple"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:paddingBottom="4dp"
+            android:paddingEnd="@dimen/size16dp"
+            android:paddingStart="@dimen/size16dp"
+            android:paddingTop="@dimen/size16dp">
+
+            <ImageView
+                android:id="@+id/img_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_options"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/img_options"
+                android:layout_toStartOf="@id/img_options"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_title"
+                android:ellipsize="end"
+                android:ems="20"
+                android:maxLines="1"
+                android:paddingBottom="16dp"
+                android:paddingTop="4dp"
+                android:text="1d - Pedro Massango"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_author"
+                android:ellipsize="end"
+                android:maxLines="8"
+                android:paddingBottom="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:typeface="serif" />
+
+            <ImageView
+                android:id="@+id/row_post_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_text"
+                android:layout_marginBottom="@dimen/size16dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="180dp"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_up_votes"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/row_post_textview_info_height"
+                android:layout_below="@id/row_post_image"
+                android:drawableLeft="@drawable/ic_vote_up_simple"
+                android:drawablePadding="@dimen/tv_pad"
+                android:drawableStart="@drawable/ic_vote_up_simple"
+                android:gravity="center"
+                android:paddingEnd="4dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="4dp"
+                android:paddingStart="0dp"
+                android:text="(0)"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/row_post_textview_info_height"
+                android:layout_below="@id/row_post_image"
+                android:layout_toEndOf="@id/tv_up_votes"
+                android:layout_toRightOf="@id/tv_up_votes"
+                android:drawableLeft="@drawable/ic_comment"
+                android:drawablePadding="@dimen/tv_pad"
+                android:drawableStart="@drawable/ic_comment"
+                android:gravity="center"
+                android:text="(0)"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_views"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/row_post_textview_info_height"
+                android:layout_below="@id/row_post_image"
+                android:layout_toLeftOf="@id/tv_category"
+                android:layout_toStartOf="@id/tv_category"
+                android:drawableLeft="@drawable/ic_views"
+                android:drawablePadding="@dimen/tv_pad"
+                android:drawableStart="@drawable/ic_views"
+                android:gravity="center"
+                android:text="(0)"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/row_post_textview_info_height"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/row_post_image"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="JAVA"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_post_height"
+            android:clickable="false"
+            android:divider="?android:dividerVertical"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <Button
+                android:id="@+id/btn_like"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_ripple"
+                android:text="@string/like"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <Button
+                android:id="@+id/btn_comment"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_ripple"
+                android:text="@string/comment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/primaryText" />
+
+            <Button
+                android:id="@+id/btn_commentq"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Partilhar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/primaryText" />
+
+            <!--    <com.facebook.share.widget.ShareButton
+                    android:id="@+id/share_btn"
+                    android:layout_toEndOf="@id/btn_comment"
+                    android:layout_toRightOf="@id/btn_comment"
+                    android:layout_width="@dimen/btn_post_with"
+                    android:layout_height="@dimen/btn_post_height"
+                    android:contentDescription="@string/share" />-->
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

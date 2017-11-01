@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/size16dp"
+    android:paddingLeft="@dimen/size16dp"
+    android:paddingRight="@dimen/size16dp"
+    android:paddingStart="@dimen/size16dp"
+    android:paddingTop="@dimen/size4dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/row_comment_sender_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_user"
+        app:civ_border_width="0.1dp"
+        app:civ_border_color="@color/lessWhite"/>
+
+    <TextView
+        android:id="@+id/row_comment_sender_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/row_comment_sender_image"
+        android:layout_toLeftOf="@+id/tv_votes"
+        android:layout_toRightOf="@id/row_comment_sender_image"
+        android:layout_toStartOf="@+id/tv_votes"
+        android:ellipsize="end"
+        android:ems="14"
+        android:maxLines="1"
+        android:paddingEnd="0dp"
+        android:paddingLeft="@dimen/size8dp"
+        android:paddingRight="0dp"
+        android:paddingStart="@dimen/size8dp"
+        android:paddingTop="@dimen/size16dp"
+        android:text="@string/app_name"
+        android:textColor="@color/primaryText"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_votes"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/size16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/circle_simple_accent"
+        android:gravity="center"
+        android:maxLines="1"
+        android:maxLength="3"
+        android:ellipsize="end"
+        android:text="99"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/row_comment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/row_comment_sender_name"
+        android:layout_toEndOf="@id/row_comment_sender_image"
+        android:layout_toRightOf="@id/row_comment_sender_image"
+        android:paddingEnd="0dp"
+        android:paddingLeft="@dimen/size8dp"
+        android:paddingRight="0dp"
+        android:paddingStart="@dimen/size8dp"
+        android:paddingTop="3dp"
+        android:text="@string/app_name"
+        android:textSize="12sp"
+        android:textColor="@color/secondaryText"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/row_comment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:paddingTop="2dp"
+        android:layout_below="@id/row_comment_text"
+        android:gravity="end"
+        android:text="23/08/2016"
+        android:textSize="12sp"
+        android:typeface="serif" />
+
+</RelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pedromassango.programmers.mvp.repport.BugActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="100dp"
+        android:paddingEnd="16dp"
+        android:paddingLeft="@dimen/size16dp"
+        android:paddingRight="16dp"
+        android:paddingStart="@dimen/size16dp"
+        android:paddingTop="16dp"
+        android:text="@string/bug_repport_info" />
+
+    <EditText
+        android:id="@+id/edt_bug_text"
+        android:inputType="textAutoComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/t1"
+        android:layout_marginEnd="@dimen/size16dp"
+        android:layout_marginLeft="@dimen/size16dp"
+        android:layout_marginRight="@dimen/size16dp"
+        android:layout_marginStart="@dimen/size16dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="@dimen/size32dp" />
+
+    <CheckBox
+        android:enabled="false"
+        android:id="@+id/cb_attach_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_bug_text"
+        android:layout_marginEnd="@dimen/size16dp"
+        android:layout_marginLeft="@dimen/size16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:checked="true"
+        android:paddingTop="30dp"
+        android:text="@string/bug_repport_alert"
+        android:textColor="@color/primaryText" />
+
+    <Button
+        android:id="@+id/btn_send_bug"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/size32dp"
+        android:layout_marginEnd="@dimen/size16dp"
+        android:layout_marginRight="@dimen/size16dp"
+        android:layout_marginTop="@dimen/size16dp"
+        style="@style/Button.Circle.Accent"
+        android:text="@string/send"
+        android:textColor="@color/white" />
+</RelativeLayout>

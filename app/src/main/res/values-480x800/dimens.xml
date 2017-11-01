@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_height">180dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="rowInfo_marginLeft">16dp</dimen>
+    <dimen name="rowInfo_marginRight">16dp</dimen>
+
+    <dimen name="btn_post_height">40dp</dimen>
+    <dimen name="text16">16sp</dimen>
+    <dimen name="size16dp">16dp</dimen>
+    <dimen name="text_16sp">16sp</dimen>
+    <dimen name="size32dp">32dp</dimen>
+    <dimen name="size8dp">8dp</dimen>
+    <dimen name="text_extra_medium">14sp</dimen>
+    <dimen name="size4dp">4dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <integer name="text_message_ems">14</integer>
+
+
+    <dimen name="row_post_textview_info_height">20dp</dimen>
+
+</resources>

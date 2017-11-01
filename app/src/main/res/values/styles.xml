@@ -1,0 +1,88 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+<!--        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Splash" parent="AppTheme">
+<!--        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>-->
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.Window">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    //START: EditText styles for Posts
+
+    <style name="EditText.Post.Title" parent="Widget.AppCompat.EditText">
+
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:hint">@string/title</item>
+        <item name="android:paddingTop">@dimen/size16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+    <style name="EditText.Post.Description" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:hint">@string/say_someting</item>
+        <item name="android:maxLines">32</item>
+        <item name="android:autoLink">all</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:paddingTop">@dimen/size16dp</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:layout_marginBottom">@dimen/size16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+    //END: EditText styles for POsts
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    //START: Button styles
+
+    <style name="Button.Circle.LessWhite" parent="Widget.AppCompat.Button">
+
+        <item name="android:background">@drawable/btn_circle_lesswhite</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="Button.Circle.Accent" parent="Widget.AppCompat.Button">
+
+        <item name="android:background">@drawable/btn_circle_accent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    //END: Button styles
+
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:theme">?attr/actionBarTheme</item>
+        <item name="layout_scrollFlags">scroll|enterAlways</item>
+        <item name="contentScrim">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

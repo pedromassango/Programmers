@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pedromassango.programmers.mvp.conversations.messages.MessagesActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="16dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="16dp"
+            android:paddingStart="0dp">
+
+            <View
+                android:id="@+id/view_online_status"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_offline"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/edt_message"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:hint="@string/message"
+        android:imeOptions="actionSend"
+        android:inputType="text"
+        android:maxLines="4"
+        android:paddingEnd="@dimen/size16dp"
+        android:paddingStart="@dimen/size16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/edt_message"
+        android:layout_below="@id/toolbar" />
+</RelativeLayout>

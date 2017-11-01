@@ -1,0 +1,136 @@
+package com.pedromassango.programmers.mvp.comments.activity;
+
+import android.os.Bundle;
+import android.support.annotation.StringRes;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.mvp.base.activity.BaseActivity;
+import com.pedromassango.programmers.mvp.comments.adapter.CommentAdapter;
+import com.pedromassango.programmers.server.Library;
+
+public class CommentsActivity extends BaseActivity implements Contract.View {
+
+    private EditText edtText;
+    private TextView tvEmpty;
+    private TextView tvViews, tvDate, tvBody, tvLikes, tvCategory, tvTitle;
+    private RecyclerView recyclerView;
+    private Presenter presenter;
+
+    @Override
+    public int layoutResource() {
+        return R.layout.activity_comments;
+    }
+
+    @Override
+    public void initializeViews() {
+
+         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_info_container);
+
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvBody = (TextView) findViewById(R.id.tv_body);
+        tvDate = (TextView) findViewById(R.id.tv_date);
+        tvLikes = (TextView) findViewById(R.id.tv_up_votes);
+        tvViews = (TextView) findViewById(R.id.tv_views);
+        tvEmpty = (TextView) frameLayout.findViewById(R.id.tv_empty);
+        tvCategory = (TextView) findViewById(R.id.tv_category);
+
+        recyclerView = (RecyclerView) frameLayout.findViewById(R.id.recycler_comments);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        edtText = (EditText) findViewById(R.id.edt_comment);
+        edtText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+
+                    presenter.onSendCommentClicked();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        presenter = new Presenter(this);
+        presenter.initialize(getIntent(), savedInstanceState);
+    }
+
+    @Override
+    public void bindViews(String author, String category, String title, String body, String likes, String views, String date) {
+
+        //this.setTitle(author);
+        tvTitle.setText(title);
+        tvBody.setText(body);
+        tvLikes.setText(likes);
+        tvViews.setText(views);
+        tvCategory.setText(category);
+        tvDate.setText(date);
+    }
+
+    @Override
+    public void fetchComments(String postId) {
+        tvEmpty.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        CommentAdapter adapter = new CommentAdapter(this, Library.getCommentsRef(postId), presenter);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void setEditTextVisibility(int visibility) {
+
+        edtText.setVisibility(visibility);
+    }
+
+
+    @Override
+    public String getComment() {
+        return edtText.getText().toString();
+    }
+
+    @Override
+    public void setCommentError(@StringRes int empty_text) {
+
+        edtText.setError(getString(empty_text));
+    }
+
+    @Override
+    public void showTextLoading(String message) {
+        recyclerView.setVisibility(View.GONE);
+        tvEmpty.setVisibility(View.VISIBLE);
+        tvEmpty.setText(message);
+    }
+
+    @Override
+    public void showRecyclerviewComments() {
+
+        tvEmpty.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSendCommentSuccess() {
+
+        edtText.setText("");
+    }
+
+    @Override
+    public void showToast(String error) {
+
+        super.showToastMessage(error);
+    }
+}

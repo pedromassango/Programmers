@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pedromassango.programmers">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".app.Programmers"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name=".provider.SearchableProvider"
+            android:authorities="com.pedromassango.programmers.provider.SearchableProvider"
+            android:exported="false" />
+
+        <activity
+            android:name=".mvp.splash.SplashActivity"
+            android:label="@string/app_name"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".mvp.main.activity.MainActivity"
+            android:label="@string/app_name"
+            android:noHistory="false"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".mvp.post.search.SearchPostActivity" />
+        </activity>
+        <activity
+            android:name=".mvp.profile.profile.ProfileActivity"
+            android:label=""/>
+        <activity
+            android:name=".mvp.login.LoginActivity"
+            android:launchMode="singleTop"
+            android:noHistory="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.profile.edit.EditProfileActivity"
+            android:label="@string/title_activity_edit_profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.signup.SignupActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.post._new.NewPostActivity"
+            android:label="@string/post_title"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.comments.activity.CommentsActivity"
+            android:parentActivityName=".mvp.main.activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pedromassango.programmers.mvp.main.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".mvp.post.edit.EditPostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.repport.BugActivity"
+            android:label="@string/bug_repport"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.post.search.SearchPostActivity"
+            android:label="@string/search"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".mvp.intro.IntroActivity"
+            android:launchMode="singleTop" />
+        <!--
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@style/com_facebook_activity_theme"
+            tools:replace="android:theme" />
+        <activity android:name="com.facebook.CustomTabMainActivity" />
+        -->
+
+
+        <!--
+         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+         with the application context. This config is merged in with the host app's manifest,
+         but there can only be one provider with the same authority activated at any given
+         point; so if the end user has two or more different apps that use Facebook SDK, only the
+         first one will be able to use the provider. To work around this problem, we use the
+         following placeholder in the authority to identify each host application as if it was
+         a completely different provider.
+        -->
+        <!--
+        <provider
+            android:name="com.facebook.internal.FacebookInitProvider"
+            android:authorities="com.pedromassango.programmers.FacebookInitProvider"
+            android:exported="false" />
+        -->
+
+
+        <!-- FIREBASE SERVICES -->
+
+        <!--<service android:name=".services.firebase.AppFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.firebase.AppFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>-->
+        <!-- FIREBASE SERVICES -->
+
+        <activity
+            android:name=".mvp.settings.activity.SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".mvp.main.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pedromassango.programmers.mvp.main.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".mvp.donate.DonateActivity"
+            android:label="@string/donate_title"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.about.AboutActivity"
+            android:label="@string/about" />
+
+        <activity
+            android:name=".mvp.conversations.messages.MessagesActivity"
+            android:parentActivityName=".mvp.main.activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pedromassango.programmers.mvp.main.activity.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".mvp.link.views.LinkActivity"
+            android:label="@string/link_title"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.job.activity.JobActivity"
+            android:label="@string/job_title"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

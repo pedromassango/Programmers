@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle" android:tint="@color/lessWhite">
+
+            <!--For API less than 21-->
+            <solid android:color="@color/lessWhite" />
+
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="32dp" android:topLeftRadius="0dp" android:topRightRadius="32dp" />
+            <padding android:bottom="@dimen/button_login_padding_vertical" android:left="@dimen/button_login_padding_horizontal" android:right="@dimen/button_login_padding_horizontal" android:top="@dimen/button_login_padding_vertical" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+
+            <!--For API less than 21-->
+            <solid android:color="@color/white" />
+
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="32dp" android:topLeftRadius="0dp" android:topRightRadius="32dp" />
+            <padding android:bottom="@dimen/button_login_padding_vertical" android:left="@dimen/button_login_padding_horizontal" android:right="@dimen/button_login_padding_horizontal" android:top="@dimen/button_login_padding_vertical" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:summary="@string/app_version"
+        android:title="@string/version" />
+
+    <Preference
+        android:summary="Pedro Massango"
+        android:title="@string/developer" />
+
+    <Preference
+        android:key="pref_key_feedback"
+        android:summary="@string/send_me_an_email"
+        android:title="@string/feedback" />
+
+    <Preference
+        android:icon="@drawable/ic_facebook"
+        android:key="pref_key_page_on_facebook"
+        android:summary="@string/we_are_on_facebook"
+        android:title="@string/on_facebook" />
+
+    <Preference
+        android:icon="@drawable/ic_donate"
+        android:key="pref_key_donate"
+        android:summary="@string/donate_description"
+        android:title="@string/donate_title" />
+
+    <Preference
+        android:icon="@drawable/ic_info_accent"
+        android:key="pref_key_more_about_app"
+        android:summary="Clique para saber mais"
+        android:title="@string/about_app" />
+</PreferenceScreen>

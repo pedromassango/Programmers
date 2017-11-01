@@ -1,0 +1,127 @@
+package com.pedromassango.programmers.mvp.adapters.holders;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.extras.ImageUtils;
+import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.models.Post;
+import com.pedromassango.programmers.mvp.post.adapter.AdapterPresenter;
+
+
+/**
+ * Created by JANU on 15/05/2017.
+ */
+
+public class PostVH extends RecyclerView.ViewHolder {
+
+    private final TextView mUsername;
+    private final TextView mTitle;
+    private final TextView mBody;
+    private final TextView mCategory;
+    private final TextView mLikes;
+    private final TextView mViews;
+    private final TextView mComments;
+    private final ImageView mPostImage;
+    private final ImageView mOptions;
+    private final Button btnComment;
+    private final Button btnLike;
+    //public ShareButton shareButton;
+
+    public PostVH(View itemView) {
+        super(itemView);
+
+        mTitle = (TextView) itemView.findViewById(R.id.tv_title);
+        mBody = (TextView) itemView.findViewById(R.id.tv_text);
+        mUsername = (TextView) itemView.findViewById(R.id.tv_author);
+        mPostImage = (ImageView) itemView.findViewById(R.id.row_post_image);
+
+        mOptions = (ImageView) itemView.findViewById(R.id.img_options);
+        mCategory = (TextView) itemView.findViewById(R.id.tv_category);
+        mLikes = (TextView) itemView.findViewById(R.id.tv_up_votes);
+        mViews = (TextView) itemView.findViewById(R.id.tv_views);
+        mComments = (TextView) itemView.findViewById(R.id.tv_comments);
+
+        btnComment = (Button) itemView.findViewById(R.id.btn_comment);
+        btnLike = (Button) itemView.findViewById(R.id.btn_like);
+        //shareButton = (ShareButton)itemView.findViewById(R.id.share_btn);
+    }
+
+    // To bind views whit data
+    public void bindViews(final AdapterPresenter adapterPresenter, final Post post) {
+
+        String likesCount = adapterPresenter.getLikesCount(post.getLikes());
+        String viewsCount = adapterPresenter.getViewsCount(post.getViews());
+        String commentsCount = adapterPresenter.getCommentsCount(post.getCommentsCount());
+        int likeButtonTextColor = adapterPresenter.getLikeButtonTextColor(post);
+
+        String time = Util.getTimeAgo(post.getTimestamp());
+        String timeAndName = Util.concat(time, "-", post.getAuthor());
+
+        mTitle.setText(post.getTitle());
+        mBody.setText(post.getBody());
+        mUsername.setText(timeAndName);
+        mCategory.setText(post.getCategory());
+        mLikes.setText(likesCount);
+        mComments.setText(commentsCount);
+        mViews.setText(viewsCount);
+        btnLike.setTextColor(likeButtonTextColor);
+
+        // Breaking MVP patterns
+        if (!post.isCommentsActive()) {
+            btnComment.setVisibility(View.GONE);
+        }
+
+        if (!post.getAuthorId().equals(adapterPresenter.getUserId())) {
+            mOptions.setVisibility(View.GONE);
+        }
+
+        ImageUtils.loadPostImage(itemView.getContext(), post.getImgUrl(), mPostImage);
+
+        itemView.findViewById(R.id.linearLayout1)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        adapterPresenter.onCommentClicked(post);
+                    }
+                });
+
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                adapterPresenter.onLikeClicked(post);
+            }
+        });
+
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                adapterPresenter.onCommentClicked(post);
+            }
+        });
+
+        mOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                adapterPresenter.onMenuOptionsClicked(view, post, getAdapterPosition());
+            }
+        });
+
+        mPostImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                adapterPresenter.onPostImageClicked(post.getImgUrl());
+            }
+        });
+
+    }
+}

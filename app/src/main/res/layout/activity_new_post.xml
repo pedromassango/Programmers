@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_with_button_publish" />
+
+    <android.support.v7.widget.Toolbar
+        style="@style/ToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/img_pick"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="6dp"
+            android:src="@drawable/ic_camera_dark"
+            tools:ignore="ContentDescription" />
+
+        <Spinner
+            android:id="@+id/new_post_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:spinnerMode="dialog" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:dividerVertical"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/size16dp"
+            android:paddingTop="@dimen/size16dp"
+            android:showDividers="middle">
+
+            <EditText
+                android:id="@+id/edt_newPost_title"
+                style="@style/EditText.Post.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:paddingEnd="@dimen/size8dp"
+                android:paddingLeft="@dimen/size16dp"
+                android:paddingRight="@dimen/size8dp"
+                android:paddingStart="@dimen/size16dp" />
+
+            <EditText
+                android:id="@+id/edt_newPost_Container"
+                style="@style/EditText.Post.Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_newPost_title"
+                android:paddingEnd="@dimen/size8dp"
+                android:paddingLeft="@dimen/size16dp"
+                android:paddingRight="@dimen/size8dp"
+                android:paddingStart="@dimen/size16dp" />
+
+            <RelativeLayout
+                android:id="@+id/layout_img_picked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_newPost_Container">
+
+                <ImageView
+                    android:id="@+id/new_post_imgPicked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="200dp"
+                    android:minHeight="100dp"
+                    android:src="@drawable/ic_cover"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/img_clear"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/circle_white"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_clear_accent"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_height">180dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="rowInfo_marginLeft">16dp</dimen>
+    <dimen name="rowInfo_marginRight">16dp</dimen>
+
+    <dimen name="button_post_height">35dp</dimen>
+    <dimen name="text16">16sp</dimen>
+    <dimen name="size16dp">16dp</dimen>
+    <dimen name="text_16sp">16sp</dimen>
+    <dimen name="size32dp">32dp</dimen>
+    <dimen name="size8dp">8dp</dimen>
+    <dimen name="text_extra_medium">14sp</dimen>
+    <dimen name="size4dp">4dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <integer name="text_message_ems">14</integer>
+
+
+    <dimen name="row_post_textview_info_height">20dp</dimen>
+    <dimen name="card_margin_bottom">4dp</dimen>
+    <dimen name="card_margin_right">4dp</dimen>
+    <dimen name="card_marign_left">4dp</dimen>
+    <dimen name="card_magin_top">4dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="tv_pad">-5dp</dimen>
+    <dimen name="button_login_padding_vertical">8dp</dimen>
+    <dimen name="button_login_padding_horizontal">4dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+
+</resources>

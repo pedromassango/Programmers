@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pedromassango.programmers.mvp.base.fragment.BaseFragmentRecyclerView">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_posts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/size4dp"
+        android:scrollbars="none"
+        android:paddingBottom="@dimen/size4dp"/>
+
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/a_carregar"
+        android:textColor="@color/primaryText" />
+
+</FrameLayout>

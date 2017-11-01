@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#dcdcdc</color>
+    <color name="colorPrimaryDark">#ffb3b3b3</color>
+    <color name="colorAccent">#f43640</color>
+    <color name="white">#FFFFFF</color>
+    <color name="secondaryText">#727272</color>
+    <color name="primaryText">#212121</color>
+    <color name="lessWhite">#dadada</color>
+    <color name="lessAccent">#ef5053</color>
+
+    <color name="blue">#0594c4</color>
+    <color name="lessBlue">#04a2d7</color>
+
+    <!--<color name="colorAccent">#F44336</color>-->
+
+    <!--
+        - important  #243432
+
+    Default colors
+
+    <color name="colorPrimary">#F5F5F5</color>
+    <color name="lessPrimary">#FAFAFA</color>
+    <color name="colorPrimaryDark">#ffb3b3b3</color>
+    <color name="colorAccent">#f43640</color>
+    <color name="white">#FFFFFF</color>
+    <color name="secondaryText">#727272</color>
+    <color name="primaryText">#212121</color>
+    <color name="lessWhite">#dadada</color>
+    <color name="highLight">#E8E8E8</color>
+    <color name="lessAccent">#ef5053</color>
+
+    <color name="blue">#0594c4</color>
+    <color name="lessBlue">#04a2d7</color>
+    <color name="sinch_purple">#ff63029d</color>
+    <color name="off_white">#fffafafa</color>
+    <color name="dark_gray">#ffb3b3b3</color>
+    <color name="very_dark_gray">#636363</color>
+
+    <color name="background">#e9e3dd</color>-->
+</resources>
