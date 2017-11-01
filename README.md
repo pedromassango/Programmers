@@ -1,6 +1,6 @@
 # Programmers
 Uma rede social para programadores/desenvolvedores e amantes de tecnologias.
 
-[Screenshot](/screenshots/menucategories.png) [Screenshot](/screenshots/home.png) [Screenshot](/screenshots/chat.png)
+<img src="/screenshots/menucategories.png" width="260" height="480"> <img src="/screenshots/home.png" width="260" height="480"> <img src="/screenshots/chat.png" width="260" height="480">
 
-[Screenshot](/screenshots/jobs.png) [Screenshot](/screenshots/profile.png) [Screenshot](/screenshots/new_post.png)
+<img src="/screenshots/jobs.png" width="260" height="480"> <img src="/screenshots/profile.png" width="260" height="480"> <img src="/screenshots/new_post.png" width="260" height="480">
