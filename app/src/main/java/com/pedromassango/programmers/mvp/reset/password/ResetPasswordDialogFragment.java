@@ -43,8 +43,8 @@ public class ResetPasswordDialogFragment extends AppCompatDialogFragment impleme
 
         View view = inflater.inflate(R.layout.activity_reset_password, container, false);
 
-        edtEmail = (EditText) view.findViewById(R.id.edt_email);
-        Button btnSend = (Button) view.findViewById(R.id.btn_reset_password);
+        edtEmail = view.findViewById(R.id.edt_email);
+        Button btnSend = view.findViewById(R.id.btn_reset_password);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override

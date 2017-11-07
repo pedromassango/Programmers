@@ -59,13 +59,13 @@ public class MainActivity extends BaseActivity implements Contract.View {
 
     @Override
     protected void initializeViews() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         // Set up the ViewPager
-        mViewPager = (ViewPager) drawerLayout.findViewById(R.id.container);
+        mViewPager = drawerLayout.findViewById(R.id.container);
 
         // Set up the TabLayout
-        TabLayout tabLayout = (TabLayout) drawerLayout.findViewById(R.id.tabs);
+        TabLayout tabLayout = drawerLayout.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         // Set up the NavigationDrawer

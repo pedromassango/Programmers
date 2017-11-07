@@ -32,9 +32,9 @@ public class EditPostActivity extends BaseActivity implements Contract.View {
     @Override
     protected void initializeViews() {
 
-        spLanguage = (Spinner) findViewById(R.id.new_post_spinner);
-        edtTitle = (EditText) findViewById(R.id.edt_newPost_title);
-        edtContent = (EditText) findViewById(R.id.edt_newPost_Container);
+        spLanguage = findViewById(R.id.new_post_spinner);
+        edtTitle = findViewById(R.id.edt_newPost_title);
+        edtContent = findViewById(R.id.edt_newPost_Container);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, getResources().getStringArray(R.array.array_languages));
         spLanguage.setAdapter(arrayAdapter);

@@ -22,11 +22,11 @@ public class UserVH extends RecyclerView.ViewHolder {
     public UserVH(View itemView) {
         super(itemView);
 
-        tvName = (TextView) itemView.findViewById(R.id.row_user_tv_username);
-        tvLanguage = (TextView) itemView.findViewById(R.id.tv_language);
-        tvReputation = (TextView) itemView.findViewById(R.id.tv_reputation);
-        tvCodelevel = (TextView) itemView.findViewById(R.id.tv_level);
+        tvName = itemView.findViewById(R.id.row_user_tv_username);
+        tvLanguage = itemView.findViewById(R.id.tv_language);
+        tvReputation = itemView.findViewById(R.id.tv_reputation);
+        tvCodelevel = itemView.findViewById(R.id.tv_level);
 
-        imgUser = (CircleImageView) itemView.findViewById(R.id.img_user);
+        imgUser = itemView.findViewById(R.id.img_user);
     }
 }

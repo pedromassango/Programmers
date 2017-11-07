@@ -26,11 +26,11 @@ public class CommentVH extends RecyclerView.ViewHolder {
     public CommentVH(View itemView) {
         super(itemView);
 
-        tvSenderName = (TextView) itemView.findViewById(R.id.row_comment_sender_name);
-        tvText = (TextView) itemView.findViewById(R.id.row_comment_text);
-        tvDate = (TextView) itemView.findViewById(R.id.row_comment_date);
-        tvVotes = (TextView) itemView.findViewById(R.id.tv_votes);
-        imgUser = (CircleImageView) itemView.findViewById(R.id.row_comment_sender_image);
+        tvSenderName = itemView.findViewById(R.id.row_comment_sender_name);
+        tvText = itemView.findViewById(R.id.row_comment_text);
+        tvDate = itemView.findViewById(R.id.row_comment_date);
+        tvVotes = itemView.findViewById(R.id.tv_votes);
+        imgUser = itemView.findViewById(R.id.row_comment_sender_image);
     }
 
     public void bindViews(Activity activity, final Presenter presenter, final Comment comment) {

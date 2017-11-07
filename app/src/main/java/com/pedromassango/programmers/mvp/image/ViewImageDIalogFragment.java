@@ -34,7 +34,7 @@ public class ViewImageDIalogFragment extends AppCompatDialogFragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_view_mage, container, false);
-        imageView = (ImageView) view.findViewById(R.id.img_view);
+        imageView = view.findViewById(R.id.img_view);
         return view;
     }
 

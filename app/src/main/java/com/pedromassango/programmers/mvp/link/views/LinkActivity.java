@@ -29,10 +29,10 @@ public class LinkActivity extends BaseActivity implements LinkContract.ViewActiv
     @Override
     protected void initializeViews() {
 
-        spCategory = (Spinner) findViewById(R.id.spinner_language);
+        spCategory = findViewById(R.id.spinner_language);
 
-        edtDescription = (EditText) findViewById(R.id.edt_title);
-        edtLink = (EditText) findViewById(R.id.edt_link);
+        edtDescription = findViewById(R.id.edt_title);
+        edtLink = findViewById(R.id.edt_link);
 
         findViewById(R.id.btn_publish).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,7 +23,7 @@ public class AboutActivity extends BaseActivity implements Contract.View {
     @Override
     protected void initializeViews() {
 
-        Button btnDonate = (Button) findViewById(R.id.btn_donate);
+        Button btnDonate = findViewById(R.id.btn_donate);
         btnDonate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

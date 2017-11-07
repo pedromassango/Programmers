@@ -38,12 +38,12 @@ public class NewPostActivity extends BaseActivity implements Contract.View {
     @Override
     public void initializeViews() {
 
-        imgPicked = (ImageView) findViewById(R.id.new_post_imgPicked);
+        imgPicked = findViewById(R.id.new_post_imgPicked);
 
-        spLanguage = (Spinner) findViewById(R.id.new_post_spinner);
-        edtTitle = (EditText) findViewById(R.id.edt_newPost_title);
-        imgPickedLayout = (RelativeLayout) findViewById(R.id.layout_img_picked);
-        edtContent = (EditText) findViewById(R.id.edt_newPost_Container);
+        spLanguage = findViewById(R.id.new_post_spinner);
+        edtTitle = findViewById(R.id.edt_newPost_title);
+        imgPickedLayout = findViewById(R.id.layout_img_picked);
+        edtContent = findViewById(R.id.edt_newPost_Container);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, getResources().getStringArray(R.array.array_languages));
         spLanguage.setAdapter(arrayAdapter);

@@ -52,18 +52,18 @@ public class EditProfileActivity extends BaseActivity implements Contract.View {
     @Override
     public void initializeViews() {
 
-        imgPicked = (CircleImageView) findViewById(R.id.img_picked);
+        imgPicked = findViewById(R.id.img_picked);
 
-        edtUsername = (EditText) findViewById(R.id.edt_username);
-        edtEmail = (EditText) findViewById(R.id.edt_email);
-        edtPhoneNumber = (EditText) findViewById(R.id.edt_phone);
-        edtCity = (EditText) findViewById(R.id.edt_city);
+        edtUsername = findViewById(R.id.edt_username);
+        edtEmail = findViewById(R.id.edt_email);
+        edtPhoneNumber = findViewById(R.id.edt_phone);
+        edtCity = findViewById(R.id.edt_city);
 
-        spLanguage = (Spinner) findViewById(R.id.spinner_language);
-        spPlatform = (Spinner) findViewById(R.id.spinner_platform);
-        spAge = (Spinner) findViewById(R.id.spinner_age);
-        spGender = (Spinner) findViewById(R.id.spinner_gender);
-        spCountry = (Spinner) findViewById(R.id.spinner_country);
+        spLanguage = findViewById(R.id.spinner_language);
+        spPlatform = findViewById(R.id.spinner_platform);
+        spAge = findViewById(R.id.spinner_age);
+        spGender = findViewById(R.id.spinner_gender);
+        spCountry = findViewById(R.id.spinner_country);
 
         //SETTING UP THE ADAPTER SPINNERS
 

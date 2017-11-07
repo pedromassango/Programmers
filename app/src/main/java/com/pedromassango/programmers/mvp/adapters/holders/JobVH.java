@@ -28,16 +28,16 @@ public class JobVH extends RecyclerView.ViewHolder {
 
     public JobVH(View view) {
         super(view);
-        tvWorkType = (TextView) view.findViewById(R.id.tv_funcional_area);
-        tvCategory = (TextView) view.findViewById(R.id.tv_category);
-        tvAuthor = (TextView) view.findViewById(R.id.tv_author);
-        tvEmployer = (TextView) view.findViewById(R.id.tv_empregador_name);
-        tvYearsOfExperience = (TextView) view.findViewById(R.id.tv_needed_experience);
-        tvRemote = (TextView) view.findViewById(R.id.tv_remote);
-        tvCountry = (TextView) view.findViewById(R.id.tv_country);
-        tvCity = (TextView) view.findViewById(R.id.tv_city);
-        tvDate = (TextView) view.findViewById(R.id.tv_date);
-        btnSend = (Button) view.findViewById(R.id.btn_send_curriculum);
+        tvWorkType = view.findViewById(R.id.tv_funcional_area);
+        tvCategory = view.findViewById(R.id.tv_category);
+        tvAuthor = view.findViewById(R.id.tv_author);
+        tvEmployer = view.findViewById(R.id.tv_empregador_name);
+        tvYearsOfExperience = view.findViewById(R.id.tv_needed_experience);
+        tvRemote = view.findViewById(R.id.tv_remote);
+        tvCountry = view.findViewById(R.id.tv_country);
+        tvCity = view.findViewById(R.id.tv_city);
+        tvDate = view.findViewById(R.id.tv_date);
+        btnSend = view.findViewById(R.id.btn_send_curriculum);
     }
 
     public void bindViews(Job job){

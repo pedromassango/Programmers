@@ -38,11 +38,11 @@ public class MessagesActivity extends BaseActivity implements Contract.View {
 
         //RecyclerView
         vFriendOnlineStatus = findViewById(R.id.view_online_status);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_messages);
+        recyclerView = findViewById(R.id.recycler_messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        edtMessage = (EditText) findViewById(R.id.edt_message);
+        edtMessage = findViewById(R.id.edt_message);
         edtMessage.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

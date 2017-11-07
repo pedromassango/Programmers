@@ -35,19 +35,19 @@ public class PostVH extends RecyclerView.ViewHolder {
     public PostVH(View itemView) {
         super(itemView);
 
-        mTitle = (TextView) itemView.findViewById(R.id.tv_title);
-        mBody = (TextView) itemView.findViewById(R.id.tv_text);
-        mUsername = (TextView) itemView.findViewById(R.id.tv_author);
-        mPostImage = (ImageView) itemView.findViewById(R.id.row_post_image);
+        mTitle = itemView.findViewById(R.id.tv_title);
+        mBody = itemView.findViewById(R.id.tv_text);
+        mUsername = itemView.findViewById(R.id.tv_author);
+        mPostImage = itemView.findViewById(R.id.row_post_image);
 
-        mOptions = (ImageView) itemView.findViewById(R.id.img_options);
-        mCategory = (TextView) itemView.findViewById(R.id.tv_category);
-        mLikes = (TextView) itemView.findViewById(R.id.tv_up_votes);
-        mViews = (TextView) itemView.findViewById(R.id.tv_views);
-        mComments = (TextView) itemView.findViewById(R.id.tv_comments);
+        mOptions = itemView.findViewById(R.id.img_options);
+        mCategory = itemView.findViewById(R.id.tv_category);
+        mLikes = itemView.findViewById(R.id.tv_up_votes);
+        mViews = itemView.findViewById(R.id.tv_views);
+        mComments = itemView.findViewById(R.id.tv_comments);
 
-        btnComment = (Button) itemView.findViewById(R.id.btn_comment);
-        btnLike = (Button) itemView.findViewById(R.id.btn_like);
+        btnComment = itemView.findViewById(R.id.btn_comment);
+        btnLike = itemView.findViewById(R.id.btn_like);
         //shareButton = (ShareButton)itemView.findViewById(R.id.share_btn);
     }
 

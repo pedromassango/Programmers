@@ -112,12 +112,12 @@ public class CommentTest extends RecyclerView.Adapter<CommentTest.CommentVH> imp
 
         CommentVH(View itemView) {
             super(itemView);
-            tvSenderName = (TextView) itemView.findViewById(R.id.row_comment_sender_name);
-            tvText = (TextView) itemView.findViewById(R.id.row_comment_text);
-            tvDate = (TextView) itemView.findViewById(R.id.row_comment_date);
-            tvVotes = (TextView) itemView.findViewById(R.id.tv_votes);
+            tvSenderName = itemView.findViewById(R.id.row_comment_sender_name);
+            tvText = itemView.findViewById(R.id.row_comment_text);
+            tvDate = itemView.findViewById(R.id.row_comment_date);
+            tvVotes = itemView.findViewById(R.id.tv_votes);
             tvVotes.setText("");
-            imgUser = (CircleImageView) itemView.findViewById(R.id.row_comment_sender_image);
+            imgUser = itemView.findViewById(R.id.row_comment_sender_image);
         }
 
         void bindViews(final Comment comment) {

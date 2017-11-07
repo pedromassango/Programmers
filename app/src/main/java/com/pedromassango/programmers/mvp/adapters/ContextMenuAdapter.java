@@ -52,8 +52,8 @@ public class ContextMenuAdapter extends BaseAdapter {
             rowHolder = new ContextMenuVH();
             view = inflater.inflate(R.layout.row_context_menu, viewGroup, false);
 
-            rowHolder.imageView = (ImageView) view.findViewById(R.id.img_icon);
-            rowHolder.textView = (TextView) view.findViewById(R.id.tv_label);
+            rowHolder.imageView = view.findViewById(R.id.img_icon);
+            rowHolder.textView = view.findViewById(R.id.tv_label);
 
             view.setTag(rowHolder);
         } else {

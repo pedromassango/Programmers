@@ -42,11 +42,11 @@ public class LoginActivity extends AppCompatActivity implements Contract.View {
         // Set up the login form.
         ((TextView) findViewById(R.id.logo)).setTypeface(EasyFonts.caviarDreamsBold(this));
 
-        tiEmail = (TextInputLayout) findViewById(R.id.input_email);
-        tiPassword = (TextInputLayout) findViewById(R.id.input_password);
-        signInButton = (SignInButton) findViewById(R.id.btn_google_login);
+        tiEmail = findViewById(R.id.input_email);
+        tiPassword = findViewById(R.id.input_password);
+        signInButton = findViewById(R.id.btn_google_login);
 
-        Button btnLogin = (Button) findViewById(R.id.btn_login);
+        Button btnLogin = findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -54,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setupToolbar() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         if (toolbar == null) {
             return;
@@ -155,7 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             case android.R.id.home:
                 if (this instanceof MainActivity) {
-                    DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
                     drawerLayout.openDrawer(GravityCompat.START);
                 } else {
                     this.onBackPressed();
@@ -168,7 +168,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (this instanceof MainActivity) {
-            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawers();
             } else {

@@ -27,8 +27,8 @@ public class BugActivity extends BaseActivity implements Contract.View {
     @Override
     protected void initializeViews() {
 
-        edtDescription = (EditText) findViewById(R.id.edt_bug_text);
-        cbAttachEmail = (CheckBox) findViewById(R.id.cb_attach_email);
+        edtDescription = findViewById(R.id.edt_bug_text);
+        cbAttachEmail = findViewById(R.id.cb_attach_email);
 
         findViewById(R.id.btn_send_bug).setOnClickListener(new View.OnClickListener() {
             @Override

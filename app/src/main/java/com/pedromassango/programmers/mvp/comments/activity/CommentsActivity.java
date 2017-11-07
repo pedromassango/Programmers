@@ -33,21 +33,21 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
     @Override
     public void initializeViews() {
 
-         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_info_container);
+         FrameLayout frameLayout = findViewById(R.id.frame_info_container);
 
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvBody = (TextView) findViewById(R.id.tv_body);
-        tvDate = (TextView) findViewById(R.id.tv_date);
-        tvLikes = (TextView) findViewById(R.id.tv_up_votes);
-        tvViews = (TextView) findViewById(R.id.tv_views);
-        tvEmpty = (TextView) frameLayout.findViewById(R.id.tv_empty);
-        tvCategory = (TextView) findViewById(R.id.tv_category);
+        tvTitle = findViewById(R.id.tv_title);
+        tvBody = findViewById(R.id.tv_body);
+        tvDate = findViewById(R.id.tv_date);
+        tvLikes = findViewById(R.id.tv_up_votes);
+        tvViews = findViewById(R.id.tv_views);
+        tvEmpty = frameLayout.findViewById(R.id.tv_empty);
+        tvCategory = findViewById(R.id.tv_category);
 
-        recyclerView = (RecyclerView) frameLayout.findViewById(R.id.recycler_comments);
+        recyclerView = frameLayout.findViewById(R.id.recycler_comments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        edtText = (EditText) findViewById(R.id.edt_comment);
+        edtText = findViewById(R.id.edt_comment);
         edtText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {

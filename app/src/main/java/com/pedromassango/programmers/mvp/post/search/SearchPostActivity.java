@@ -34,8 +34,8 @@ public class SearchPostActivity extends BaseActivity implements Contract.View {
     @Override
     protected void initializeViews() {
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_posts);
-        tvEmpty = (TextView) findViewById(R.id.tv_empty);
+        recyclerView = findViewById(R.id.recycler_posts);
+        tvEmpty = findViewById(R.id.tv_empty);
 
         postsAdapter = new SearchedPostsAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

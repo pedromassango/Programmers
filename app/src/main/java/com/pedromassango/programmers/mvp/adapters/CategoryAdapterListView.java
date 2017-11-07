@@ -85,8 +85,8 @@ public class CategoryAdapterListView extends ArrayAdapter<Category> {
 
         CategoryVH(View v) {
             itemView = v;
-            tvIcon = (TextView) v.findViewById(R.id.tv_category);
-            tvTitle = (TextView) v.findViewById(R.id.tv_title);
+            tvIcon = v.findViewById(R.id.tv_category);
+            tvTitle = v.findViewById(R.id.tv_title);
         }
     }
 }

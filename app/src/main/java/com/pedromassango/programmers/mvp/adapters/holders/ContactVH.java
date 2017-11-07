@@ -21,9 +21,9 @@ public class ContactVH extends RecyclerView.ViewHolder {
 
     public ContactVH(View itemView) {
         super(itemView);
-        imgUser = (CircleImageView) itemView.findViewById(R.id.img_user);
-        tvUsername = (TextView) itemView.findViewById(R.id.tv_author);
-        tvLastOnline = (TextView) itemView.findViewById(R.id.tv_last_online_status);
+        imgUser = itemView.findViewById(R.id.img_user);
+        tvUsername = itemView.findViewById(R.id.tv_author);
+        tvLastOnline = itemView.findViewById(R.id.tv_last_online_status);
         onlineStatus = itemView.findViewById(R.id.view_online_status);
     }
 }

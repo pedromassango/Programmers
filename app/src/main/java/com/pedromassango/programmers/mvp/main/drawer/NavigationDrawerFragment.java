@@ -62,21 +62,21 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.v(TAG, "onCreateView");
         View view = LayoutInflater.from(getContext()).inflate(R.layout.navigation_drawer_layout, container, false);
-        recyclerCategories = (RecyclerView) view.findViewById(R.id.recycler_category);
+        recyclerCategories = view.findViewById(R.id.recycler_category);
         recyclerCategories.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerCategories.setHasFixedSize(true);
 
-        tvUsername = (TextView) view.findViewById(R.id.tv_name);
-        tvEmail = (TextView) view.findViewById(R.id.tv_email);
-        tvLanguage = (TextView) view.findViewById(R.id.tv_language);
-        tvSkill = (TextView) view.findViewById(R.id.tv_energy);
-        tvLevel = (TextView) view.findViewById(R.id.tv_level);
+        tvUsername = view.findViewById(R.id.tv_name);
+        tvEmail = view.findViewById(R.id.tv_email);
+        tvLanguage = view.findViewById(R.id.tv_language);
+        tvSkill = view.findViewById(R.id.tv_energy);
+        tvLevel = view.findViewById(R.id.tv_level);
 
-        userImage = (CircleImageView) view.findViewById(R.id.img_user);
+        userImage = view.findViewById(R.id.img_user);
         userImage.setOnClickListener(this);
 
         // Quit click
-        TextView tvQuit = (TextView) view.findViewById(R.id.tv_quit);
+        TextView tvQuit = view.findViewById(R.id.tv_quit);
         tvQuit.setText(tvQuit.getText().toString().toUpperCase());
         tvQuit.setOnClickListener(this);
         return view;

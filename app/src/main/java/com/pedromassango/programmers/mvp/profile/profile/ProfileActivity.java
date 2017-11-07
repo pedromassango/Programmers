@@ -55,19 +55,19 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
     @Override
     public void initializeViews() {
 
-        tabLayout = (TabLayout) findViewById(R.id.materialup_tabs);
-        viewPager = (ViewPager) findViewById(R.id.materialup_viewpager);
-        AppBarLayout appbarLayout = (AppBarLayout) findViewById(R.id.materialup_appbar);
+        tabLayout = findViewById(R.id.materialup_tabs);
+        viewPager = findViewById(R.id.materialup_viewpager);
+        AppBarLayout appbarLayout = findViewById(R.id.materialup_appbar);
 
         appbarLayout.addOnOffsetChangedListener(this);
         mMaxScrollSize = appbarLayout.getTotalScrollRange();
         // END news
 
-        tvName = (TextView) findViewById(R.id.tv_name);
-        tvEmail = (TextView) findViewById(R.id.tv_email);
+        tvName = findViewById(R.id.tv_name);
+        tvEmail = findViewById(R.id.tv_email);
 
-        imgCover = (ImageView) findViewById(R.id.materialup_profile_backdrop);
-        imgProfile = (CircleImageView) findViewById(R.id.img_user);
+        imgCover = findViewById(R.id.materialup_profile_backdrop);
+        imgProfile = findViewById(R.id.img_user);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +78,7 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
 
 
 
-        btnSendMessage = (ImageButton) findViewById(R.id.btn_message);
+        btnSendMessage = findViewById(R.id.btn_message);
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +89,7 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
             }
         });
 
-        btnEditProfile = (ImageButton) findViewById(R.id.btn_edit);
+        btnEditProfile = findViewById(R.id.btn_edit);
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +98,7 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
             }
         });
 
-        btnMakeCall = (ImageButton) findViewById(R.id.btn_call);
+        btnMakeCall = findViewById(R.id.btn_call);
         btnMakeCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +107,7 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
             }
         });
 
-        btnSendEmail = (ImageButton) findViewById(R.id.btn_send_email);
+        btnSendEmail = findViewById(R.id.btn_send_email);
         btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

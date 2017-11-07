@@ -70,10 +70,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         CategoryVH(View v) {
             super(v);
-            tvIcon = (TextView) v.findViewById(R.id.tv_category);
+            tvIcon = v.findViewById(R.id.tv_category);
             tvIcon.setTypeface(EasyFonts.caviarDreamsBold(context));
-            tvTitle = (TextView) v.findViewById(R.id.tv_title);
-            img = (ImageView) v.findViewById(R.id.img_icon);
+            tvTitle = v.findViewById(R.id.tv_title);
+            img = v.findViewById(R.id.img_icon);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

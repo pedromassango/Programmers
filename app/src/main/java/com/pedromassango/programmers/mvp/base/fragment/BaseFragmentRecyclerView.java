@@ -49,7 +49,7 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_base, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_posts);
+        recyclerView = rootView.findViewById(R.id.recycler_posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -61,7 +61,7 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
             }
         });
 
-        tvEmpty = (TextView) rootView.findViewById(R.id.tv_no_data);
+        tvEmpty = rootView.findViewById(R.id.tv_no_data);
         //tvEmpty.startAnimation( Util.Anim.blink());
 
         recyclerView.setAdapter(adapter());

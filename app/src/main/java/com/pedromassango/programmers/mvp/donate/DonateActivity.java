@@ -27,9 +27,9 @@ public class DonateActivity extends BaseActivity implements Contract.View {
     @Override
     protected void initializeViews() {
 
-        edtPaymentAmount = (EditText) findViewById(R.id.edt_payment_amount);
+        edtPaymentAmount = findViewById(R.id.edt_payment_amount);
 
-        btnPay = (Button) findViewById(R.id.btn_pay);
+        btnPay = findViewById(R.id.btn_pay);
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

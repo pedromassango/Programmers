@@ -25,11 +25,11 @@ public class FabsController implements View.OnClickListener {
     public FabsController(Contract.View mainView, View mView) {
         this.mainView = mainView;
 
-        fabMenu = (FloatingActionMenu) mView.findViewById(R.id.main_fab);
-        FloatingActionButton fab1 = (FloatingActionButton) fabMenu.findViewById(R.id.fab1);
-        FloatingActionButton fab2 = (FloatingActionButton) fabMenu.findViewById(R.id.fab2);
-        FloatingActionButton fab3 = (FloatingActionButton) fabMenu.findViewById(R.id.fab3);
-        FloatingActionButton fab4 = (FloatingActionButton) fabMenu.findViewById(R.id.fab4);
+        fabMenu = mView.findViewById(R.id.main_fab);
+        FloatingActionButton fab1 = fabMenu.findViewById(R.id.fab1);
+        FloatingActionButton fab2 = fabMenu.findViewById(R.id.fab2);
+        FloatingActionButton fab3 = fabMenu.findViewById(R.id.fab3);
+        FloatingActionButton fab4 = fabMenu.findViewById(R.id.fab4);
 
         fabMenu.setOnClickListener(this);
         fab1.setOnClickListener(this);

@@ -25,12 +25,12 @@ public class LinkVH extends RecyclerView.ViewHolder {
     public LinkVH(View view) {
         super(view);
         rootView = view.findViewById(R.id.root_view);
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tvAuthor = (TextView) view.findViewById(R.id.tv_author);
-        tvDate = (TextView) view.findViewById(R.id.tv_date);
-        tvLink = (TextView) view.findViewById(R.id.tv_link);
-        tvCategory = (TextView) view.findViewById(R.id.tv_category);
-        tvViews = (TextView) view.findViewById(R.id.tv_views);
+        tvTitle = view.findViewById(R.id.tv_title);
+        tvAuthor = view.findViewById(R.id.tv_author);
+        tvDate = view.findViewById(R.id.tv_date);
+        tvLink = view.findViewById(R.id.tv_link);
+        tvCategory = view.findViewById(R.id.tv_category);
+        tvViews = view.findViewById(R.id.tv_views);
     }
 
     public void bindViews(Link link) {

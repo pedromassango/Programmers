@@ -27,9 +27,9 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     private void init() {
         ((TextView) findViewById(R.id.logo)).setTypeface(EasyFonts.caviarDreamsBold(this));
 
-        titEmail = (TextInputLayout) findViewById(R.id.input_email);
-        tiPassword = (TextInputLayout) findViewById(R.id.input_password);
-        tiPassword_2 = (TextInputLayout) findViewById(R.id.input_password_2);
+        titEmail = findViewById(R.id.input_email);
+        tiPassword = findViewById(R.id.input_password);
+        tiPassword_2 = findViewById(R.id.input_password_2);
 
         (findViewById(R.id.createAccount_btnSignup)).setOnClickListener(new View.OnClickListener() {
             @Override

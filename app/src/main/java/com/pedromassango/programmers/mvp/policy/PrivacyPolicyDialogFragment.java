@@ -32,7 +32,7 @@ public class PrivacyPolicyDialogFragment extends AppCompatDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_privacy_policy, container, false);
-        webView = (WebView) view.findViewById(R.id.webview);
+        webView = view.findViewById(R.id.webview);
         return view;
     }
 

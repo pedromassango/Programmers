@@ -21,10 +21,10 @@ public class MessageVH extends RecyclerView.ViewHolder implements View.OnClickLi
     public MessageVH(View itemView) {
         super(itemView);
 
-        tvMessage = (TextView) itemView.findViewById(R.id.tv_message);
+        tvMessage = itemView.findViewById(R.id.tv_message);
         tvMessage.setOnClickListener(this);
 
-        tvDate = (TextView) itemView.findViewById(R.id.tv_date);
+        tvDate = itemView.findViewById(R.id.tv_date);
     }
 
     public void bindViews(Message message) {

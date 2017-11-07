@@ -33,18 +33,18 @@ public class JobActivity extends BaseActivity implements JobContract.ViewActivit
     @Override
     protected void initializeViews() {
 
-        tiEpregador = (TextInputLayout) findViewById(R.id.input_empregador);
-        tiWorkZone = (TextInputLayout) findViewById(R.id.input_functional_area);
-        tiExperience = (TextInputLayout) findViewById(R.id.input_experience_years);
-        tiCountry = (TextInputLayout) findViewById(R.id.input_country);
-        tiEmail = (TextInputLayout) findViewById(R.id.input_email);
-        tiCity = (TextInputLayout) findViewById(R.id.input_city);
+        tiEpregador = findViewById(R.id.input_empregador);
+        tiWorkZone = findViewById(R.id.input_functional_area);
+        tiExperience = findViewById(R.id.input_experience_years);
+        tiCountry = findViewById(R.id.input_country);
+        tiEmail = findViewById(R.id.input_email);
+        tiCity = findViewById(R.id.input_city);
 
-        spCategory = (Spinner) findViewById(R.id.spinner_language);
+        spCategory = findViewById(R.id.spinner_language);
 
-        cbRemote = (CheckBox) findViewById(R.id.cb_remote);
+        cbRemote = findViewById(R.id.cb_remote);
 
-        btnPublish = (Button) findViewById(R.id.btn_publish);
+        btnPublish = findViewById(R.id.btn_publish);
         btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
