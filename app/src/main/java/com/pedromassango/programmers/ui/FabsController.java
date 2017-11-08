@@ -7,8 +7,8 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.extras.IntentUtils;
-import com.pedromassango.programmers.mvp.job.activity.JobActivity;
-import com.pedromassango.programmers.mvp.main.activity.Contract;
+import com.pedromassango.programmers.presentation.job.activity.JobActivity;
+import com.pedromassango.programmers.presentation.main.activity.Contract;
 
 /**
  * Created by Pedro Massango on 16/06/2017 at 15:29.

@@ -1,12 +1,8 @@
 package com.pedromassango.programmers.services;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
-import com.pedromassango.programmers.mvp.main.activity.MainPresenter;
-import com.pedromassango.programmers.services.firebase.AppFirebaseMessagingService;
 
 /**
  * Created by Pedro Massango on 13-04-2017 at 22:45.

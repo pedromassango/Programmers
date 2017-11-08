@@ -1,6 +1,5 @@
 package com.pedromassango.programmers.server.logout;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -8,8 +7,8 @@ import android.support.v7.app.AlertDialog;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.extras.Util;
-import com.pedromassango.programmers.mvp.base.BaseContract;
-import com.pedromassango.programmers.mvp.login.LoginActivity;
+import com.pedromassango.programmers.presentation.base.BaseContract;
+import com.pedromassango.programmers.presentation.login.LoginActivity;
 
 /**
  * Created by Pedro Massango on 26/05/2017.

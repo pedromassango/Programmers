@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pedromassango.programmers.mvp.job.activity.JobActivity">
+    tools:context="com.pedromassango.programmers.presentation.job.activity.JobActivity">
 
     <include
         android:id="@+id/toolbar"

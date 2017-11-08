@@ -5,7 +5,7 @@ package com.pedromassango.programmers.interfaces;
  */
 
 /**
- * Class to handle friend presence in {@link com.pedromassango.programmers.mvp.conversations.messages.MessagesActivity}
+ * Class to handle friend presence in {@link com.pedromassango.programmers.presentation.conversations.messages.MessagesActivity}
  *
  */
 public interface IPresenceLIstener {

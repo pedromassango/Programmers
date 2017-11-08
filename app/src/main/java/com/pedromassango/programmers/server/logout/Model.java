@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pedromassango.programmers.extras.PrefsUtil;
 import com.pedromassango.programmers.interfaces.ILogoutListener;
-import com.pedromassango.programmers.mvp.base.BaseContract;
+import com.pedromassango.programmers.presentation.base.BaseContract;
 import com.pedromassango.programmers.server.Library;
 
 /**
