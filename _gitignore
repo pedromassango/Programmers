@@ -5,6 +5,5 @@
 /.idea/libraries
 .DS_Store
 /build
-/app/google-services.json
 /captures
 .externalNativeBuild
