@@ -23,7 +23,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        setMultiDexEnabled(true)
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         signingConfig signingConfigs.release
     }
@@ -73,6 +73,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.6.0'
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.clans:fab:1.6.4'
