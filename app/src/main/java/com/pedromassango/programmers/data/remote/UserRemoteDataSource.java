@@ -1,6 +1,7 @@
 package com.pedromassango.programmers.data.remote;
 
 import com.pedromassango.programmers.data.UserDataSource;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
 /**
@@ -24,12 +25,26 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void getUsers(LoadUsersCallback callback) {
-        //TODO: get users from Firebase (remote server)
+    public void getUsers(Callbacks.IResultsCallback<Usuario> callback) {
+
+        //TODO: get users from Firebase
     }
 
     @Override
-    public void saveUser(Usuario usuario) {
-        //TODO: get save user on Firebase.
+    public void getUserById(String userId, Callbacks.IResultCallback<Usuario> callback) {
+
+        //TODO: get single user by ID from Firebase
+    }
+
+    @Override
+    public void saveUser(Usuario usuario, Callbacks.IRequestCallback callback) {
+
+        //TODO: save user on Firebase
+    }
+
+    @Override
+    public void logout(Callbacks.IRequestCallback callback) {
+
+        //TODO: End session on FIrebase.
     }
 }

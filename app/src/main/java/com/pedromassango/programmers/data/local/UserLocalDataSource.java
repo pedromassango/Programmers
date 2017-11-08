@@ -1,6 +1,7 @@
 package com.pedromassango.programmers.data.local;
 
 import com.pedromassango.programmers.data.UserDataSource;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
 /**
@@ -24,14 +25,26 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void getUsers(LoadUsersCallback callback) {
-        //TODO: get users from local data source
+    public void getUsers(Callbacks.IResultsCallback<Usuario> callback) {
 
-        //callback.onSuccess( usuarios);
+        //TODO: get users from local data source.
     }
 
     @Override
-    public void saveUser(Usuario usuario) {
-        //TODO: get sigle user from local data source
+    public void getUserById(String userId, Callbacks.IResultCallback<Usuario> callback) {
+
+        //TODO: get a sinle user from local data source.
+    }
+
+    @Override
+    public void saveUser(Usuario usuario, Callbacks.IRequestCallback callback) {
+
+        //TODO: save user localy
+    }
+
+    @Override
+    public void logout(Callbacks.IRequestCallback callback) {
+
+        //TODO: end session localy
     }
 }

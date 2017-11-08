@@ -18,14 +18,11 @@ import java.util.List;
  */
 public interface UserDataSource {
 
-    interface LoadUsersCallback{
-        void onSuccess(List<Usuario> usuarios);
-        void onDataUnavailable();
-    }
+    void getUsers(Callbacks.IResultsCallback<Usuario> callback);
 
-    void getUsers(LoadUsersCallback callback);
-
-    void getUserById(String userId, Callbacks.IResultCallback callback);
+    void getUserById(String userId, Callbacks.IResultCallback<Usuario> callback);
 
     void saveUser(Usuario usuario, Callbacks.IRequestCallback callback);
+
+    void logout(Callbacks.IRequestCallback callback);
 }
