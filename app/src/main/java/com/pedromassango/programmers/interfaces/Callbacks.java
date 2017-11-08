@@ -23,4 +23,10 @@ public class Callbacks {
         void onDataUnavailable();
     }
 
+    // For non result nedded
+    public interface IRequestCallback{
+        void onSuccess();
+        void onError();
+    }
+
 }
