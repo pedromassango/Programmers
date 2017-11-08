@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialogFragment;
 
 import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.mvp.main.activity.MainActivity;
+import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 import com.pedromassango.programmers.ui.dialogs.ProgressFragmentDialog;
 
 import java.io.File;

@@ -19,8 +19,8 @@ import com.pedromassango.programmers.extras.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.models.Comment;
 import com.pedromassango.programmers.models.Post;
-import com.pedromassango.programmers.mvp.comments.activity.CommentsActivity;
-import com.pedromassango.programmers.mvp.main.activity.MainActivity;
+import com.pedromassango.programmers.presentation.comments.activity.CommentsActivity;
+import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 
 import java.io.IOException;
 

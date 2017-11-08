@@ -24,7 +24,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".mvp.splash.SplashActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:label="@string/app_name"
             android:noHistory="true">
             <intent-filter>
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mvp.main.activity.MainActivity"
+            android:name=".presentation.main.activity.MainActivity"
             android:label="@string/app_name"
             android:noHistory="false"
             android:windowSoftInputMode="adjustPan|adjustNothing">
@@ -44,42 +44,42 @@
                 android:value=".mvp.post.search.SearchPostActivity" />
         </activity>
         <activity
-            android:name=".mvp.profile.profile.ProfileActivity"
+            android:name=".presentation.profile.profile.ProfileActivity"
             android:label=""/>
         <activity
-            android:name=".mvp.login.LoginActivity"
+            android:name=".presentation.login.LoginActivity"
             android:launchMode="singleTop"
             android:noHistory="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.profile.edit.EditProfileActivity"
+            android:name=".presentation.profile.edit.EditProfileActivity"
             android:label="@string/title_activity_edit_profile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.signup.SignupActivity"
+            android:name=".presentation.signup.SignupActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.post._new.NewPostActivity"
+            android:name=".presentation.post._new.NewPostActivity"
             android:label="@string/post_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.comments.activity.CommentsActivity"
-            android:parentActivityName=".mvp.main.activity.MainActivity"
+            android:name=".presentation.comments.activity.CommentsActivity"
+            android:parentActivityName=".presentation.main.activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pedromassango.programmers.mvp.main.activity.MainActivity" />
+                android:value="com.pedromassango.programmers.presentation.main.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".mvp.post.edit.EditPostActivity"
+            android:name=".presentation.post.edit.EditPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.repport.BugActivity"
+            android:name=".presentation.repport.BugActivity"
             android:label="@string/bug_repport"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.post.search.SearchPostActivity"
+            android:name=".presentation.post.search.SearchPostActivity"
             android:label="@string/search"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -93,7 +93,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".mvp.intro.IntroActivity"
+            android:name=".presentation.intro.IntroActivity"
             android:launchMode="singleTop" />
         <!--
         <activity
@@ -137,36 +137,36 @@
         <!-- FIREBASE SERVICES -->
 
         <activity
-            android:name=".mvp.settings.activity.SettingsActivity"
+            android:name=".presentation.settings.activity.SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName=".mvp.main.activity.MainActivity">
+            android:parentActivityName=".presentation.main.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pedromassango.programmers.mvp.main.activity.MainActivity" />
+                android:value="com.pedromassango.programmers.presentation.main.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".mvp.donate.DonateActivity"
+            android:name=".presentation.donate.DonateActivity"
             android:label="@string/donate_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.about.AboutActivity"
+            android:name=".presentation.about.AboutActivity"
             android:label="@string/about" />
 
         <activity
-            android:name=".mvp.conversations.messages.MessagesActivity"
-            android:parentActivityName=".mvp.main.activity.MainActivity"
+            android:name=".presentation.conversations.messages.MessagesActivity"
+            android:parentActivityName=".presentation.main.activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pedromassango.programmers.mvp.main.activity.MainActivity" />
+                android:value="com.pedromassango.programmers.presentation.main.activity.MainActivity" />
         </activity>
 
         <activity
-            android:name=".mvp.link.views.LinkActivity"
+            android:name=".presentation.link.views.LinkActivity"
             android:label="@string/link_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.job.activity.JobActivity"
+            android:name=".presentation.job.activity.JobActivity"
             android:label="@string/job_title"
             android:screenOrientation="portrait" />
     </application>

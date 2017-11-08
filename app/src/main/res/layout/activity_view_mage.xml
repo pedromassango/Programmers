@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/primaryText"
     android:orientation="vertical"
-    tools:context=".mvp.image.ViewImageDIalogFragment">
+    tools:context=".presentation.image.ViewImageDIalogFragment">
 
     <ImageView
         android:id="@+id/img_view"

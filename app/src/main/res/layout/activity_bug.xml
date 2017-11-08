@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pedromassango.programmers.mvp.repport.BugActivity">
+    tools:context="com.pedromassango.programmers.presentation.repport.BugActivity">
 
     <include
         android:id="@+id/toolbar"

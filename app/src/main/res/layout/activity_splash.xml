@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pedromassango.programmers.mvp.splash.SplashActivity">
+    tools:context="com.pedromassango.programmers.presentation.splash.SplashActivity">
 
     <include
         layout="@layout/app_logo"
