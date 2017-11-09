@@ -8,13 +8,18 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by root on 15-11-2016.
  */
 @IgnoreExtraProperties
-public class Usuario implements Parcelable {
+public class Usuario extends RealmObject implements Parcelable {
 
     //PROPERTIES
+    @PrimaryKey
     private String id;
     private String username;
     private String password;
@@ -30,6 +35,8 @@ public class Usuario implements Parcelable {
     private String gender;
     private String country;
     private String city;
+
+    @Ignore
     private Map<String, Boolean> favoritesCategory;
     private int accountComplete;
 
