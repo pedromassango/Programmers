@@ -258,4 +258,7 @@
         <item>Masculino</item>
         <item>Feminino</item>
     </string-array>
+    <string name="crash_toast_text">
+    Ops! Aconteceu um erro, mas um relatório foi gerado, envie para mim, para que se possa solucionar o problema!
+</string>
 </resources>
