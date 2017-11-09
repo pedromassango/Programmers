@@ -4,6 +4,8 @@ import com.pedromassango.programmers.data.UserDataSource;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
+import java.util.List;
+
 /**
  * Created by pedromassango on 11/8/17.
  */
@@ -40,6 +42,14 @@ public class UserLocalDataSource implements UserDataSource {
     public void saveUser(Usuario usuario, Callbacks.IRequestCallback callback) {
 
         //TODO: save user localy
+    }
+
+    public void saveOrUpdateUser(Usuario usuario){
+
+    }
+
+    public void saveOrUpdateUsers(List<Usuario> usuarios){
+
     }
 
     @Override
