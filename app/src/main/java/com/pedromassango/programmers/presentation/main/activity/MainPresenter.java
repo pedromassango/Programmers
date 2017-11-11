@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.UsersRepository;
 import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.extras.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
-import com.pedromassango.programmers.interfaces.IGetUserListener;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.services.GoogleServices;
 
@@ -23,15 +25,21 @@ import static com.pedromassango.programmers.extras.Util.showLog;
  * Created by Pedro Massango on 23-02-2017 14:58.
  */
 
-public class MainPresenter implements Contract.Presenter, IGetUserListener, Contract.OnDialogListener {
+public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario>, Contract.OnDialogListener {
 
     private Usuario usuario = null;
     private Contract.View view;
+    private UsersRepository usersRepository;
+    private String userID;
     private Model model;
 
-    public MainPresenter(Contract.View view) {
+    public MainPresenter(Contract.View view, UsersRepository usersRepository) {
         this.view = view;
+        this.usersRepository = usersRepository;
         this.model = new Model(this);
+
+        // Current user ID to get their info.
+        userID = PrefsUtil.getId(getContext());
     }
 
     @Override
@@ -84,7 +92,27 @@ public class MainPresenter implements Contract.Presenter, IGetUserListener, Cont
 
         //Call server worker here
         view.showProgress(R.string.getting_user_info);
-        model.getUser(this);
+
+        // get data from repository
+        usersRepository.getUserById(userID, this);
+    }
+
+    @Override
+    public void onSuccess(Usuario result) {
+        usuario = result;
+
+        view.dismissprogess();
+
+        showUserInfoAndGetAllAppData(result);
+    }
+
+    @Override
+    public void onDataUnavailable() {
+        view.dismissprogess();
+
+        if (!_DEVELOP_MODE) {
+            view.showDialogGetUserInfoError("Houve erros ao carregar os dados!", MainPresenter.this);
+        }
     }
 
     @Override
@@ -179,30 +207,13 @@ public class MainPresenter implements Contract.Presenter, IGetUserListener, Cont
     }
 
     @Override
-    public void onGetUserSuccess(Usuario usuario) {
-        this.usuario = usuario;
-
-        view.dismissprogess();
-
-        // Show Usuario data and reload and get posts
-        showUserInfoAndGetAllAppData(usuario);
-    }
-
-    @Override
-    public void onGetUserError(String error) {
-        view.dismissprogess();
-
-        if (!_DEVELOP_MODE) {
-            view.showDialogGetUserInfoError(error, this);
-        }
-    }
-
-    @Override
     public void onRetry() {
 
         //Call server worker here
         view.showProgress(R.string.getting_user_info);
-        model.getUser(this);
+
+        // get data from repository
+        usersRepository.getUserById(userID, this);
     }
 
     @Override

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.about.AboutActivity;
 import com.pedromassango.programmers.presentation.adapters.MainTabsAdapter;
@@ -84,7 +85,8 @@ public class MainActivity extends BaseActivity implements Contract.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainPresenter = new MainPresenter(this);
+        mainPresenter = new MainPresenter(this, RepositoryManager.getInstance()
+        .getUsersRepository());
         mainPresenter.initialize(getIntent(), savedInstanceState);
     }
 

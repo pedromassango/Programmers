@@ -10,6 +10,9 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Pedro Massango on 15-11-2016 at 16:59 at 2:20.
  */
@@ -17,6 +20,7 @@ import java.util.Map;
 
 public class Post implements Parcelable {
 
+    @PrimaryKey
     private String id;
     private String author;
     private String authorId;
@@ -26,6 +30,8 @@ public class Post implements Parcelable {
     private String category;
     private int commentsCount;
     private boolean commentsActive;
+
+    @Ignore
     private HashMap<String, Boolean> likes;
     private int views;
     private long timestamp;

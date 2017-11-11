@@ -1,12 +1,15 @@
 package com.pedromassango.programmers.presentation.main.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
 import com.pedromassango.programmers.presentation.post.adapter.PostsAdapter;
+import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
 import com.pedromassango.programmers.presentation.post.adapter.PostsTests;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.extras.Constants;
@@ -22,6 +25,7 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 public class PostsFragment extends BaseFragmentRecyclerView {
 
     private static final String TAG = "PostsFragment";
+    private PostsAdapterSimple postsAdapterSimple;
 
     @Override
     protected void setup(Bundle bundle) {
@@ -40,6 +44,17 @@ public class PostsFragment extends BaseFragmentRecyclerView {
                 Library.getAllPostsRef()
                 :
                 Library.getPostsByCategoryRef(category);
+
+        //postsAdapterSimple = new PostsAdapterSimple(getActivity());
+        //return postsAdapterSimple;
+
         return new PostsAdapter(getActivity(), postsRef, this);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 }

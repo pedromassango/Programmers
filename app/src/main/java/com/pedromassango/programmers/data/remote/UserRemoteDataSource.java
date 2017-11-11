@@ -39,8 +39,12 @@ public class UserRemoteDataSource implements UserDataSource {
     // Store the instance
     private static UserRemoteDataSource INSTANCE;
 
+    private UserRemoteDataSource(){
+
+    }
+
     // prevent multiple instances of this class.
-    public UserRemoteDataSource getInstance(){
+    public static UserRemoteDataSource getInstance(){
         if(INSTANCE == null){
             INSTANCE = new UserRemoteDataSource();
         }

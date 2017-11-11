@@ -91,14 +91,14 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
         setup(savedInstanceState);
     }
 
-    private void showRecyclerView() {
+    public void showRecyclerView() {
         if (tvEmpty.getVisibility() == View.VISIBLE) {
             tvEmpty.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
-    private void showTextError(String error) {
+    public void showTextError(String error) {
         recyclerView.setVisibility(View.GONE);
         tvEmpty.setVisibility(View.VISIBLE);
         tvEmpty.setText(error);

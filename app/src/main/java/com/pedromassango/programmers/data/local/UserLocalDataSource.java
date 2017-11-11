@@ -20,8 +20,12 @@ public class UserLocalDataSource implements UserDataSource {
     // Store the instance
     private static UserLocalDataSource INSTANCE;
 
+    private UserLocalDataSource(){
+
+    }
+
     // prevent multiple instances of this class.
-    public UserLocalDataSource getInstance(){
+    public static UserLocalDataSource getInstance(){
         if(INSTANCE == null){
             INSTANCE = new UserLocalDataSource();
         }

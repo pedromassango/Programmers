@@ -34,7 +34,7 @@ public class UsersRepository implements UserDataSource{
     }
 
     // To return always the same instance, create if necessary.
-    public UsersRepository getInstance(UserRemoteDataSource remoteDataSource,
+    public static UsersRepository getInstance(UserRemoteDataSource remoteDataSource,
                                        UserLocalDataSource localDataSource){
         if(INSTANCE == null){
             INSTANCE = new UsersRepository(remoteDataSource, localDataSource);

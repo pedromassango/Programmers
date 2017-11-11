@@ -1,13 +1,22 @@
 package com.pedromassango.programmers.presentation.main.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.google.firebase.database.Query;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.UsersRepository;
+import com.pedromassango.programmers.interfaces.Callbacks;
+import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.adapters.users.UsersAdapter;
+import com.pedromassango.programmers.presentation.adapters.users.UsersNoFirebaseAdapter;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.extras.TextUtils;
+
+import java.util.List;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 
@@ -17,6 +26,8 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 
 public class UsersFragment extends BaseFragmentRecyclerView {
 
+    private UsersNoFirebaseAdapter usersNoFirebaseAdapter;
+
     @Override
     protected void setup(Bundle bundle) {
 
@@ -25,11 +36,29 @@ public class UsersFragment extends BaseFragmentRecyclerView {
     @Override
     protected RecyclerView.Adapter adapter() {
 
-        String category = getArguments().getString(EXTRA_CATEGORY);
-        Query usersRef = TextUtils.isEmpty(category) ?
-                Library.getUsersRef()
-                :
-                Library.getUsersRef().equalTo("programmingLanguage", category);
-        return new UsersAdapter(getActivity(), usersRef, this);
+        usersNoFirebaseAdapter = new UsersNoFirebaseAdapter(getActivity(), this);
+        return usersNoFirebaseAdapter;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RepositoryManager.getInstance()
+                .getUsersRepository()
+                .getUsers(new Callbacks.IResultsCallback<Usuario>() {
+                    @Override
+                    public void onSuccess(List<Usuario> results) {
+
+                        usersNoFirebaseAdapter.add(results);
+                        showRecyclerView();
+                    }
+
+                    @Override
+                    public void onDataUnavailable() {
+
+                        showTextError("Data Unavailable");
+                    }
+                });
     }
 }
