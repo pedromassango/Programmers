@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +18,7 @@ import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.config.ReputationConfigs;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.interfaces.IErrorListener;
 import com.pedromassango.programmers.interfaces.IPostDeleteListener;
 import com.pedromassango.programmers.interfaces.IPresenceLIstener;
@@ -238,6 +240,26 @@ public class Worker {
 //                        showLog("TOKEN UPDATED ON SERVER");
 //                    }
 //                });
+    }
+
+    public static void sendEmailVerification(final Callbacks.IRequestCallback callback, final String email) {
+
+        FirebaseAuth auth = Library.getFirebaseAuth();
+
+        auth.sendPasswordResetEmail(email)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onError();
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        callback.onSuccess();
+                    }
+                });
     }
 
     /**
