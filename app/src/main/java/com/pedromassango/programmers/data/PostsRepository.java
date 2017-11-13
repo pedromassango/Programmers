@@ -68,6 +68,23 @@ public class PostsRepository implements PostsDataSource {
     }
 
     @Override
+    public void getByUser(final String authorId, final Callbacks.IResultsCallback<Post> callback) {
+        localSource.getByUser(authorId, new Callbacks.IResultsCallback<Post>() {
+            @Override
+            public void onSuccess(List<Post> results) {
+                callback.onSuccess(results);
+
+                getFromRemoteByAuthorId(authorId, callback);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                getFromRemoteByAuthorId(authorId, callback);
+            }
+        });
+    }
+
+    @Override
     public void getAll(final String category, final Callbacks.IResultsCallback<Post> callback) {
         localSource.getAll(category, new Callbacks.IResultsCallback<Post>() {
             @Override
@@ -86,6 +103,22 @@ public class PostsRepository implements PostsDataSource {
 
     private void getFromRemoteAndUpdateLocalSource(final Callbacks.IResultsCallback<Post> callback) {
         remoteSource.getAll(new Callbacks.IResultsCallback<Post>() {
+            @Override
+            public void onSuccess(List<Post> results) {
+
+                updateLocalDataSource(results);
+                callback.onSuccess(results);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
+            }
+        });
+    }
+
+    private void getFromRemoteByAuthorId(String authorId, final Callbacks.IResultsCallback<Post> callback) {
+        remoteSource.getByUser(authorId, new Callbacks.IResultsCallback<Post>() {
             @Override
             public void onSuccess(List<Post> results) {
 
@@ -173,7 +206,7 @@ public class PostsRepository implements PostsDataSource {
 
     public void handleLikes(final Callbacks.IRequestCallback callback, Post post, boolean like) {
 
-        final String loggedUserId = PrefsHelper.getInstance().getId();
+        final String loggedUserId = PrefsHelper.getId();
         final String senderId = post.getAuthorId();
         String postId = post.getId();
         String postCategory = post.getCategory();

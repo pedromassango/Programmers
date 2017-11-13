@@ -11,6 +11,8 @@ public interface PostsDataSource {
 
     void getAll(Callbacks.IResultsCallback<Post> callback);
 
+    void getByUser(String authorId, Callbacks.IResultsCallback<Post> callback);
+
     void getAll(String category, Callbacks.IResultsCallback<Post> callback);
 
     void getById(String postId, Callbacks.IResultCallback<Post> callback);

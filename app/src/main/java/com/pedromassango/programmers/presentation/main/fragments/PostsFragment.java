@@ -76,6 +76,7 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
     @Override
     public void onSuccess(List<Post> results) {
         postsAdapterSimple.add(results);
+        showRecyclerView();
     }
 
     @Override

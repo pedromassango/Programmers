@@ -47,6 +47,29 @@ public class PostsLocalDataSource implements PostsDataSource {
     }
 
     @Override
+    public void getByUser(String authorId, Callbacks.IResultsCallback<Post> callback) {
+        Realm realm = Realm.getDefaultInstance();
+
+        try {
+            List<Post> result = realm
+                    .where(Post.class)
+                    .equalTo("authorId", authorId) // Fetch posts by author id
+                    .findAll();
+
+            if (result == null || result.isEmpty()) {
+                callback.onDataUnavailable();
+                return;
+            }
+
+            // Retrieve the data
+            callback.onSuccess(result);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            callback.onDataUnavailable();
+        }
+    }
+
+    @Override
     public void getAll(String category, Callbacks.IResultsCallback<Post> callback) {
         Realm realm = Realm.getDefaultInstance();
 

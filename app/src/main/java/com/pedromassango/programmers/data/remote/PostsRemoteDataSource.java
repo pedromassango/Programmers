@@ -42,6 +42,8 @@ public class PostsRemoteDataSource implements PostsDataSource {
 
     private static PostsRemoteDataSource INSTANCE = null;
 
+    private PostsRemoteDataSource(){}
+
     public static PostsRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new PostsRemoteDataSource();
@@ -77,6 +79,42 @@ public class PostsRemoteDataSource implements PostsDataSource {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        callback.onDataUnavailable();
+                    }
+                });
+    }
+
+    @Override
+    public void getByUser(String authorId, final Callbacks.IResultsCallback<Post> callback) {
+        Library.getUserPostsRef( authorId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        showLog("searchPosts - onDataChange: " + dataSnapshot);
+
+                        if (!dataSnapshot.exists()) {
+                            showLog("searchPosts - onDataChange: snapshot dont exist.");
+                            callback.onDataUnavailable();
+                            return;
+                        }
+
+                        showLog("searchPosts - onDataChange: posts found");
+
+                        ArrayList<Post> result = new ArrayList<>();
+
+                        for (DataSnapshot shot : dataSnapshot.getChildren()) {
+                            Post post = shot.getValue(Post.class);
+                            result.add(post);
+                        }
+
+                        // Release posts result
+                        callback.onSuccess(result);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        showLog("searchPosts ERROR: " + databaseError.getMessage());
                         callback.onDataUnavailable();
                     }
                 });
@@ -165,8 +203,43 @@ public class PostsRemoteDataSource implements PostsDataSource {
     }
 
     @Override
-    public void search(String query, Callbacks.IResultsCallback<Post> callback) {
+    public void search(String query, final Callbacks.IResultsCallback<Post> callback) {
+        showLog("searchPosts");
 
+        Library.getAllPostsRef()
+                .orderByChild("title")
+                .startAt(query)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        showLog("searchPosts - onDataChange: " + dataSnapshot);
+
+                        if (!dataSnapshot.exists()) {
+                            showLog("searchPosts - onDataChange: snapshot dont exist.");
+                            callback.onDataUnavailable();
+                            return;
+                        }
+
+                        showLog("searchPosts - onDataChange: posts found");
+
+                        final ArrayList<Post> posts = new ArrayList<>();
+
+                        for (DataSnapshot shot : dataSnapshot.getChildren()) {
+                            Post post = shot.getValue(Post.class);
+                            posts.add(post);
+                        }
+
+                        // Release posts result
+                        callback.onSuccess(posts);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        showLog("searchPosts ERROR: " + databaseError.getMessage());
+                        callback.onDataUnavailable();
+                    }
+                });
     }
 
     @Override

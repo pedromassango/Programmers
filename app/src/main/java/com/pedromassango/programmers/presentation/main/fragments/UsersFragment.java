@@ -44,6 +44,7 @@ public class UsersFragment extends BaseFragmentRecyclerView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Get the data from repository
         RepositoryManager.getInstance()
                 .getUsersRepository()
                 .getUsers(new Callbacks.IResultsCallback<Usuario>() {
