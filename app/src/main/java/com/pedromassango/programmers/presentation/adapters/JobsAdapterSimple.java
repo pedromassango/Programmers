@@ -1,4 +1,4 @@
-package com.pedromassango.programmers.presentation.job.adapter;
+package com.pedromassango.programmers.presentation.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,66 +6,55 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.extras.Util;
-import com.pedromassango.programmers.interfaces.IGetDataCompleteListener;
 import com.pedromassango.programmers.models.Job;
 import com.pedromassango.programmers.presentation.adapters.holders.JobVH;
 import com.pedromassango.programmers.presentation.job.JobContract;
 import com.pedromassango.programmers.presentation.job.JobPresenter;
 import com.pedromassango.programmers.presentation.job.activity.JobActivity;
 
+import java.util.ArrayList;
+
 /**
  * Created by Pedro Massango on 03/06/2017.
  */
 
-public class JobsAdapter extends FirebaseRecyclerAdapter<Job, JobVH> implements JobContract.ViewAdapter {
+public class JobsAdapterSimple extends RecyclerView.Adapter<JobVH> implements JobContract.ViewAdapter {
 
     private Activity activity;
     private boolean notified;
     private JobPresenter presenter;
-    private IGetDataCompleteListener getDataCompleteListener;
+    private ArrayList<Job> jobs;
 
-    public JobsAdapter(Activity activity, DatabaseReference jobsRef, IGetDataCompleteListener getDataCompleteListener) {
-        super(Job.class, R.layout.row_job, JobVH.class, jobsRef);
+    public JobsAdapterSimple(Activity activity) {
+
         this.activity = activity;
         this.presenter = new JobPresenter(this);
         this.presenter.setContext(activity);
-        this.getDataCompleteListener = getDataCompleteListener;
-    }
-
-    public JobsAdapter(Activity activity, Query jobsRef, IGetDataCompleteListener getDataCompleteListener) {
-        super(Job.class, R.layout.row_job, JobVH.class, jobsRef);
-        this.activity = activity;
-        this.presenter = new JobPresenter(this);
-        this.presenter.setContext(activity);
-        this.getDataCompleteListener = getDataCompleteListener;
+        this.jobs = new ArrayList<>();
     }
 
     @Override
-    public void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer) {
-        super.registerAdapterDataObserver(observer);
-
-        if (null != getDataCompleteListener && !notified) {
-            getDataCompleteListener.onGetDataSuccess();
-            notified = true;
-        }
+    public JobVH onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(activity).inflate(R.layout.row_job, viewGroup, false);
+        return (new JobVH(v));
     }
 
     @Override
-    protected void populateViewHolder(JobVH viewHolder, final Job model, int position) {
+    public void onBindViewHolder(JobVH viewHolder, int i) {
+        final Job mJob = jobs.get(i);
 
-        viewHolder.bindViews(model);
+        viewHolder.bindViews(mJob);
         viewHolder.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onSendCandidatureClicked(model);
+                presenter.onSendCandidatureClicked(mJob);
             }
         });
 
@@ -74,10 +63,15 @@ public class JobsAdapter extends FirebaseRecyclerAdapter<Job, JobVH> implements 
                     @Override
                     public boolean onLongClick(View v) {
 
-                        presenter.onJobLongClick(model);
+                        presenter.onJobLongClick(mJob);
                         return false;
                     }
                 });
+    }
+
+    @Override
+    public int getItemCount() {
+        return jobs.size();
     }
 
     @Override

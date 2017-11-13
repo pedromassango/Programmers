@@ -1,4 +1,4 @@
-package com.pedromassango.programmers.presentation.adapters.users;
+package com.pedromassango.programmers.presentation.adapters;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
  * Created by root on 22-11-2016.
  */
 
-public class UsersNoFirebaseAdapter extends RecyclerView.Adapter<UserVH> {
+public class UsersAdapterSimple extends RecyclerView.Adapter<UserVH> {
 
     private static final String TAG = "UsersAdapter";
     private IGetDataCompleteListener getDataCompleteListener;
@@ -38,13 +38,13 @@ public class UsersNoFirebaseAdapter extends RecyclerView.Adapter<UserVH> {
 
     private final Activity activity;
 
-    public UsersNoFirebaseAdapter(Activity activity, IGetDataCompleteListener getDataCompleteListener) {
+    public UsersAdapterSimple(Activity activity, IGetDataCompleteListener getDataCompleteListener) {
         this.activity = activity;
         this.usuarios = new ArrayList<>();
         this.getDataCompleteListener = getDataCompleteListener;
     }
 
-    public UsersNoFirebaseAdapter(Activity activity, List<Usuario> usuarios, IGetDataCompleteListener getDataCompleteListener) {
+    public UsersAdapterSimple(Activity activity, List<Usuario> usuarios, IGetDataCompleteListener getDataCompleteListener) {
         this.activity = activity;
         this.usuarios = usuarios;
         this.getDataCompleteListener = getDataCompleteListener;

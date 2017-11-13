@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.google.firebase.database.Query;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
-import com.pedromassango.programmers.presentation.job.adapter.JobsAdapter;
+import com.pedromassango.programmers.presentation.adapters.JobsAdapter;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.TextUtils;

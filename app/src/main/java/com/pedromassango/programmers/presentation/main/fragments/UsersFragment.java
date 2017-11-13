@@ -5,20 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.google.firebase.database.Query;
 import com.pedromassango.programmers.data.RepositoryManager;
-import com.pedromassango.programmers.data.UsersRepository;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
-import com.pedromassango.programmers.presentation.adapters.users.UsersAdapter;
-import com.pedromassango.programmers.presentation.adapters.users.UsersNoFirebaseAdapter;
+import com.pedromassango.programmers.presentation.adapters.UsersAdapterSimple;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
-import com.pedromassango.programmers.server.Library;
-import com.pedromassango.programmers.extras.TextUtils;
 
 import java.util.List;
-
-import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 
 /**
  * Created by Pedro Massango on 13/06/2017 at 01:56.
@@ -26,7 +19,7 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 
 public class UsersFragment extends BaseFragmentRecyclerView {
 
-    private UsersNoFirebaseAdapter usersNoFirebaseAdapter;
+    private UsersAdapterSimple usersAdapterSimple;
 
     @Override
     protected void setup(Bundle bundle) {
@@ -36,8 +29,8 @@ public class UsersFragment extends BaseFragmentRecyclerView {
     @Override
     protected RecyclerView.Adapter adapter() {
 
-        usersNoFirebaseAdapter = new UsersNoFirebaseAdapter(getActivity(), this);
-        return usersNoFirebaseAdapter;
+        usersAdapterSimple = new UsersAdapterSimple(getActivity(), this);
+        return usersAdapterSimple;
     }
 
     @Override
@@ -51,7 +44,7 @@ public class UsersFragment extends BaseFragmentRecyclerView {
                     @Override
                     public void onSuccess(List<Usuario> results) {
 
-                        usersNoFirebaseAdapter.add(results);
+                        usersAdapterSimple.add(results);
                         showRecyclerView();
                     }
 
