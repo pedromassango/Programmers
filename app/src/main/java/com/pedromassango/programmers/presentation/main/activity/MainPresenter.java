@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.UsersRepository;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
@@ -31,12 +31,10 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
     private Contract.View view;
     private UsersRepository usersRepository;
     private String userID;
-    private Model model;
 
     public MainPresenter(Contract.View view, UsersRepository usersRepository) {
         this.view = view;
         this.usersRepository = usersRepository;
-        this.model = new Model(this);
 
         // Current user ID to get their info.
         userID = PrefsUtil.getId(getContext());
@@ -94,7 +92,7 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
         view.showProgress(R.string.getting_user_info);
 
         // get data from repository
-        usersRepository.getUserById(userID, this);
+        usersRepository.getLoggedUser(this);
     }
 
     @Override
@@ -103,7 +101,7 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
 
         view.dismissprogess();
 
-        showUserInfoAndGetAllAppData(result);
+        this.showUserInfoAndGetAllAppData(result);
     }
 
     @Override
@@ -140,10 +138,8 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
     @Override
     public void onLogoutClicked() {
 
-        model.logoutUser();
+        view.showLogoutDialog();
     }
-
-
 
     //To check APP versionCode
     @Override
@@ -220,11 +216,5 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
     public void onQuit() {
 
         view.quit();
-    }
-
-    @Override
-    public void leavingActivity() {
-
-        model.onDestroy();
     }
 }

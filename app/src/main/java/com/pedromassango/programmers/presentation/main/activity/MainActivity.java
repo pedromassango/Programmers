@@ -29,6 +29,7 @@ import com.pedromassango.programmers.presentation.post._new.NewPostActivity;
 import com.pedromassango.programmers.presentation.profile.profile.ProfileActivity;
 import com.pedromassango.programmers.presentation.repport.BugActivity;
 import com.pedromassango.programmers.presentation.settings.activity.SettingsActivity;
+import com.pedromassango.programmers.server.logout.LogoutHadler;
 import com.pedromassango.programmers.services.GoogleServices;
 import com.pedromassango.programmers.ui.FabsController;
 import com.pedromassango.programmers.extras.IntentUtils;
@@ -113,6 +114,12 @@ public class MainActivity extends BaseActivity implements Contract.View {
         // this will hide the fab button if it is showing
         // when the user leave de MainActivity
         fabsController.colapseFab();
+    }
+
+    @Override
+    public void showLogoutDialog() {
+        LogoutHadler logoutHadler = new LogoutHadler(this);
+        logoutHadler.showAlertDialogLogout();
     }
 
     @Override
@@ -298,11 +305,5 @@ public class MainActivity extends BaseActivity implements Contract.View {
         this.finish();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        mainPresenter.leavingActivity();
-    }
 }
 

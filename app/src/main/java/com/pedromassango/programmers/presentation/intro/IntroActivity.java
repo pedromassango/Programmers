@@ -13,7 +13,7 @@ import com.pedromassango.programmers.config.SettingsPreference;
 import com.pedromassango.programmers.presentation.login.LoginActivity;
 import com.pedromassango.programmers.services.GoogleServices;
 import com.pedromassango.programmers.extras.IntentUtils;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 
 public class IntroActivity extends AppIntro {
 

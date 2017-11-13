@@ -7,6 +7,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
+import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.PostsRepository;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.interfaces.Callbacks;
+import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
 import com.pedromassango.programmers.presentation.post.adapter.PostsAdapter;
 import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
@@ -16,13 +21,15 @@ import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.TextUtils;
 import com.pedromassango.programmers.extras.Util;
 
+import java.util.List;
+
 import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 
 /**
  * Created by Pedro Massango on 13/06/2017 at 01:05.
  */
 
-public class PostsFragment extends BaseFragmentRecyclerView {
+public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks.IResultsCallback<Post> {
 
     private static final String TAG = "PostsFragment";
     private PostsAdapterSimple postsAdapterSimple;
@@ -45,16 +52,34 @@ public class PostsFragment extends BaseFragmentRecyclerView {
                 :
                 Library.getPostsByCategoryRef(category);
 
-        //postsAdapterSimple = new PostsAdapterSimple(getActivity());
-        //return postsAdapterSimple;
+        postsAdapterSimple = new PostsAdapterSimple(getActivity());
+        return postsAdapterSimple;
 
-        return new PostsAdapter(getActivity(), postsRef, this);
+        //return new PostsAdapter(getActivity(), postsRef, this);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String category = getArguments().getString(EXTRA_CATEGORY);
 
+        PostsRepository repo = RepositoryManager.getInstance().getPostsRepository();
+
+        if(TextUtils.isEmpty(category)){
+            repo.getAll(this);
+        }else{
+         repo.getAll(category, this);
+        }
+    }
+
+    @Override
+    public void onSuccess(List<Post> results) {
+        postsAdapterSimple.add(results);
+    }
+
+    @Override
+    public void onDataUnavailable() {
+        showTextError(getString(R.string.something_was_wrong));
     }
 }

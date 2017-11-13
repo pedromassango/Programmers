@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.pedromassango.programmers.AppRules;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.interfaces.IErrorListener;
 import com.pedromassango.programmers.interfaces.IPresenceLIstener;
 import com.pedromassango.programmers.models.Message;

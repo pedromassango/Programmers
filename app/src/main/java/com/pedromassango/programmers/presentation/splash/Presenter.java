@@ -3,7 +3,7 @@ package com.pedromassango.programmers.presentation.splash;
 import android.content.Context;
 import android.os.Handler;
 
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.interfaces.ILoggedInListener;
 
 /**

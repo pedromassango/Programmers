@@ -1,11 +1,13 @@
 package com.pedromassango.programmers.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
@@ -27,13 +29,26 @@ import io.realm.RealmConfiguration;
 
 public class Programmers extends MultiDexApplication {
 
+    public static Context CONTEXT;
+
+    public static Context getContext(){
+        return CONTEXT;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
+        if(CONTEXT == null){
+            CONTEXT = getApplicationContext();
+        }
+
         //Setting up
         FirebaseApp.initializeApp(this);
         FirebaseAuth.getInstance();
+
+        // First setup
+        PrefsHelper.getInstance();
 
         // Setup Realm database
         Realm.init( this);

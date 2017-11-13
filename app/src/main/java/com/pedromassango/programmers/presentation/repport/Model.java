@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.models.Bug;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.extras.Util;

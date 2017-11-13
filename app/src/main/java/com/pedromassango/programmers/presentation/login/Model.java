@@ -15,7 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.ILoginListener;
 import com.pedromassango.programmers.models.Usuario;

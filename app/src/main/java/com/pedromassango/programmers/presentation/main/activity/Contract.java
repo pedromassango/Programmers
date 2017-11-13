@@ -18,14 +18,6 @@ import com.pedromassango.programmers.presentation.base.BaseContract;
 
 public class Contract {
 
-    interface Model {
-        void getUser(IGetUserListener listener);
-
-        void logoutUser();
-
-        void onDestroy();
-    }
-
     /**
      * The {@link IRecyclerScrollListener} to listen
      * the recyclerView Scroll state
@@ -68,6 +60,8 @@ public class Contract {
         void startNewLinkActivity();
 
         void startRateApp();
+
+        void showLogoutDialog();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{
@@ -83,8 +77,6 @@ public class Contract {
         boolean onOptionsItemSelected(MenuItem item);
 
         void onScrollStateChanged( int newState);
-
-        void leavingActivity();
 
         String getSkill(int skill);
 

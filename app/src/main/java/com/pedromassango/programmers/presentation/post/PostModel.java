@@ -18,7 +18,7 @@ import com.google.firebase.storage.UploadTask;
 import com.pedromassango.programmers.AppRules;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.extras.CategoriesUtils;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IErrorListener;
 import com.pedromassango.programmers.interfaces.IGetPostsListener;

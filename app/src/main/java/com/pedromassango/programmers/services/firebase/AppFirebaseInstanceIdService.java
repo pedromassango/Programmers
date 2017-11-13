@@ -1,11 +1,5 @@
 package com.pedromassango.programmers.services.firebase;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.pedromassango.programmers.extras.PrefsUtil;
-import com.pedromassango.programmers.models.FcmToken;
-import com.pedromassango.programmers.server.Worker;
-
 import static com.pedromassango.programmers.extras.Util.showLog;
 
 /**

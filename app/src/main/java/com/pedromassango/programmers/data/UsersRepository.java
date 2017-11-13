@@ -4,17 +4,22 @@ package com.pedromassango.programmers.data;
  * Created by pedromassango on 11/8/17.
  */
 
+import android.util.Log;
+
 import com.pedromassango.programmers.data.local.UserLocalDataSource;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.data.remote.UserRemoteDataSource;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
 import java.util.List;
 
+import static com.pedromassango.programmers.presentation.post.adapter.PostsAdapterTest.TAG;
+
 /**
  * Retrieve the user data from local or remote source.
  */
-public class UsersRepository implements UserDataSource{
+public class UsersRepository implements UserDataSource {
 
     // Store the instance
     private static UsersRepository INSTANCE = null;
@@ -27,7 +32,7 @@ public class UsersRepository implements UserDataSource{
 
     // Private to prevent instatiation by constructor
     private UsersRepository(UserRemoteDataSource remoteDataSource,
-                            UserLocalDataSource localDataSource){
+                            UserLocalDataSource localDataSource) {
 
         this.remoteDataSource = remoteDataSource;
         this.localDataSource = localDataSource;
@@ -35,11 +40,38 @@ public class UsersRepository implements UserDataSource{
 
     // To return always the same instance, create if necessary.
     public static UsersRepository getInstance(UserRemoteDataSource remoteDataSource,
-                                       UserLocalDataSource localDataSource){
-        if(INSTANCE == null){
+                                              UserLocalDataSource localDataSource) {
+        if (INSTANCE == null) {
             INSTANCE = new UsersRepository(remoteDataSource, localDataSource);
         }
         return INSTANCE;
+    }
+
+    public void getLoggedUser(final Callbacks.IResultCallback<Usuario> callback) {
+        final String loggedUserId = PrefsHelper.getInstance().getId();
+
+        getUserById(loggedUserId, new Callbacks.IResultCallback<Usuario>() {
+            @Override
+            public void onSuccess(Usuario loggedUser) {
+
+                // Saving session user info
+                PrefsHelper.setId(loggedUser.getId());
+                Log.v(TAG, "LOGGED USER ID: " + PrefsHelper.getId());
+
+                PrefsHelper.setName(loggedUser.getUsername());
+                Log.v(TAG, "LOGGED USER NAME: " + PrefsHelper.getName());
+
+                PrefsHelper.setPhoto(loggedUser.getUrlPhoto());
+
+                // respond with result from local data source
+                callback.onSuccess(loggedUser);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
+            }
+        });
     }
 
     @Override
@@ -48,7 +80,7 @@ public class UsersRepository implements UserDataSource{
             @Override
             public void onSuccess(List<Usuario> results) {
                 // respond imediately with local results
-                callback.onSuccess( results);
+                callback.onSuccess(results);
 
                 // get from remote if availabe, and update the local source
                 getUsersFromRemoteAndUpdateLocalSource(callback);
@@ -68,7 +100,7 @@ public class UsersRepository implements UserDataSource{
             @Override
             public void onSuccess(Usuario result) {
                 // respond with result from local data source
-                callback.onSuccess( result);
+                callback.onSuccess(result);
 
                 // and, try to get updated usuario from remoteDataSource
                 getUserFromRemoteAndUpdateLocalSource(userId, callback);
@@ -82,13 +114,13 @@ public class UsersRepository implements UserDataSource{
         });
     }
 
-    private void getUsersFromRemoteAndUpdateLocalSource(final Callbacks.IResultsCallback<Usuario> callback){
-        remoteDataSource.getUsers( new Callbacks.IResultsCallback<Usuario>() {
+    private void getUsersFromRemoteAndUpdateLocalSource(final Callbacks.IResultsCallback<Usuario> callback) {
+        remoteDataSource.getUsers(new Callbacks.IResultsCallback<Usuario>() {
             @Override
             public void onSuccess(List<Usuario> result) {
 
                 // update local dataSource
-                localDataSource.saveOrUpdateUsers( result);
+                localDataSource.saveOrUpdateUsers(result);
 
                 // return the result
                 callback.onSuccess(result);
@@ -102,13 +134,13 @@ public class UsersRepository implements UserDataSource{
     }
 
 
-    private void getUserFromRemoteAndUpdateLocalSource(String userId, final Callbacks.IResultCallback<Usuario> callback){
+    private void getUserFromRemoteAndUpdateLocalSource(String userId, final Callbacks.IResultCallback<Usuario> callback) {
         remoteDataSource.getUserById(userId, new Callbacks.IResultCallback<Usuario>() {
             @Override
             public void onSuccess(Usuario result) {
 
                 // update local dataSource
-                localDataSource.saveOrUpdateUser( result);
+                localDataSource.saveOrUpdateUser(result);
 
                 // return the result
                 callback.onSuccess(result);
@@ -130,7 +162,7 @@ public class UsersRepository implements UserDataSource{
                 // user saved on remote data source
 
                 // update the user current info on local database
-                localDataSource.saveOrUpdateUser( usuario);
+                localDataSource.saveOrUpdateUser(usuario);
 
                 // notify the UI
                 callback.onSuccess();
@@ -152,6 +184,7 @@ public class UsersRepository implements UserDataSource{
 
                 // remove local user data
                 //localDataSource.logout();
+                PrefsHelper.endSession();
 
                 // Notify the UI
                 callback.onSuccess();

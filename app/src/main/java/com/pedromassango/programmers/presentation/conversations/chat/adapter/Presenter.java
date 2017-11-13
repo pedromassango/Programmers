@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.models.Contact;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_USER_ID;

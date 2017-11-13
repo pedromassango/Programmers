@@ -15,12 +15,9 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.pedromassango.programmers.AppRules;
 import com.pedromassango.programmers.data.UserDataSource;
-import com.pedromassango.programmers.extras.PrefsUtil;
-import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.server.Library;
-import com.pedromassango.programmers.server.Worker;
 
 import java.util.ArrayList;
 import java.util.HashMap;

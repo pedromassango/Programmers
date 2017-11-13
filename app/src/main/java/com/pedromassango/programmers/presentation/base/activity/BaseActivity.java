@@ -21,7 +21,7 @@ import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.config.Settings;
 import com.pedromassango.programmers.config.SettingsPreference;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.models.Contact;
 import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 import com.pedromassango.programmers.server.Library;

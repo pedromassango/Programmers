@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
@@ -18,7 +19,7 @@ import io.realm.annotations.PrimaryKey;
  */
 @IgnoreExtraProperties
 
-public class Post implements Parcelable {
+public class Post extends RealmObject implements Parcelable {
 
     @PrimaryKey
     private String id;

@@ -15,7 +15,7 @@ import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.ImageUtils;
 import com.pedromassango.programmers.extras.IntentUtils;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.models.Comment;
 import com.pedromassango.programmers.models.Post;

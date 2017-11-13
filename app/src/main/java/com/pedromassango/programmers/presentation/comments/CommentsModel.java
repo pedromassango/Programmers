@@ -15,7 +15,7 @@ import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.server.Worker;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 
 import java.util.HashMap;

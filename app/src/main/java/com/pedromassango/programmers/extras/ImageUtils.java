@@ -31,9 +31,10 @@ public class ImageUtils {
      */
     public static void loadImageUser(Context context, String urlPhoto, ImageView imageView) {
         Log.v(TAG, "loadImageUser: " + urlPhoto);
-        if (!Util.validImageUrl(urlPhoto))
+        if (!Util.validImageUrl(urlPhoto)) {
             imageView.setImageResource(R.drawable.ic_user);
-
+            return;
+        }
         Picasso.with(context)
                 .load(urlPhoto)
                 .placeholder(R.drawable.ic_user)

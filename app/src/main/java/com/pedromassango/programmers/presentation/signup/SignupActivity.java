@@ -100,16 +100,18 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
 
     @Override
     public void showProgressDialog() {
-
-        dialog = new ProgressDialog(this);
-        dialog.setIndeterminate(true);
-        dialog.setMessage(getString(R.string.cadastrando));
+        if (dialog == null) {
+            dialog = new ProgressDialog(this);
+            dialog.setIndeterminate(true);
+            dialog.setMessage(getString(R.string.cadastrando));
+        }
         dialog.show();
     }
 
     @Override
     public void dismissProgressDialog() {
-        dialog.dismiss();
+        if (dialog != null)
+            dialog.dismiss();
     }
 
     @Override
