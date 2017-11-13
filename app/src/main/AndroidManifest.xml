@@ -165,10 +165,6 @@
             android:name=".presentation.link.views.LinkActivity"
             android:label="@string/link_title"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.job.activity.JobActivity"
-            android:label="@string/job_title"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

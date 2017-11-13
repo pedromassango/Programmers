@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.presentation.main.fragments.ChatsFragment;
-import com.pedromassango.programmers.presentation.main.fragments.JobsFragment;
 import com.pedromassango.programmers.presentation.main.fragments.LinksFragment;
 import com.pedromassango.programmers.presentation.main.fragments.PostsFragment;
 import com.pedromassango.programmers.presentation.main.fragments.UsersFragment;
@@ -44,12 +43,9 @@ public class MainTabsAdapter extends FragmentStatePagerAdapter {
                 f = new UsersFragment();
                 break;
             case 2:
-                f = new JobsFragment();
-                break;
-            case 3:
                 f = new LinksFragment();
                 break;
-            case 4:
+            case 3:
                 f = new ChatsFragment();
                 break;
         }
