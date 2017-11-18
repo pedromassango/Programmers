@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntegerRes;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +31,13 @@ public class IntentUtils {
 
 
     private static ProgressFragmentDialog progressFragmentDialog;
+
+
+    public static void replaceFragment(@IdRes int framelayout, FragmentManager fm, Fragment fragment){
+        fm.beginTransaction()
+                .replace(framelayout, fragment, fragment.getTag())
+                .commit();
+    }
 
     public static void showProgressFragmentDialog(Activity activity, boolean show) {
         FragmentManager fm = ((AppCompatActivity) activity).getSupportFragmentManager();

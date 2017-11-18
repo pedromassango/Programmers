@@ -9,9 +9,11 @@ import android.util.Log;
 import com.pedromassango.programmers.data.local.UserLocalDataSource;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.data.remote.UserRemoteDataSource;
+import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pedromassango.programmers.presentation.post.adapter.PostsAdapterTest.TAG;
@@ -90,6 +92,31 @@ public class UsersRepository implements UserDataSource {
             public void onDataUnavailable() {
                 // some thing goet wrong, notify the UI
                 getUsersFromRemoteAndUpdateLocalSource(callback);
+            }
+        });
+    }
+
+    public void getUsersByCategory(String mCategory, final Callbacks.IResultsCallback<Usuario> callback) {
+
+        final String category = CategoriesUtils.getCategory(mCategory);
+
+        this.getUsers(new Callbacks.IResultsCallback<Usuario>() {
+            @Override
+            public void onSuccess(List<Usuario> results) {
+                List<Usuario> temp = new ArrayList<>();
+
+                for(Usuario user : results){
+                    if(user.getFavoritesCategory().containsKey(category)){
+                        temp.add(user);
+                    }
+                }
+
+                callback.onSuccess(temp);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
             }
         });
     }

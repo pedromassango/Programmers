@@ -20,6 +20,7 @@ public class Library {
     private static DatabaseReference postsDatabase;
     private static FirebaseStorage imagePostsStorage;
     private static DatabaseReference rootReference;
+    private static DatabaseReference notificationsRef;
     private static DatabaseReference linksRef;
 
     public static FirebaseStorage getImageProfilesStorage() {
@@ -170,5 +171,12 @@ public class Library {
         }
         return linksRef;
     }
-    //Links
+
+    public static DatabaseReference getNotificationsRef(String userId) {
+        if (notificationsRef == null) {
+            notificationsRef = getRootReference().child(AppRules.NOTIFICATIONS)
+            .child(userId);
+        }
+        return notificationsRef;
+    }
 }

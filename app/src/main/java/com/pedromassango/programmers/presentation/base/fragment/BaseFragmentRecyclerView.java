@@ -30,6 +30,8 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
     public RecyclerView recyclerView;
     private TextView tvEmpty;
 
+    public abstract void reloadData(String category);
+
     protected abstract void setup(Bundle bundle);
 
     protected abstract RecyclerView.Adapter adapter();

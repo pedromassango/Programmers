@@ -23,7 +23,7 @@ import com.pedromassango.programmers.interfaces.IErrorListener;
 import com.pedromassango.programmers.interfaces.IPostDeleteListener;
 import com.pedromassango.programmers.interfaces.IPresenceLIstener;
 import com.pedromassango.programmers.interfaces.ISubscriptionCompleteListener;
-import com.pedromassango.programmers.models.Link;
+import com.pedromassango.programmers.models.Notification;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.base.BaseContract;
@@ -324,16 +324,16 @@ public class Worker {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 showLog("increaseViewsCount: running ");
-                Link link = mutableData.getValue(Link.class);
-                if (link == null) {
+                Notification notification = mutableData.getValue(Notification.class);
+                if (notification == null) {
                     return Transaction.success(mutableData);
                 }
 
-                int viewsCount = link.getViews() + 1;
+                int viewsCount = notification.getViews() + 1;
 
-                link.setViews(viewsCount);
+                notification.setViews(viewsCount);
                 showLog("increaseViewsCount: sucess ");
-                mutableData.setValue(link);
+                mutableData.setValue(notification);
                 return Transaction.success(mutableData);
             }
 

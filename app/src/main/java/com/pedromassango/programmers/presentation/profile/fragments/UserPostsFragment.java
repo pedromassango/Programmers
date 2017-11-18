@@ -55,6 +55,11 @@ public class UserPostsFragment extends BaseFragmentRecyclerView implements Callb
     }
 
     @Override
+    public void reloadData(String category) {
+        // Ignored here on Profile activity
+    }
+
+    @Override
     public void onDataUnavailable() {
         showTextError(getString(R.string.something_was_wrong));
     }

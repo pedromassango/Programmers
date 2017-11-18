@@ -21,6 +21,12 @@
             app:showAsAction="never" />
 
         <item
+            android:id="@+id/chat"
+            android:orderInCategory="100"
+            android:title="@string/chat"
+            app:showAsAction="never" />
+
+        <item
             android:id="@+id/donate"
             android:title="@string/donate_title"
             app:showAsAction="never"/>

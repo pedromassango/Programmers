@@ -162,7 +162,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.link.views.LinkActivity"
+            android:name=".presentation.notification.views.LinkActivity"
             android:label="@string/link_title"
             android:screenOrientation="portrait" />
     </application>

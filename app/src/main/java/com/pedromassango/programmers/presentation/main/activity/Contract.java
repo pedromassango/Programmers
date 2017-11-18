@@ -62,13 +62,13 @@ public class Contract {
         void startRateApp();
 
         void showLogoutDialog();
+
+        void openChatDrawer();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{
 
         void initialize(Intent intent, Bundle savedState);
-
-        PackageInfo packageInfo();
 
         void onLogoutClicked();
 

@@ -4,9 +4,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +22,14 @@ import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.about.AboutActivity;
-import com.pedromassango.programmers.presentation.adapters.MainTabsAdapter;
 import com.pedromassango.programmers.presentation.base.activity.BaseActivity;
+import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
 import com.pedromassango.programmers.presentation.donate.DonateActivity;
 import com.pedromassango.programmers.presentation.link.views.LinkActivity;
 import com.pedromassango.programmers.presentation.main.drawer.NavigationDrawerFragment;
+import com.pedromassango.programmers.presentation.main.fragments.NotificationsFragment;
+import com.pedromassango.programmers.presentation.main.fragments.PostsFragment;
+import com.pedromassango.programmers.presentation.main.fragments.UsersFragment;
 import com.pedromassango.programmers.presentation.post._new.NewPostActivity;
 import com.pedromassango.programmers.presentation.profile.profile.ProfileActivity;
 import com.pedromassango.programmers.presentation.repport.BugActivity;
@@ -34,14 +39,14 @@ import com.pedromassango.programmers.services.GoogleServices;
 import com.pedromassango.programmers.ui.FabsController;
 import com.pedromassango.programmers.extras.IntentUtils;
 
-public class MainActivity extends BaseActivity implements Contract.View {
+public class MainActivity extends BaseActivity implements Contract.View, BottomNavigationView.OnNavigationItemSelectedListener {
 
     // To log monitor
     private static final String TAG = "MainActivity";
-    
+
     // Views
-    private MainTabsAdapter mainTabsAdapter;
-    private ViewPager mViewPager;
+
+    private BottomNavigationView bottomNavigationView;
     private NavigationDrawerFragment drawerFragment;
 
     private DrawerLayout drawerLayout;
@@ -61,12 +66,11 @@ public class MainActivity extends BaseActivity implements Contract.View {
     protected void initializeViews() {
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        // Set up the ViewPager
-        mViewPager = drawerLayout.findViewById(R.id.container);
-
-        // Set up the TabLayout
-        TabLayout tabLayout = drawerLayout.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        // Setup bottom navigation
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        // set the home item as default
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
 
         // Set up the NavigationDrawer
         drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
@@ -87,7 +91,7 @@ public class MainActivity extends BaseActivity implements Contract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenter(this, RepositoryManager.getInstance()
-        .getUsersRepository());
+                .getUsersRepository());
         mainPresenter.initialize(getIntent(), savedInstanceState);
     }
 
@@ -140,7 +144,7 @@ public class MainActivity extends BaseActivity implements Contract.View {
             searchView = (SearchView) MenuItem.getActionView(itemSearch);
         }*/
 
-        if(searchView == null){
+        if (searchView == null) {
             return super.onCreateOptionsMenu(menu);
         }
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -225,8 +229,18 @@ public class MainActivity extends BaseActivity implements Contract.View {
     public void setFragmentByCategory(String category) {
         Log.v(TAG, "setFragmentByCategory: " + category);
 
-        mainTabsAdapter = new MainTabsAdapter(this, category, getSupportFragmentManager());
-        mViewPager.setAdapter(mainTabsAdapter);
+        BaseFragmentRecyclerView bf = (BaseFragmentRecyclerView)
+                getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+
+        if (bf instanceof PostsFragment ||
+                bf instanceof UsersFragment) {
+            bf.reloadData(category);
+        }
+    }
+
+    @Override
+    public void openChatDrawer() {
+        drawerLayout.openDrawer(GravityCompat.END);
     }
 
     @Override
@@ -264,7 +278,7 @@ public class MainActivity extends BaseActivity implements Contract.View {
     @Override
     public void setFABVisibility(boolean b) {
 
-        fabsController.setMainFABVisibility( b);
+        fabsController.setMainFABVisibility(b);
     }
 
     /**
@@ -305,5 +319,38 @@ public class MainActivity extends BaseActivity implements Contract.View {
         this.finish();
     }
 
+    // Bottom navigation selection
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        menuItem.setChecked(true);
+
+        Fragment fragment = new PostsFragment();
+        String title = getString(R.string.posts);
+
+        switch (menuItem.getItemId()) {
+            case R.id.action_home:
+                break;
+            case R.id.action_peoples:
+                title = getString(R.string.users);
+                fragment = new UsersFragment();
+                break;
+            case R.id.action_notifications:
+                title = getString(R.string.notifications);
+                fragment = new NotificationsFragment();
+                break;
+            case R.id.action_messages:
+                title = getString(R.string.messages);
+                fragment = new NotificationsFragment();
+                break;
+        }
+
+        // change toolbar title
+        setTitle(title);
+
+        // Replace with the selected fragment
+        IntentUtils.replaceFragment(R.id.frame_layout,
+                getSupportFragmentManager(), fragment);
+        return false;
+    }
 }
 

@@ -209,7 +209,7 @@
     <string name="down_vote">Votar negativo</string>
     <string name="escreve_ou_cola_um_url">Escreve ou cola um URL</string>
     <string name="link_description">Breve descrição</string>
-    <string name="selecione_a_categoria_do_link">Selecione a categoria do link</string>
+    <string name="selecione_a_categoria_do_link">Selecione a categoria do notification</string>
     <string name="selecione_a_categoria_da_vaga">Selecione uma categoria</string>
     <string name="description_less">Mínimo 10 carácteres</string>
     <string name="url_empty">Opa! digite alguma coisa.</string>
@@ -248,9 +248,8 @@
 
     <string-array name="array_tabs_titles">
         <item>Publicações</item>
-        <item>Usuários</item>
         <item>Links</item>
-        <item>Bate-papo</item>
+        <item>Usuários</item>
     </string-array>
 
     <string-array name="array_gender">
@@ -261,4 +260,9 @@
     Ops! Aconteceu um erro, mas um relatório foi gerado, envie para mim, para que se possa solucionar o problema!
 </string>
     <string name="fail_title">Oops!</string>
+    <string name="chat">Bate-papo</string>
+    <string name="nothing_to_show">Nada para mostrar!</string>
+    <string name="home">Inicial</string>
+    <string name="users">Pessoas</string>
+    <string name="messages">Mensagens</string>
 </resources>

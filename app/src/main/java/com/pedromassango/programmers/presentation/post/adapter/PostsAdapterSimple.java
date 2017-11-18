@@ -67,8 +67,12 @@ public class PostsAdapterSimple extends RecyclerView.Adapter<PostVH> implements 
     }
 
     public void add(List<Post> posts){
-        this.posts = posts;
-        notifyDataSetChanged();
+        synchronized (PostsAdapterSimple.class) {
+            this.posts.clear();
+            this.posts.addAll( posts);
+
+            notifyDataSetChanged();
+        }
     }
 
     @Override

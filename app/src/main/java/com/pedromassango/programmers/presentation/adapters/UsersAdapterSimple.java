@@ -19,6 +19,7 @@ import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IGetDataCompleteListener;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.adapters.holders.UserVH;
+import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
 import com.pedromassango.programmers.presentation.profile.profile.ProfileActivity;
 
 import java.util.ArrayList;
@@ -51,8 +52,12 @@ public class UsersAdapterSimple extends RecyclerView.Adapter<UserVH> {
     }
 
     public void add(List<Usuario> usuarios){
-        this.usuarios = (usuarios);
-        notifyDataSetChanged();
+        synchronized (PostsAdapterSimple.class) {
+            this.usuarios.clear();
+            this.usuarios.addAll( usuarios);
+
+            notifyDataSetChanged();
+        }
     }
 
     @Override

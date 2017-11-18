@@ -32,6 +32,7 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks.IResultsCallback<Post> {
 
     private static final String TAG = "PostsFragment";
+    private boolean filterAction = false;
     private PostsAdapterSimple postsAdapterSimple;
 
     @Override
@@ -46,11 +47,11 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
             return new PostsTests(getActivity(), Util.getPosts(), this);
         }
 
-        String category = getArguments().getString(EXTRA_CATEGORY);
+      /*  String category = getArguments().getString(EXTRA_CATEGORY);
         DatabaseReference postsRef = TextUtils.isEmpty(category) ?
                 Library.getAllPostsRef()
                 :
-                Library.getPostsByCategoryRef(category);
+                Library.getPostsByCategoryRef(category);*/
 
         postsAdapterSimple = new PostsAdapterSimple(getActivity());
         return postsAdapterSimple;
@@ -62,25 +63,36 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String category = getArguments().getString(EXTRA_CATEGORY);
+        // Passing empty string, to fetch all posts.
+        reloadData("");
+    }
 
+    @Override
+    public void reloadData(String category) {
         PostsRepository repo = RepositoryManager.getInstance().getPostsRepository();
 
         if(TextUtils.isEmpty(category)){
+            filterAction = false;
             repo.getAll(this);
         }else{
-         repo.getAll(category, this);
+            filterAction = true;
+            repo.getAll(category, this);
         }
     }
 
     @Override
     public void onSuccess(List<Post> results) {
         postsAdapterSimple.add(results);
+
         showRecyclerView();
     }
 
     @Override
     public void onDataUnavailable() {
-        showTextError(getString(R.string.something_was_wrong));
+        if(filterAction){
+            showToast(getString(R.string.nothing_to_show));
+        }else {
+            showTextError(getString(R.string.something_was_wrong));
+        }
     }
 }

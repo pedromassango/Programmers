@@ -141,20 +141,6 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
         view.showLogoutDialog();
     }
 
-    //To check APP versionCode
-    @Override
-    public PackageInfo packageInfo() {
-        PackageInfo packageInfo = null;
-        try {
-            String packageName = getContext().getPackageName();
-            packageInfo = getContext().getPackageManager().getPackageInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            showLog("GET PACKAGE_NAME_ERROR", e.getMessage());
-        }
-
-        return packageInfo;
-    }
-
     @Override
     public String getSkill(int skill) {
         return String.format("%s%s", skill, "%");
@@ -181,6 +167,10 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
         switch (item.getItemId()) {
             case R.id.donate:
                 view.startDonateActivity();
+                break;
+
+            case R.id.chat:
+                view.openChatDrawer();
                 break;
 
             case R.id.rate:
