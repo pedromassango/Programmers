@@ -8,6 +8,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
+import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IGetPostListener;
 import com.pedromassango.programmers.interfaces.ISendCommentListener;
 import com.pedromassango.programmers.models.Comment;
@@ -15,8 +17,6 @@ import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.server.Worker;
-import com.pedromassango.programmers.data.prefs.PrefsUtil;
-import com.pedromassango.programmers.extras.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,19 +39,19 @@ public class CommentsModel implements CommentsContract.CommentsModelImpl {
     @Override
     public String getUserId() {
 
-        return PrefsUtil.getId(presenter.getContext());
+        return PrefsHelper.getId();
     }
 
     @Override
     public String getUsername() {
 
-        return PrefsUtil.getName(presenter.getContext());
+        return PrefsHelper.getName();
     }
 
     @Override
     public String getUserUrlPhoto() {
 
-        return PrefsUtil.getPhoto(presenter.getContext());
+        return PrefsHelper.getPhoto();
     }
 
     @Override

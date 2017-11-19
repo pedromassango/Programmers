@@ -36,9 +36,7 @@ public class Contract {
 
         void startLoginActivity();
 
-        void startEditProfileActivity(Bundle bundle);
-
-        void showFailDialog(String error);
+        void showFailDialog();
 
         void startPrivacyPolicyActivity();
     }

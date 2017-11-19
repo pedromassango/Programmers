@@ -26,12 +26,10 @@ public class FabsController implements View.OnClickListener {
 
         fabMenu = mView.findViewById(R.id.main_fab);
         FloatingActionButton fab1 = fabMenu.findViewById(R.id.fab1);
-        FloatingActionButton fab2 = fabMenu.findViewById(R.id.fab2);
         FloatingActionButton fab3 = fabMenu.findViewById(R.id.fab3);
 
         fabMenu.setOnClickListener(this);
         fab1.setOnClickListener(this);
-        fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
     }
 
@@ -41,11 +39,7 @@ public class FabsController implements View.OnClickListener {
 
             case R.id.fab1: // Fab share Clicked
                 IntentUtils.startShareApp(((Activity) mainView));
-                break;
 
-            case R.id.fab2: // Fab new Notification Clicked
-                colapseFab();
-                mainView.startNewLinkActivity();
                 break;
             case R.id.fab3:
                 colapseFab();

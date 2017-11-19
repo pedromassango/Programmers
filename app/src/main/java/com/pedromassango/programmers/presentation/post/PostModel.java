@@ -17,8 +17,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pedromassango.programmers.AppRules;
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
-import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IErrorListener;
 import com.pedromassango.programmers.interfaces.IGetPostsListener;
@@ -50,7 +50,7 @@ public class PostModel implements PostContract.ModelImpl {
 
     public PostModel(BaseContract.PresenterImpl presenter) {
         this.presenter = presenter;
-        this.userId = PrefsUtil.getId(presenter.getContext());
+        this.userId = PrefsHelper.getId();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class PostModel implements PostContract.ModelImpl {
     @Override
     public String getUsername() {
 
-        return PrefsUtil.getName(presenter.getContext());
+        return PrefsHelper.getName();
     }
 
     @Override

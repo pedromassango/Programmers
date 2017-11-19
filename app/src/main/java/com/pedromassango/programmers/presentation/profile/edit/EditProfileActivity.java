@@ -234,15 +234,15 @@ public class EditProfileActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void startMainActivity(Bundle userData) {
+    public void startMainActivity() {
 
-        IntentUtils.startActivityCleaningTask(this, userData, MainActivity.class);
+        IntentUtils.startActivityCleaningTask(this, MainActivity.class);
     }
 
     @Override
-    public void showFailDialog(String error) {
+    public void showFailDialog() {
 
-        new FailDialog(this, error, true)
+        new FailDialog(this, getString(R.string.update_profile_error_message), true)
                 .show();
 
     }

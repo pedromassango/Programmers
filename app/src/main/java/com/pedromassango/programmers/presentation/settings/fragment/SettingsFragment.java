@@ -11,12 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.XmlRes;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.presentation.about.AboutActivity;
 import com.pedromassango.programmers.presentation.donate.DonateActivity;
 import com.pedromassango.programmers.presentation.policy.PrivacyPolicyDialogFragment;
-import com.pedromassango.programmers.presentation.repport.BugActivity;
 import com.pedromassango.programmers.presentation.reset.password.ResetPasswordDialogFragment;
-import com.pedromassango.programmers.extras.IntentUtils;
 
 import java.util.Stack;
 
@@ -167,12 +166,6 @@ public class SettingsFragment extends PreferenceFragment implements Contract.Vie
     public void startPrivacyPoliceActivity() {
 
         IntentUtils.showFragment(getActivity(), new PrivacyPolicyDialogFragment());
-    }
-
-    @Override
-    public void startBugRepportActivity() {
-
-        IntentUtils.startActivity(getActivity(), BugActivity.class);
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.pedromassango.programmers.models.FcmToken;
 /**
  * Created by Pedro Massango on 13/06/2017 at 21:52.
  */
-
+@Deprecated
 public class PrefsUtil {
 
     // Keys to fetch

@@ -6,10 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 
+import com.google.gson.Gson;
 import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.models.Usuario;
-import com.pedromassango.programmers.presentation.profile.ProfileModel;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.UsersRepository;
 import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.interfaces.Callbacks;
+import com.pedromassango.programmers.models.Usuario;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 import static com.pedromassango.programmers.extras.Constants._DEVELOP_MODE;
@@ -19,19 +22,21 @@ import static com.pedromassango.programmers.extras.Util.showLog;
  * Created by Pedro Massango on 22-02-2017 16:26.
  */
 
-class Presenter implements Contract.Presenter, Contract.OnEditListener {
+class Presenter implements Contract.Presenter, Callbacks.IRequestCallback {
 
     private static final int REQUEST_PICK_IMAGE = 1024;
     private static final int RESULT_OK = -1;
     private boolean FIRST_TIME = false;
     private Usuario usuario;
     private Contract.View view;
-    private ProfileModel model;
     private Uri imagePicked = null;
+    private UsersRepository usersRepository;
 
     Presenter(Contract.View view) {
         this.view = view;
-        this.model = new ProfileModel(this);
+        this.usersRepository = RepositoryManager
+                .getInstance()
+                .getUsersRepository();
     }
 
     @Override
@@ -59,11 +64,6 @@ class Presenter implements Contract.Presenter, Contract.OnEditListener {
         }
     }
 
-    @Override
-    public boolean isFirsttime() {
-
-        return FIRST_TIME;
-    }
 
     @Override
     public void onSaveClicked() {
@@ -111,6 +111,9 @@ class Presenter implements Contract.Presenter, Contract.OnEditListener {
             return;
         }
 
+        String uriString = new Gson().toJson(imagePicked);
+        usuario.setUrlPhoto(uriString); // In repository will be converted back to URI
+
         usuario.setUsername(username);
         usuario.setEmail(email);
         usuario.setPhone(phone);
@@ -123,7 +126,7 @@ class Presenter implements Contract.Presenter, Contract.OnEditListener {
         usuario.setAccountComplete(Constants.AcountStatus.COMPLETE);
 
         view.showProgress(R.string.updating_profile);
-        model.saveProfile(this, this, imagePicked, usuario);
+        usersRepository.saveUser(usuario, this);
     }
 
     @Override
@@ -152,18 +155,15 @@ class Presenter implements Contract.Presenter, Contract.OnEditListener {
     }
 
     @Override
-    public void onSuccess(Usuario usuario) {
-
-        Bundle userData = new Bundle();
-        userData.putParcelable(Constants.EXTRA_USER, usuario);
+    public void onSuccess() {
 
         view.dismissProgress();
-        view.startMainActivity(userData);
+        view.startMainActivity();
     }
 
     @Override
-    public void onError(String error) {
+    public void onError() {
         view.dismissProgress();
-        view.showFailDialog(error);
+        view.showFailDialog();
     }
 }

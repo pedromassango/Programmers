@@ -319,30 +319,7 @@ public class Worker {
         });
     }
 
-    public static void runLinkViewsCountTransation(DatabaseReference linkRef) {
-        linkRef.runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                showLog("increaseViewsCount: running ");
-                Notification notification = mutableData.getValue(Notification.class);
-                if (notification == null) {
-                    return Transaction.success(mutableData);
-                }
 
-                int viewsCount = notification.getViews() + 1;
-
-                notification.setViews(viewsCount);
-                showLog("increaseViewsCount: sucess ");
-                mutableData.setValue(notification);
-                return Transaction.success(mutableData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                showLog("increaseViewsCount: " + (databaseError != null));
-            }
-        });
-    }
 
     public static void runReputationCountTransition(final BaseContract.PresenterImpl presenter, DatabaseReference userRef,
                                                     final boolean increment, final boolean isPost) {

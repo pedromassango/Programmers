@@ -8,7 +8,6 @@ import android.support.annotation.StringRes;
 
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.base.BaseContract;
-import com.pedromassango.programmers.presentation.profile.ProfileContract;
 
 /**
  * Created by Pedro Massango on 22-02-2017 16:26.
@@ -53,14 +52,14 @@ public class Contract {
 
         void onPickImageClicked();
 
-        void startMainActivity(Bundle userData);
+        void startMainActivity();
 
-        void showFailDialog(String error);
+        void showFailDialog();
 
         void setupViews(Usuario usuario);
     }
 
-    public interface Presenter extends BaseContract.PresenterImpl, ProfileContract.ProfilePresenter {
+    public interface Presenter extends BaseContract.PresenterImpl {
         Context getContext();
 
         void iniitialize(Intent intent, Bundle bundle);
@@ -71,12 +70,6 @@ public class Contract {
 
         void onActivityResult(int requestCode, int resultCode, Intent data);
 
-    }
-
-    public interface OnEditListener {
-        void onSuccess(Usuario usuario);
-
-        void onError(String error);
     }
 
 }

@@ -44,8 +44,6 @@ class Contract {
 
         void startAboutAppActivity();
 
-        void startBugRepportActivity();
-
         void startPrivacyPoliceActivity();
 
         void startShareAppIntent();

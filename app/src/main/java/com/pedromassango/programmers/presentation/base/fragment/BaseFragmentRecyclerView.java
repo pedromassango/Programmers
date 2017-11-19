@@ -4,6 +4,7 @@ package com.pedromassango.programmers.presentation.base.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -101,6 +102,12 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
     }
 
     public void showTextError(String error) {
+        recyclerView.setVisibility(View.GONE);
+        tvEmpty.setVisibility(View.VISIBLE);
+        tvEmpty.setText(error);
+    }
+
+    public void showTextError(@StringRes int error) {
         recyclerView.setVisibility(View.GONE);
         tvEmpty.setVisibility(View.VISIBLE);
         tvEmpty.setText(error);

@@ -20,7 +20,7 @@ public class NotificationVH extends RecyclerView.ViewHolder {
     public NotificationVH(View view) {
         super(view);
         tvDate = view.findViewById(R.id.tv_date);
-        tvDescription = view.findViewById(R.id.tv_link);
+        tvDescription = view.findViewById(R.id.tv_description);
     }
 
     public void bindViews(Notification notification) {

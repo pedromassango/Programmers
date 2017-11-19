@@ -12,10 +12,10 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.ImageUtils;
 import com.pedromassango.programmers.extras.IntentUtils;
-import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.models.Comment;
 import com.pedromassango.programmers.models.Post;
@@ -74,7 +74,7 @@ public class CustomNotification {
         String title = context.getString(R.string.comments);
 
         // Check if the post author is the
-        String currentUserId = PrefsUtil.getName(context);
+        String currentUserId = PrefsHelper.getName();
         String text = "";
         /*String text = comment.getPostAuthorId().equals(currentUserId) ?
                 Util.concat(author, context.getString(R.string.notification_current_user_text))

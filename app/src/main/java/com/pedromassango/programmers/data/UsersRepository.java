@@ -4,14 +4,17 @@ package com.pedromassango.programmers.data;
  * Created by pedromassango on 11/8/17.
  */
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.pedromassango.programmers.data.local.UserLocalDataSource;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
-import com.pedromassango.programmers.data.remote.UserRemoteDataSource;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
+import com.pedromassango.programmers.server.Library;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,22 +30,22 @@ public class UsersRepository implements UserDataSource {
     private static UsersRepository INSTANCE = null;
 
     // Retrieve data from remote data source
-    private final UserRemoteDataSource remoteDataSource;
+    private final UserDataSource remoteDataSource;
 
     // Retrieve data from local data source.
-    private final UserLocalDataSource localDataSource;
+    private final UserDataSource localDataSource;
 
     // Private to prevent instatiation by constructor
-    private UsersRepository(UserRemoteDataSource remoteDataSource,
-                            UserLocalDataSource localDataSource) {
+    private UsersRepository(UserDataSource remoteDataSource,
+                            UserDataSource localDataSource) {
 
         this.remoteDataSource = remoteDataSource;
         this.localDataSource = localDataSource;
     }
 
     // To return always the same instance, create if necessary.
-    public static UsersRepository getInstance(UserRemoteDataSource remoteDataSource,
-                                              UserLocalDataSource localDataSource) {
+    public static UsersRepository getInstance(UserDataSource remoteDataSource,
+                                              UserDataSource localDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new UsersRepository(remoteDataSource, localDataSource);
         }
@@ -147,7 +150,7 @@ public class UsersRepository implements UserDataSource {
             public void onSuccess(List<Usuario> result) {
 
                 // update local dataSource
-                localDataSource.saveOrUpdateUsers(result);
+                updateCacheAndLocal(result);
 
                 // return the result
                 callback.onSuccess(result);
@@ -160,6 +163,31 @@ public class UsersRepository implements UserDataSource {
         });
     }
 
+    private void updateCacheAndLocal(List<Usuario> usuarios){
+        for(Usuario usuario : usuarios){
+            localDataSource.saveUser(usuario, null);
+        }
+    }
+
+    @Override
+    public void checkLoggedInStatus(final Callbacks.IRequestCallback callback) {
+       remoteDataSource.checkLoggedInStatus(callback);
+    }
+
+    @Override
+    public void signup(Usuario usuario, Callbacks.IRequestCallback callback) {
+        remoteDataSource.signup(usuario, callback);
+    }
+
+    @Override
+    public void login(String email, String password, Callbacks.IResultCallback<Usuario> callback) {
+        remoteDataSource.login(email, password, callback);
+    }
+
+    @Override
+    public void firebaseAuthWithGoogle(GoogleSignInAccount account, Callbacks.IResultCallback<Usuario> callback) {
+        remoteDataSource.firebaseAuthWithGoogle(account, callback);
+    }
 
     private void getUserFromRemoteAndUpdateLocalSource(String userId, final Callbacks.IResultCallback<Usuario> callback) {
         remoteDataSource.getUserById(userId, new Callbacks.IResultCallback<Usuario>() {
@@ -167,7 +195,7 @@ public class UsersRepository implements UserDataSource {
             public void onSuccess(Usuario result) {
 
                 // update local dataSource
-                localDataSource.saveOrUpdateUser(result);
+                localDataSource.saveUser(result, null);
 
                 // return the result
                 callback.onSuccess(result);
@@ -189,7 +217,7 @@ public class UsersRepository implements UserDataSource {
                 // user saved on remote data source
 
                 // update the user current info on local database
-                localDataSource.saveOrUpdateUser(usuario);
+                localDataSource.saveUser(usuario, null);
 
                 // notify the UI
                 callback.onSuccess();

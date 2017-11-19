@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.pedromassango.programmers.AppRules;
-import com.pedromassango.programmers.data.prefs.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.interfaces.IErrorListener;
 import com.pedromassango.programmers.interfaces.IPresenceLIstener;
 import com.pedromassango.programmers.models.Message;
@@ -32,13 +32,13 @@ public class ConversationModel implements ConversationContract.ModelImpl {
     @Override
     public String getUserId() {
 
-        return PrefsUtil.getId(presenter.getContext());
+        return PrefsHelper.getId();
     }
 
 
     public String getUsername() {
 
-        return PrefsUtil.getName(presenter.getContext());
+        return PrefsHelper.getName();
     }
 
     @Override

@@ -41,9 +41,7 @@ public class Contract {
 
         void showToast(String error);
 
-        void showDialogGetUserInfoError(String string, OnDialogListener listener);
-
-        void startReportBugActivity();
+        void showDialogGetUserInfoError(OnDialogListener listener);
 
         void quit();
 
@@ -53,22 +51,20 @@ public class Contract {
 
         void setFABVisibility(boolean visibility);
 
-        void startAboutActivity();
-
         void startDonateActivity();
-
-        void startNewLinkActivity();
 
         void startRateApp();
 
         void showLogoutDialog();
 
         void openChatDrawer();
+
+        void startLoginActivity();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{
 
-        void initialize(Intent intent, Bundle savedState);
+        void initialize(Intent intent);
 
         void onLogoutClicked();
 
@@ -81,6 +77,8 @@ public class Contract {
         String getSkill(int skill);
 
         void onSaveInstanceState(Bundle outState);
+
+        void checkLogin();
     }
 
     interface OnDialogListener extends IDialogRetryListener {

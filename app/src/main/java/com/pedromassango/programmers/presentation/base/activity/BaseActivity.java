@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,8 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.config.Settings;
 import com.pedromassango.programmers.config.SettingsPreference;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.data.prefs.PrefsUtil;
 import com.pedromassango.programmers.models.Contact;
 import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 import com.pedromassango.programmers.server.Library;
@@ -46,6 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.setContentView(layoutResource());
         this.setupToolbar();
         this.initializeViews();
@@ -73,10 +75,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             showLog("BaseActivity - contact is null.");
             contact = new Contact();
             contact.setOnline(true);
-            contact.setUserId(PrefsUtil.getId(this));
-            contact.setUsername(PrefsUtil.getName(this));
-            contact.setUserUrlPhoto(PrefsUtil.getPhoto(this));
+            contact.setUserId(PrefsHelper.getId());
+            contact.setUsername(PrefsHelper.getName());
+            contact.setUserUrlPhoto(PrefsHelper.getPhoto());
         }
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
 
         final DatabaseReference userPresence = Library.getAllUsersChatsRef().child(contact.getUserId());
         final DatabaseReference lastOnlineRef = userPresence.child("lastOnline");

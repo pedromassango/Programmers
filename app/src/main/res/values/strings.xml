@@ -265,4 +265,5 @@
     <string name="home">Inicial</string>
     <string name="users">Pessoas</string>
     <string name="messages">Mensagens</string>
+    <string name="update_profile_error_message">Impossível actualizar seus dados, verifique a internet.</string>
 </resources>

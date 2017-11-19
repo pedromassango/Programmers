@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 
 /**
@@ -38,13 +39,13 @@ class Contract {
 
         void startResetPasswordActivity();
 
-        void showFailDialog(String error);
+        void showFailDialog();
 
-        void startMainActivity(Bundle userData);
+        void startMainActivity(Usuario usuario);
 
         void actionGoogleSignin(int RC_SIGN_IN, Intent signInIntent);
 
-        void startEditProfileActivity(Bundle bundle);
+        void startEditProfileActivity(Usuario usuario);
 
         void showProgressDialog();
 

@@ -20,24 +20,23 @@ import android.view.View;
 
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.about.AboutActivity;
 import com.pedromassango.programmers.presentation.base.activity.BaseActivity;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
 import com.pedromassango.programmers.presentation.donate.DonateActivity;
-import com.pedromassango.programmers.presentation.link.views.LinkActivity;
+import com.pedromassango.programmers.presentation.login.LoginActivity;
 import com.pedromassango.programmers.presentation.main.drawer.NavigationDrawerFragment;
 import com.pedromassango.programmers.presentation.main.fragments.NotificationsFragment;
 import com.pedromassango.programmers.presentation.main.fragments.PostsFragment;
 import com.pedromassango.programmers.presentation.main.fragments.UsersFragment;
 import com.pedromassango.programmers.presentation.post._new.NewPostActivity;
 import com.pedromassango.programmers.presentation.profile.profile.ProfileActivity;
-import com.pedromassango.programmers.presentation.repport.BugActivity;
 import com.pedromassango.programmers.presentation.settings.activity.SettingsActivity;
 import com.pedromassango.programmers.server.logout.LogoutHadler;
 import com.pedromassango.programmers.services.GoogleServices;
 import com.pedromassango.programmers.ui.FabsController;
-import com.pedromassango.programmers.extras.IntentUtils;
 
 public class MainActivity extends BaseActivity implements Contract.View, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -69,8 +68,6 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
         // Setup bottom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        // set the home item as default
-        bottomNavigationView.setSelectedItemId(R.id.action_home);
 
         // Set up the NavigationDrawer
         drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
@@ -80,7 +77,6 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
         fabsController = new FabsController(this, drawerLayout);
     }
 
-
     @Override
     public void showHeaderInfo(Usuario usuario) {
 
@@ -89,10 +85,16 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenter(this, RepositoryManager.getInstance()
                 .getUsersRepository());
-        mainPresenter.initialize(getIntent(), savedInstanceState);
+
+        // CHeck login,
+        mainPresenter.checkLogin();
+
+        super.onCreate(savedInstanceState);
+
+        // set the home item as default
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 
     @Override
@@ -104,6 +106,9 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
     @Override
     protected void onResume() {
         super.onResume();
+
+        // start fetch user data
+        //mainPresenter.initialize(getIntent());
 
         // This will check if the device have
         // the apropriated Play Service version
@@ -184,6 +189,12 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
     }
 
     @Override
+    public void startLoginActivity() {
+        IntentUtils.startActivity(this, LoginActivity.class);
+        finish();
+    }
+
+    @Override
     public void startNewPostActivity() {
 
         IntentUtils.startActivity(this, NewPostActivity.class);
@@ -196,27 +207,9 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
     }
 
     @Override
-    public void startNewLinkActivity() {
-
-        IntentUtils.startActivity(this, LinkActivity.class);
-    }
-
-    @Override
-    public void startReportBugActivity() {
-
-        IntentUtils.startActivity(this, BugActivity.class);
-    }
-
-    @Override
     public void startSettingsActivity() {
 
         IntentUtils.startActivity(this, SettingsActivity.class);
-    }
-
-    @Override
-    public void startAboutActivity() {
-
-        IntentUtils.startActivity(this, AboutActivity.class);
     }
 
     @Override
@@ -250,7 +243,7 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
     }
 
     @Override
-    public void showDialogGetUserInfoError(String string, final Contract.OnDialogListener listener) {
+    public void showDialogGetUserInfoError(final Contract.OnDialogListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false)
                 .setTitle(R.string.internet_connection_error)

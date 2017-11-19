@@ -40,20 +40,28 @@ public class IntentUtils {
     }
 
     public static void showProgressFragmentDialog(Activity activity, boolean show) {
-        FragmentManager fm = ((AppCompatActivity) activity).getSupportFragmentManager();
+        try {
+            FragmentManager fm = ((AppCompatActivity) activity).getSupportFragmentManager();
 
-        if (show && progressFragmentDialog == null) {
-            progressFragmentDialog = new ProgressFragmentDialog();
-            progressFragmentDialog.show(fm, null);
-            return;
+            if (show && progressFragmentDialog == null) {
+                progressFragmentDialog = new ProgressFragmentDialog();
+                progressFragmentDialog.show(fm, null);
+                return;
+            }
+
+            if (show) {
+                progressFragmentDialog.show(fm, null);
+                return;
+            }
+
+
+            if (progressFragmentDialog == null) {
+                return;
+            }
+            progressFragmentDialog.dismiss();
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
-
-        if (show) {
-            progressFragmentDialog.show(fm, null);
-            return;
-        }
-
-        progressFragmentDialog.dismiss();
     }
 
     public static void startAppOnFacebookIntent(Context context) {

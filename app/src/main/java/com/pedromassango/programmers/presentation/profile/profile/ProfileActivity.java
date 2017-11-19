@@ -143,9 +143,9 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void showNoInternetDialog(String message, IDialogRetryListener noInternetListener) {
+    public void showNoInternetDialog(IDialogRetryListener noInternetListener) {
 
-        new FailDialog(this, message, noInternetListener)
+        new FailDialog(this, getString(R.string.internet_connection_error_description), noInternetListener)
                 .show();
     }
 

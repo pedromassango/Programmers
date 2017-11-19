@@ -8,15 +8,20 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Pedro Massango on 14/06/2017 at 19:57.
  */
 @IgnoreExtraProperties
-public class Notification implements Parcelable {
+public class Notification extends RealmObject implements Parcelable {
 
+    @PrimaryKey
     private String id;
     private String author;
     private String authorId;
+    private String toUserId;
     private String postId;
     private String description;
     private long timestamp;
@@ -26,6 +31,7 @@ public class Notification implements Parcelable {
         id = in.readString();
         author = in.readString();
         authorId = in.readString();
+        toUserId = in.readString();
         postId = in.readString();
         description = in.readString();
         timestamp = in.readLong();
@@ -36,6 +42,7 @@ public class Notification implements Parcelable {
         dest.writeString(id);
         dest.writeString(author);
         dest.writeString(authorId);
+        dest.writeString(toUserId);
         dest.writeString(postId);
         dest.writeString(description);
         dest.writeLong(timestamp);
@@ -63,6 +70,8 @@ public class Notification implements Parcelable {
         map.put("id", id);
         map.put("authorId", authorId);
         map.put("author", author);
+        map.put("toUserId", toUserId);
+        map.put("postId", postId);
         map.put("description", description);
         map.put("timestamp", timestamp);
         return map;
@@ -73,13 +82,22 @@ public class Notification implements Parcelable {
     }
 
 
-    public Notification(String id, String authorId, String author, String postId, String description, long timestamp) {
+    public Notification(String id, String authorId, String author, String toUserId, String postId, String description, long timestamp) {
         this.id = id;
         this.authorId = authorId;
         this.author = author;
+        this.toUserId = toUserId;
         this.postId = postId;
         this.description = description;
         this.timestamp = timestamp;
+    }
+
+    public String getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(String toUserId) {
+        this.toUserId = toUserId;
     }
 
     public String getAuthorId() {

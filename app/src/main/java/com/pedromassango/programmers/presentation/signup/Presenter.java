@@ -1,28 +1,24 @@
 package com.pedromassango.programmers.presentation.signup;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Patterns;
 
 import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
-
-import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 
 /**
  * Created by Pedro Massango on 21-02-2017 23:58.
  */
 
-class Presenter implements Contract.Presenter, Contract.OnSignupListener {
+class Presenter implements Contract.Presenter, Callbacks.IRequestCallback {
 
     private Contract.View view;
-    private Model model;
 
     Presenter(Contract.View view) {
         this.view = view;
-        this.model = new Model(this);
     }
 
     @Override
@@ -75,8 +71,13 @@ class Presenter implements Contract.Presenter, Contract.OnSignupListener {
         Usuario usuario = Util.getSignupUser("", email, password);
         usuario.setCodeLevel(getContext().getString(R.string.beginner));
 
+        // show loader
         view.showProgressDialog();
-        model.signup(getContext(), this, usuario);
+
+        //signup task from server
+        RepositoryManager.getInstance()
+                .getUsersRepository()
+                .signup(usuario, this);
     }
 
     @Override
@@ -92,22 +93,22 @@ class Presenter implements Contract.Presenter, Contract.OnSignupListener {
     }
 
     //SIGNUP SUCCEDED
-    @Override
+
     public void onSuccess(Usuario usuario) {
 
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(Constants._FIRST_TIME, true);
-        bundle.putParcelable(EXTRA_USER, usuario);
-
-        view.dismissProgressDialog();
-
-        view.startEditProfileActivity(bundle);
     }
 
-    //SIGNUP ERROR
     @Override
-    public void onError(String error) {
+    public void onSuccess() {
         view.dismissProgressDialog();
-        view.showFailDialog(error);
+
+        view.startLoginActivity();
+    }
+
+    @Override
+    public void onError() {
+
+        view.dismissProgressDialog();
+        view.showFailDialog();
     }
 }

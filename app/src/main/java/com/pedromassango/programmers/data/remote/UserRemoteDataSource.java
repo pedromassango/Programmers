@@ -3,9 +3,14 @@ package com.pedromassango.programmers.data.remote;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -23,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.pedromassango.programmers.extras.Util.showLog;
 
 /**
  * Created by pedromassango on 11/8/17.
@@ -198,6 +205,126 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
+    public void checkLoggedInStatus(final Callbacks.IRequestCallback callback) {
+        Library.getFirebaseAuth()
+                .addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                        if(user == null){   // Not logged in
+                            callback.onError();
+                        }else { //Logged in
+                            callback.onSuccess();
+                        }
+                    }
+                });
+    }
+
+    // Login with email & password
+    @Override
+    public void login(String email, String password, final Callbacks.IResultCallback<Usuario> callback) {
+        FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(email, password)
+                .addOnFailureListener( reportError(callback))
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                showLog("signIn:success");
+                final FirebaseUser user = authResult.getUser();
+                showLog("signIn - UID: " + user.getUid());
+
+                loginFlow(user, callback);
+            }
+        });
+    }
+
+    private OnFailureListener reportError(final Callbacks.IRequestCallback callback){
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onError();
+            }
+        };
+    }
+    private OnFailureListener reportError(final Callbacks.IResultCallback<Usuario> callback){
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onDataUnavailable();
+            }
+        };
+    }
+
+    // Login with Google
+    @Override
+    public void firebaseAuthWithGoogle(GoogleSignInAccount account,
+                                       final Callbacks.IResultCallback<Usuario> callback) {
+        showLog("firebaseAuthWithGoogle: " + account.getId());
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        FirebaseAuth.getInstance()
+                .signInWithCredential(credential)
+                .addOnFailureListener( reportError(callback))
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = authResult.getUser();
+                        loginFlow( user, callback);
+                    }
+                });
+    }
+
+    private void loginFlow(final FirebaseUser user, final Callbacks.IResultCallback<Usuario> callback) {
+
+        Library.getUsersRef()
+                .child(user.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        showLog("onDataChange - checking user info");
+
+                        Usuario usuario;
+
+                        // CHeck if the user data arleady exist
+                        if(!dataSnapshot.exists()){
+                            String photo = user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString();
+                            usuario = new Usuario();
+                            usuario.setEmail( user.getEmail());
+                            usuario.setUrlPhoto(  photo);
+
+                            callback.onSuccess(usuario);
+                            return;
+                        }
+
+                        usuario = dataSnapshot.getValue(Usuario.class);
+                        callback.onSuccess(usuario);
+                    }
+
+                    //Some error
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        showLog("LOGIN WAS CANCELLED: " + databaseError.getMessage());
+                        callback.onDataUnavailable();
+                    }
+                });
+    }
+
+    @Override
+    public void signup(Usuario usuario, final Callbacks.IRequestCallback callback) {
+        FirebaseAuth auth = Library.getFirebaseAuth();
+        auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getPassword())
+                .addOnFailureListener(reportError(callback))
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        callback.onSuccess();
+                    }
+                });
+
+    }
+
+    @Override
     public void logout(final Callbacks.IRequestCallback callback) {
 
         // Logout user in Firebase.
@@ -212,7 +339,7 @@ public class UserRemoteDataSource implements UserDataSource {
                         // If sucess, currentUser shold be null
                         if(firebaseAuth.getCurrentUser() != null){
                             // An error occour when trie to logout
-                            callback.onError();
+                            reportError(callback);
                             return;
                         }
 

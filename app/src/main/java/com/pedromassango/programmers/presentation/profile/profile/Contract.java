@@ -51,7 +51,7 @@ class Contract {
 
         void setButtonMessageVisibility(int gone);
 
-        void showNoInternetDialog(String message, IDialogRetryListener iDialogNoInternetListener);
+        void showNoInternetDialog(IDialogRetryListener iDialogNoInternetListener);
 
         void showProgress(@StringRes int text);
 
@@ -62,7 +62,7 @@ class Contract {
         void showViewImageFragment(Bundle b);
     }
 
-    interface Presenter extends BaseContract.PresenterImpl, IGetUserListener, IDialogRetryListener {
+    interface Presenter extends BaseContract.PresenterImpl, IDialogRetryListener {
 
         void initialize(Intent intent, Bundle bundle);
 
