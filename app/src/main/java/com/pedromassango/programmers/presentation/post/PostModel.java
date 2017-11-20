@@ -208,9 +208,9 @@ public class PostModel implements PostContract.ModelImpl {
         DatabaseReference PostByCategoryRef = Library.getRootReference().child(AppRules.getPostsCategoryRef(post.getCategory(), postId));
         DatabaseReference postByUserRef = Library.getRootReference().child(AppRules.getPostUserRef(post.getAuthorId(), postId));
 
-        Worker.runPostViewsCountTransition(allPostRef, errorListener);
-        Worker.runPostViewsCountTransition(PostByCategoryRef, errorListener);
-        Worker.runPostViewsCountTransition(postByUserRef, errorListener);
+        Worker.runPostViewsCountTransition(allPostRef);
+        Worker.runPostViewsCountTransition(PostByCategoryRef);
+        Worker.runPostViewsCountTransition(postByUserRef);
     }
 
     @Override

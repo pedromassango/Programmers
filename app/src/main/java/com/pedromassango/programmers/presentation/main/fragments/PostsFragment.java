@@ -6,24 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.google.firebase.database.DatabaseReference;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.PostsRepository;
 import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
-import com.pedromassango.programmers.presentation.post.adapter.PostsAdapter;
 import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
-import com.pedromassango.programmers.presentation.post.adapter.PostsTests;
-import com.pedromassango.programmers.server.Library;
-import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.TextUtils;
-import com.pedromassango.programmers.extras.Util;
 
 import java.util.List;
-
-import static com.pedromassango.programmers.extras.Constants.EXTRA_CATEGORY;
 
 /**
  * Created by Pedro Massango on 13/06/2017 at 01:05.
@@ -43,10 +35,6 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
     @Override
     protected RecyclerView.Adapter adapter() {
 
-        if (Constants._DEVELOP_MODE) {
-            return new PostsTests(getActivity(), Util.getPosts(), this);
-        }
-
       /*  String category = getArguments().getString(EXTRA_CATEGORY);
         DatabaseReference postsRef = TextUtils.isEmpty(category) ?
                 Library.getAllPostsRef()
@@ -55,8 +43,6 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
 
         postsAdapterSimple = new PostsAdapterSimple(getActivity());
         return postsAdapterSimple;
-
-        //return new PostsAdapter(getActivity(), postsRef, this);
     }
 
     @Override

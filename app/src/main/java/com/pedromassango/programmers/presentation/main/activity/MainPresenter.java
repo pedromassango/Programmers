@@ -26,30 +26,37 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
 
     private Usuario usuario = null;
     private Contract.View view;
+    private MainPresenter instance;
     private UsersRepository usersRepository;
 
     public MainPresenter(Contract.View view, UsersRepository usersRepository) {
         this.view = view;
+        this.instance = this;
         this.usersRepository = usersRepository;
     }
 
     @Override
-    public Context getContext() {
-        return ((Context) view);
-    }
-
-    public Contract.View getView() {
-        return view;
-    }
-
-    @Override
-    public void checkLogin() {
+    public void init() {
         usersRepository.checkLoggedInStatus(new Callbacks.IRequestCallback() {
             @Override
             public void onSuccess() {
                 // Do nothing here if the user is logged in
-                //view.callOnResume
-                initialize(null);
+
+                // Test only
+                if (Constants._DEVELOP_MODE) {
+                    view.showHeaderInfo(Util.getUser());
+                    // set Empty, to get all default info on  all fragments
+                    view.setFragmentByCategory("");
+                    return;
+                }
+
+                showLog("getiing info from - firebase");
+
+                //Call server worker here
+                view.showProgress(R.string.getting_user_info);
+
+                // get data from repository
+                usersRepository.getLoggedUser(instance);
             }
 
             @Override
@@ -57,52 +64,6 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
                 view.startLoginActivity();
             }
         });
-    }
-
-    @Override
-    public void initialize(Intent intent) {
-        showLog("MAINPRENSETER STARTED");
-
-        // Check if GooglePlayServices is avaliable and Installed
-        GoogleServices services = new GoogleServices((Activity) getContext());
-        if (!services.isGooglePlayServicesAvailable()) {
-            return;
-        }
-/*
-        // Check if we have an instance saved
-        if (savedState != null) {
-            usuario = savedState.getParcelable(Constants.EXTRA_USER);
-            showLog("show info from - savedState");
-            // Show Usuario data and reload and get posts
-            showUserInfoAndGetAllAppData(usuario);
-            return;
-        }*/
-
-   /*     // Check if the Activity sender, send an data
-        // And if the data sent is an Usuario data.
-        if (intent != null && intent.hasExtra(Constants.EXTRA_USER)) {
-            usuario = intent.getParcelableExtra(Constants.EXTRA_USER);
-            showLog("show info from - intent");
-            // Show Usuario data and reload and get posts
-            showUserInfoAndGetAllAppData(usuario);
-            return;
-        }*/
-
-        // Test only
-        if (Constants._DEVELOP_MODE) {
-            view.showHeaderInfo(Util.getUser());
-            // set Empty, to get all default info on  all fragments
-            view.setFragmentByCategory("");
-            return;
-        }
-
-        showLog("getiing info from - firebase");
-
-        //Call server worker here
-        view.showProgress(R.string.getting_user_info);
-
-        // get data from repository
-        usersRepository.getLoggedUser(this);
     }
 
     @Override
@@ -140,6 +101,9 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
         showLog("setting up all fragments...");
 
         view.showHeaderInfo(mUsuario);
+
+        //  Now tthat we fetch user data successful we can get and show all posts
+        view.showDefaultFragment();
 
         // set Empty, to get all default info on  all fragments
         view.setFragmentByCategory("");
@@ -208,5 +172,9 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
     public void onQuit() {
 
         view.quit();
+    }
+
+    public Contract.View getView() {
+        return view;
     }
 }

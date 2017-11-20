@@ -82,7 +82,6 @@ public class PrefsHelper {
     }
 
     public static void setName(String username) {
-        SharedPreferences.Editor editor = preferences.edit();
         editor.putString(KEY_USERNAME, username);
         editor.apply();
     }

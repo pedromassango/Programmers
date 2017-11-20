@@ -25,6 +25,5 @@ public interface PostsDataSource {
 
     void delete(Post post, Callbacks.IRequestCallback callback);
 
-    void handleCommentsPermission(String authorId, String postId, String category,
-                                  boolean commentsActive, final Callbacks.IRequestCallback callback);
+    void handleCommentsPermission(Post post, final Callbacks.IResultCallback<Post> callback);
 }

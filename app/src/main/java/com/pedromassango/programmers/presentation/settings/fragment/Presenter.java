@@ -145,7 +145,7 @@ class Presenter implements Contract.Presenter {
 
             case CATEGORY_QUIT:
                 // Logout user
-                model.logout();
+                view.logout();
                 break;
         }
 

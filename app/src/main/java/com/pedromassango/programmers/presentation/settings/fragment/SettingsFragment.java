@@ -16,6 +16,7 @@ import com.pedromassango.programmers.presentation.about.AboutActivity;
 import com.pedromassango.programmers.presentation.donate.DonateActivity;
 import com.pedromassango.programmers.presentation.policy.PrivacyPolicyDialogFragment;
 import com.pedromassango.programmers.presentation.reset.password.ResetPasswordDialogFragment;
+import com.pedromassango.programmers.server.logout.LogoutHadler;
 
 import java.util.Stack;
 
@@ -136,6 +137,12 @@ public class SettingsFragment extends PreferenceFragment implements Contract.Vie
                 .addToBackStack(null)
                 .replace(R.id.frame_layout, fragment, Contract.Presenter.CATEGORY_TAG)
                 .commit();
+    }
+
+    @Override
+    public void logout() {
+        new LogoutHadler(getContext())
+                .showAlertDialogLogout();
     }
 
     @Override

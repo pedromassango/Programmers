@@ -11,44 +11,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar"
-                app:layout_scrollFlags="scroll|enterAlways" />
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:itemIconTint="@color/black"
-            app:menu="@menu/bottombar_menu"
-            app:itemTextColor="@color/black" />
-
-
-        <FrameLayout
-            android:layout_above="@id/bottom_navigation"
-            android:layout_below="@id/toolbar"
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            app:itemIconTint="@color/colorPrimaryDark"
+            app:itemTextColor="@color/colorPrimaryDark"
+            app:menu="@menu/bottombar_menu" />
 
         <View
-            android:layout_above="@id/bottom_navigation"
-            android:layout_below="@id/frame_layout"
-            android:background="@android:color/darker_gray"
+            android:id="@+id/v1"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:layout_height="0.5dp"
+            android:layout_above="@id/bottom_navigation"
+            android:background="@android:color/darker_gray" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/v1"
+            android:layout_below="@id/toolbar" />
 
         <!--chamando o fab para ser mostrado-->
         <com.github.clans.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
             android:id="@+id/main_fab"
-            android:layout_above="@id/bottom_navigation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_navigation"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/size16dp"

@@ -111,8 +111,11 @@ class Presenter implements Contract.Presenter, Callbacks.IRequestCallback {
             return;
         }
 
-        String uriString = new Gson().toJson(imagePicked);
-        usuario.setUrlPhoto(uriString); // In repository will be converted back to URI
+        // Just set image if it was selected
+        if(imagePicked != null) {
+            String uriString = new Gson().toJson(imagePicked);
+            usuario.setUrlPhoto(uriString); // In repository will be converted back to URI
+        }
 
         usuario.setUsername(username);
         usuario.setEmail(email);

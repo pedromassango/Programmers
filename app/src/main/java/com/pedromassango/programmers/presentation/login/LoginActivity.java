@@ -17,6 +17,7 @@ import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.models.Usuario;
+import com.pedromassango.programmers.presentation.intro.IntroActivity;
 import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 import com.pedromassango.programmers.presentation.profile.edit.EditProfileActivity;
 import com.pedromassango.programmers.presentation.reset.password.ResetPasswordDialogFragment;
@@ -83,11 +84,15 @@ public class LoginActivity extends AppCompatActivity implements Contract.View {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+        // Presenter
+        presenter = new Presenter(this);
+        presenter.checkFirstTimeStatus();
+
+        super.onCreate(savedInstanceState); // Login activity start here
         setContentView(R.layout.activity_login);
         this.init();
 
-        presenter = new Presenter(this);
         presenter.initialize();
         presenter.configGoogleSigin();
     }
@@ -154,6 +159,12 @@ public class LoginActivity extends AppCompatActivity implements Contract.View {
 
         IntentUtils.startActivity(this, SignupActivity.class);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void stratIntroActivity() {
+        IntentUtils.startActivity(this, IntroActivity.class);
+        finish();
     }
 
     @Override

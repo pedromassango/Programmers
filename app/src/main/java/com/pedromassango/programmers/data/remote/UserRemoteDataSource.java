@@ -124,8 +124,13 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void saveUser(final Usuario usuario, final Callbacks.IRequestCallback callback) {
 
+        String urlPhoto = usuario.getUrlPhoto();
+
         // Check if there is image to save
-        if(usuario.getUrlPhoto() != null){
+        if(urlPhoto != null &&
+                !urlPhoto.isEmpty() &&
+                !urlPhoto.trim().startsWith("http")) // check if it is not an internet URL.
+        {
 
             // Convert back to Uri
             String uriString = usuario.getUrlPhoto();
@@ -146,6 +151,8 @@ public class UserRemoteDataSource implements UserDataSource {
                     callback.onError();
                 }
             });
+        }else{  //Just save without upload user image
+            saveOrUpdateUserProfile(usuario, callback);
         }
     }
 
@@ -178,6 +185,11 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     private void saveOrUpdateUserProfile(Usuario usuario, final Callbacks.IRequestCallback callback){
+        if(usuario.getId().isEmpty()){
+            String newUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            usuario.setId( newUserId);
+        }
+
         //Path to update the profile
         String userRef = AppRules.getUserRef(usuario.getId());
 
@@ -289,6 +301,7 @@ public class UserRemoteDataSource implements UserDataSource {
                         if(!dataSnapshot.exists()){
                             String photo = user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString();
                             usuario = new Usuario();
+                            usuario.setId( user.getUid());
                             usuario.setEmail( user.getEmail());
                             usuario.setUrlPhoto(  photo);
 

@@ -292,7 +292,7 @@ public class Worker {
         });
     }
 
-    public static void runPostViewsCountTransition(DatabaseReference postRef, final IErrorListener errorListener) {
+    public static void runPostViewsCountTransition(DatabaseReference postRef) {
         postRef.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {

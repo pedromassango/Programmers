@@ -93,11 +93,6 @@ class Presenter implements Contract.Presenter, Callbacks.IRequestCallback {
     }
 
     //SIGNUP SUCCEDED
-
-    public void onSuccess(Usuario usuario) {
-
-    }
-
     @Override
     public void onSuccess() {
         view.dismissProgressDialog();

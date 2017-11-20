@@ -14,12 +14,11 @@ import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
-import com.pedromassango.programmers.server.Library;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pedromassango.programmers.presentation.post.adapter.PostsAdapterTest.TAG;
+import static com.pedromassango.programmers.extras.Util.showLog;
 
 /**
  * Retrieve the user data from local or remote source.
@@ -53,18 +52,21 @@ public class UsersRepository implements UserDataSource {
     }
 
     public void getLoggedUser(final Callbacks.IResultCallback<Usuario> callback) {
-        final String loggedUserId = PrefsHelper.getInstance().getId();
+        final String loggedUserId = PrefsHelper.getId();
+        showLog("USER ID: " + loggedUserId);
+        showLog("USER ID: " + loggedUserId);
+        showLog("USER ID: " + loggedUserId);
 
-        getUserById(loggedUserId, new Callbacks.IResultCallback<Usuario>() {
+        localDataSource.getUserById(loggedUserId, new Callbacks.IResultCallback<Usuario>() {
             @Override
             public void onSuccess(Usuario loggedUser) {
 
                 // Saving session user info
                 PrefsHelper.setId(loggedUser.getId());
-                Log.v(TAG, "LOGGED USER ID: " + PrefsHelper.getId());
+                Log.v("logged_data", "LOGGED USER ID: " + PrefsHelper.getId());
 
                 PrefsHelper.setName(loggedUser.getUsername());
-                Log.v(TAG, "LOGGED USER NAME: " + PrefsHelper.getName());
+                Log.v("logged_data", "LOGGED USER NAME: " + PrefsHelper.getName());
 
                 PrefsHelper.setPhoto(loggedUser.getUrlPhoto());
 
@@ -74,7 +76,7 @@ public class UsersRepository implements UserDataSource {
 
             @Override
             public void onDataUnavailable() {
-                callback.onDataUnavailable();
+                remoteDataSource.getUserById( loggedUserId, callback);
             }
         });
     }
@@ -108,8 +110,8 @@ public class UsersRepository implements UserDataSource {
             public void onSuccess(List<Usuario> results) {
                 List<Usuario> temp = new ArrayList<>();
 
-                for(Usuario user : results){
-                    if(user.getFavoritesCategory().containsKey(category)){
+                for (Usuario user : results) {
+                    if (user.getFavoritesCategory().containsKey(category)) {
                         temp.add(user);
                     }
                 }
@@ -163,15 +165,15 @@ public class UsersRepository implements UserDataSource {
         });
     }
 
-    private void updateCacheAndLocal(List<Usuario> usuarios){
-        for(Usuario usuario : usuarios){
+    private void updateCacheAndLocal(List<Usuario> usuarios) {
+        for (Usuario usuario : usuarios) {
             localDataSource.saveUser(usuario, null);
         }
     }
 
     @Override
     public void checkLoggedInStatus(final Callbacks.IRequestCallback callback) {
-       remoteDataSource.checkLoggedInStatus(callback);
+        remoteDataSource.checkLoggedInStatus(callback);
     }
 
     @Override
@@ -180,8 +182,28 @@ public class UsersRepository implements UserDataSource {
     }
 
     @Override
-    public void login(String email, String password, Callbacks.IResultCallback<Usuario> callback) {
-        remoteDataSource.login(email, password, callback);
+    public void login(String email, String password, final Callbacks.IResultCallback<Usuario> callback) {
+        remoteDataSource.login(email, password, new Callbacks.IResultCallback<Usuario>() {
+            @Override
+            public void onSuccess(Usuario result) {
+
+                PrefsHelper.setPhoto(result.getUrlPhoto());
+                PrefsHelper.setName(result.getUsername());
+                PrefsHelper.setId(result.getId());
+
+                showLog("logged_data", "Name: " + result.getUsername());
+                showLog("logged_data", "Photo: " + result.getUrlPhoto());
+                showLog("logged_data", "Id: " + result.getId());
+
+                localDataSource.saveUser( result, null);
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
+            }
+        });
     }
 
     @Override
@@ -218,6 +240,10 @@ public class UsersRepository implements UserDataSource {
 
                 // update the user current info on local database
                 localDataSource.saveUser(usuario, null);
+
+                PrefsHelper.setName(usuario.getUsername());
+                PrefsHelper.setId(usuario.getId());
+                PrefsHelper.setPhoto(usuario.getUrlPhoto());
 
                 // notify the UI
                 callback.onSuccess();

@@ -54,6 +54,8 @@ class Contract {
         void showToast(String message);
 
         void setEmail(String lastEmail);
+
+        void stratIntroActivity();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{
@@ -73,5 +75,7 @@ class Contract {
         void leavingActivity();
 
         void initialize();
+
+        void checkFirstTimeStatus();
     }
 }

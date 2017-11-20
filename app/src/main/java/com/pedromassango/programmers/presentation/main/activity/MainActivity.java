@@ -84,17 +84,22 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        mainPresenter = new MainPresenter(this, RepositoryManager.getInstance()
-                .getUsersRepository());
-
-        // CHeck login,
-        mainPresenter.checkLogin();
-
-        super.onCreate(savedInstanceState);
+    public void showDefaultFragment() {
 
         // set the home item as default
         bottomNavigationView.setSelectedItemId(R.id.action_home);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainPresenter = new MainPresenter(
+                this,
+                RepositoryManager.getInstance()
+                .getUsersRepository());
+
+        // CHeck login, do initial work.
+        mainPresenter.init();
     }
 
     @Override
@@ -106,9 +111,6 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
     @Override
     protected void onResume() {
         super.onResume();
-
-        // start fetch user data
-        //mainPresenter.initialize(getIntent());
 
         // This will check if the device have
         // the apropriated Play Service version
@@ -225,7 +227,7 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
         BaseFragmentRecyclerView bf = (BaseFragmentRecyclerView)
                 getSupportFragmentManager().findFragmentById(R.id.frame_layout);
 
-        if (bf instanceof PostsFragment ||
+        if (bf instanceof PostsFragment || // Just filter if is Posts or users category
                 bf instanceof UsersFragment) {
             bf.reloadData(category);
         }

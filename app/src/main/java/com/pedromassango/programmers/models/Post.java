@@ -206,6 +206,14 @@ public class Post extends RealmObject implements Parcelable {
         return (new Gson().toJson(this));
     }
 
+    public void updateLikes(boolean like, String userId){
+        if(like){
+            likes.put( userId, true);
+        }else{
+            likes.remove(userId);
+        }
+    }
+
     public int getViews() {
         return views;
     }

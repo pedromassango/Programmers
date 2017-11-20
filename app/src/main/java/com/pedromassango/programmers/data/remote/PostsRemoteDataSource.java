@@ -243,12 +243,18 @@ public class PostsRemoteDataSource implements PostsDataSource {
     }
 
     @Override
-    public void handleCommentsPermission(String authorId, String postId, String category, boolean commentsActive, final Callbacks.IRequestCallback callback) {
+    public void handleCommentsPermission(final Post post, final Callbacks.IResultCallback<Post> callback) {
+
+        String authorId = post.getAuthorId();
+        String postId = post.getId();
+        boolean commentsActive = post.isCommentsActive();
+        String category = post.getCategory();
 
         Map<String, Object> childUpdates = new HashMap<>();
 
         // Always invert the data.
         commentsActive = !commentsActive;
+        post.setCommentsActive( commentsActive); // To update localy
 
         // Firebase rules
         category = CategoriesUtils.getCategory(category);
@@ -267,7 +273,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
                     public void onSuccess(Void aVoid) {
 
                         showLog("handleCommentsPermission SUCCESSFULL");
-                        callback.onSuccess();
+                        callback.onSuccess( post);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -275,7 +281,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
                     public void onFailure(@NonNull Exception e) {
 
                         showLog("handleCommentsPermission ERROR - " + e.getMessage());
-                        callback.onError();
+                        callback.onDataUnavailable();
                     }
                 });
     }

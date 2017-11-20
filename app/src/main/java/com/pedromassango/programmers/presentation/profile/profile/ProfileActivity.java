@@ -240,7 +240,6 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
 
         presenter.showNoPostsMessage();
     }
-    //END From PostsAdapter
 
     @Override
     public void startEditProfileActivity(Bundle b) {

@@ -67,7 +67,10 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
         tvEmpty = rootView.findViewById(R.id.tv_no_data);
         //tvEmpty.startAnimation( Util.Anim.blink());
 
-        recyclerView.setAdapter(adapter());
+        if(adapter() !=null) {
+            recyclerView.setAdapter(adapter());
+        }
+
         return rootView;
     }
 

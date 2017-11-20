@@ -17,8 +17,6 @@ class Contract {
 
     interface Model {
 
-        void logout();
-
         String getString(SettingsPreference settingsPreference);
 
         void setString(SettingsPreference settingsPreference, String newValue);
@@ -49,6 +47,8 @@ class Contract {
         void startShareAppIntent();
 
         void showResetPasswordFragment();
+
+        void logout();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{

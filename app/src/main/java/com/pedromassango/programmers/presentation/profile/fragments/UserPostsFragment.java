@@ -11,9 +11,7 @@ import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecyclerView;
-import com.pedromassango.programmers.presentation.post.adapter.PostsAdapter;
 import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
-import com.pedromassango.programmers.server.Library;
 
 import java.util.List;
 
@@ -34,7 +32,6 @@ public class UserPostsFragment extends BaseFragmentRecyclerView implements Callb
     protected RecyclerView.Adapter adapter() {
         adapterSimple = new PostsAdapterSimple(getActivity());
         return adapterSimple;
-        //return (new PostsAdapter(getActivity(), Library.getUserPostsRef(userId), this));
     }
 
     @Override

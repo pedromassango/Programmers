@@ -22,7 +22,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName '1.1.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -74,7 +74,6 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.firebaseui:firebase-ui-database:0.6.0'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.2'
-
     // External libs
     compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     compile 'de.hdodenhof:circleimageview:2.1.0'

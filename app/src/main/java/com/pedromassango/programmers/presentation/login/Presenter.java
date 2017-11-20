@@ -46,8 +46,13 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
     }
 
     @Override
-    public void initialize() {
+    public void checkFirstTimeStatus() {
+        if (PrefsHelper.isFirstTime())
+            view.stratIntroActivity();
+    }
 
+    @Override
+    public void initialize() {
         String lastEmail = PrefsHelper.readString(Constants.LAST_EMAIL);
         view.setEmail(lastEmail);
     }
@@ -69,7 +74,7 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
 
                         showLog("GOOGLE SIGN_IN ERROR: " + connectionResult);
 
-                       // view.showToast(getContext().getString(R.string.something_was_wrong));
+                        // view.showToast(getContext().getString(R.string.something_was_wrong));
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -93,8 +98,8 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
 
             if (requestCode == RC_SIGN_IN) {
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                showLog(" Google Sign In state: " +result.getStatus().getStatusMessage());
-                showLog(" Google Sign In state code: " +result.getStatus().getStatusCode());
+                showLog(" Google Sign In state: " + result.getStatus().getStatusMessage());
+                showLog(" Google Sign In state code: " + result.getStatus().getStatusCode());
 
                 if (result.isSuccess()) {
                     showLog(" Google Sign In success, update UI appropriately:");
@@ -163,15 +168,15 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
     public void onSuccess(Usuario result) {
         view.dismissProgressDialog();
 
-        if(result.getAccountComplete() == Constants.AcountStatus.INCOMPLETE){
+        if (result.getAccountComplete() == Constants.AcountStatus.INCOMPLETE) {
 
             // account need yo be updated
-            view.startEditProfileActivity( result);
+            view.startEditProfileActivity(result);
             return;
         }
 
         // user arleady have an profile updated
-        view.startMainActivity( result);
+        view.startMainActivity(result);
     }
 
     @Override

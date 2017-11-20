@@ -28,7 +28,7 @@ public class NavigationChat extends BaseFragmentRecyclerView {
      * @return the {@link ChatAdapter} that will show the chat list.
      */
     @Override
-    protected ChatAdapter adapter() {
+    protected RecyclerView.Adapter adapter() {
 
         // adding divider on list
         recyclerView.addItemDecoration(
@@ -36,7 +36,8 @@ public class NavigationChat extends BaseFragmentRecyclerView {
                 DividerItemDecoration.VERTICAL));
 
         DatabaseReference allUsersChatsRef = Library.getAllUsersChatsRef();
-        return (new ChatAdapter(getActivity(), allUsersChatsRef, this));
+        //return (new ChatAdapter(getActivity(), allUsersChatsRef, this));
+        return (null);
     }
 
     @Override

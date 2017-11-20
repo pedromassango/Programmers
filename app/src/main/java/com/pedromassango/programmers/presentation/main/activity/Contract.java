@@ -60,11 +60,13 @@ public class Contract {
         void openChatDrawer();
 
         void startLoginActivity();
+
+        void showDefaultFragment();
     }
 
-    interface Presenter extends BaseContract.PresenterImpl{
+    interface Presenter{
 
-        void initialize(Intent intent);
+        void init();
 
         void onLogoutClicked();
 
@@ -77,8 +79,6 @@ public class Contract {
         String getSkill(int skill);
 
         void onSaveInstanceState(Bundle outState);
-
-        void checkLogin();
     }
 
     interface OnDialogListener extends IDialogRetryListener {

@@ -30,7 +30,7 @@ import java.util.List;
 
 public class PostsAdapterSimple extends RecyclerView.Adapter<PostVH> implements Contract.View {
 
-    public static final String TAG = "PostsAdapter";
+    public static final String TAG = "PostsAdapterSimple";
 
     private List<Post> posts;
 
@@ -48,6 +48,22 @@ public class PostsAdapterSimple extends RecyclerView.Adapter<PostVH> implements 
         this.scale = activity.getResources().getDisplayMetrics().density;
     }
 
+    @Override
+    public void update(Post result) {
+        synchronized (PostsAdapterSimple.class){
+            posts.remove(result);
+            posts.add(result);
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void delete(Post result) {
+        synchronized (PostsAdapterSimple.class){
+            posts.remove(result);
+            notifyDataSetChanged();
+        }
+    }
 
     @Override
     public PostVH onCreateViewHolder(ViewGroup viewGroup, int i) {

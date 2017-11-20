@@ -137,32 +137,10 @@ public class PostsLocalDataSource implements PostsDataSource {
     }
 
     @Override
-    public void handleCommentsPermission(String authorId, String postId, String category, boolean commentsActive, Callbacks.IRequestCallback callback) {
-        Realm realm = Realm.getDefaultInstance();
-
-        try {
-            realm.beginTransaction(); // open a transation
-            Post p = realm.where(Post.class).equalTo("id", postId).findFirst();
-
-            if (p == null) {
-                if (callback != null)
-                    callback.onError();
-                return;
-            }
-
-            p.setCommentsActive(commentsActive);
-            realm.copyToRealmOrUpdate(p); // update the data
-            realm.commitTransaction(); // close the transation
-
-            if (callback != null)
-                callback.onSuccess();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-            if (callback != null)
-                callback.onError();
-        }
+    public void handleCommentsPermission( Post post, Callbacks.IResultCallback<Post> callback) {
+        update( post, null);
     }
+
 
     @Override
     public void update(Post post, Callbacks.IRequestCallback callback) {
@@ -201,11 +179,12 @@ public class PostsLocalDataSource implements PostsDataSource {
             post.deleteFromRealm(); // delete the data
             realm.commitTransaction(); // close the transation
 
-            // Retrieve the data
-            callback.onSuccess();
+            if (callback != null)
+                callback.onSuccess();
         } catch (Exception ex) {
             ex.printStackTrace();
-            callback.onError();
+            if (callback != null)
+                callback.onError();
         }
     }
 }

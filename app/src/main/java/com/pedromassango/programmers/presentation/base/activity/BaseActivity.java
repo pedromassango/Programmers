@@ -47,10 +47,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.setContentView(layoutResource());
         this.setupToolbar();
         this.initializeViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void setupToolbar() {

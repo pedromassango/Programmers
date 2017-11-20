@@ -37,6 +37,10 @@ public class Contract {
         void showAlertDialog(String error);
 
         void startCommentsActivity(Bundle bundle);
+
+        void update(Post result);
+
+        void delete(Post result);
     }
 
     public interface Presenter extends BaseContract.PresenterImpl, IErrorListener, IPostDeleteListener, ISaveListener {

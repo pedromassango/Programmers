@@ -18,6 +18,7 @@ import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.server.Library;
+import com.pedromassango.programmers.server.Worker;
 
 import java.util.HashMap;
 import java.util.List;
@@ -171,7 +172,7 @@ public class PostsRepository implements PostsDataSource {
         }
     }
 
-    public void increasePostViews(Post post, Callbacks.IRequestCallback callback) {
+    public void increasePostViews(Post post) {
         String postId = post.getId();
 
         DatabaseReference allPostRef = Library.getRootReference().child(AppRules.getAllPostsRef(postId));
@@ -179,32 +180,33 @@ public class PostsRepository implements PostsDataSource {
         DatabaseReference postByUserRef = Library.getRootReference().child(AppRules.getPostUserRef(post.getAuthorId(), postId));
 
         //TODO: work here.
-        //Worker.runPostViewsCountTransition(allPostRef, callback);
-        //Worker.runPostViewsCountTransition(PostByCategoryRef, callback);
-        //Worker.runPostViewsCountTransition(postByUserRef, callback);
+        Worker.runPostViewsCountTransition(allPostRef);
+        Worker.runPostViewsCountTransition(PostByCategoryRef);
+        Worker.runPostViewsCountTransition(postByUserRef);
 
         // Update the local post data
+        post.setViews( post.getViews() +1);
         localSource.update(post, null);
     }
 
     @Override
-    public void handleCommentsPermission(final String authorId, final String postId, final String category, final boolean commentsActive, final Callbacks.IRequestCallback callback) {
-        remoteSource.handleCommentsPermission(authorId, postId, category, commentsActive, new Callbacks.IRequestCallback() {
+    public void handleCommentsPermission(Post post, final Callbacks.IResultCallback<Post> callback) {
+        remoteSource.handleCommentsPermission(post, new Callbacks.IResultCallback<Post>() {
             @Override
-            public void onSuccess() {
-                localSource.handleCommentsPermission(authorId, postId, category, commentsActive, null);
+            public void onSuccess(Post post) {
+                localSource.handleCommentsPermission(post, null);
 
-                callback.onSuccess();
+                callback.onSuccess(post);
             }
 
             @Override
-            public void onError() {
-                callback.onError();
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
             }
         });
     }
 
-    public void handleLikes(final Callbacks.IRequestCallback callback, Post post, boolean like) {
+    public void handleLikes(final Post post, boolean like, final Callbacks.IResultCallback<Post> callback) {
 
         final String loggedUserId = PrefsHelper.getId();
         final String senderId = post.getAuthorId();
@@ -220,9 +222,13 @@ public class PostsRepository implements PostsDataSource {
         final Map<String, Object> likeValue = new HashMap<>();
         if (like) {
             likeValue.put(loggedUserId, Boolean.TRUE);
+
         } else {
             likeValue.put(loggedUserId, null);
         }
+
+        // update here to aply on data source localy
+        post.updateLikes(like, loggedUserId);
 
         // All posts reference
         String allPostsLikesRef = AppRules.getAllPostsLikesRef(postId);
@@ -245,13 +251,15 @@ public class PostsRepository implements PostsDataSource {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
-                        callback.onError();
+                        callback.onDataUnavailable();
                     }
                 })
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
+                        // update localy
+                        localSource.update(post, null);
 
                         // If is the sender that like they own post
                         // we do not need to increment the skills
@@ -259,21 +267,23 @@ public class PostsRepository implements PostsDataSource {
                             return;
 
                         // increment or decrement the senderPost skill
-                        DatabaseReference senderPostRef = Library.getUserRef(senderId);
-                        runReputationCountTransition(senderPostRef, true, true);
+                        runReputationCountTransition(senderId, true, true);
+                        callback.onSuccess(post);
                     }
                 });
     }
 
-    public static void runReputationCountTransition(DatabaseReference userRef,
+    public static void runReputationCountTransition(String userId,
                                                     final boolean increment, final boolean isPost) {
-        userRef.runTransaction(new Transaction.Handler() {
+
+        Library.getUserRef( userId).runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Usuario user = mutableData.getValue(Usuario.class);
                 if (user == null) {
                     return Transaction.success(mutableData);
                 }
+
                 int reputationCount = user.getReputation();
                 if (increment && isPost) {
                     reputationCount += ReputationConfigs.POST_INCREMENT;

@@ -128,6 +128,6 @@ public class UserLocalDataSource implements UserDataSource {
     @Override
     public void logout(Callbacks.IRequestCallback callback) {
 
-        //TODO: end session localy
+        // Ignored on local repository
     }
 }

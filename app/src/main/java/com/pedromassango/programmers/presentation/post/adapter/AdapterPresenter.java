@@ -6,12 +6,15 @@ import android.support.annotation.DrawableRes;
 import android.view.View;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.PostsRepository;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.ContextMenuItem;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.adapters.ContextMenuAdapter;
-import com.pedromassango.programmers.presentation.post.PostModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,14 +32,13 @@ public class AdapterPresenter implements Contract.Presenter {
 
     private Context context;
     private Contract.View view;
-    private PostModel postModel;
-    private final String loggedUserId;
+    private PostsRepository postsRepository;
+    //private final String loggedUserId;
 
     public AdapterPresenter(Context context, Contract.View view) {
         this.view = view;
         this.context = context;
-        this.postModel = new PostModel(this);
-        this.loggedUserId = postModel.getUserId();
+        postsRepository = RepositoryManager.getInstance().getPostsRepository();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class AdapterPresenter implements Contract.Presenter {
 
     @Override
     public String getUserId() {
-        return postModel.getUserId();
+        return PrefsHelper.getId();
     }
 
     /*
@@ -82,7 +84,7 @@ public class AdapterPresenter implements Contract.Presenter {
 //        if (votes.size() == 0)
 //            return color;
 
-        boolean participate = votes.containsKey(loggedUserId);
+        boolean participate = votes.containsKey(getUserId());
         return (participate) ? getContext().getResources().getColor(R.color.colorAccent)
                 :
                 getContext().getResources().getColor(R.color.primaryText);
@@ -102,9 +104,9 @@ public class AdapterPresenter implements Contract.Presenter {
 
         //TODO: make changes here
 
-        boolean currentUserPost = postAuthorId.equals(loggedUserId);
+        boolean currentUserPost = postAuthorId.equals( getUserId());
 
-        showLog(String.format("CURRENT_USER: %s  POST_USER: %s", loggedUserId, postAuthorId));
+        showLog(String.format("CURRENT_USER: %s  POST_USER: %s", getUserId(), postAuthorId));
 
         // If the current user is the author of the Post
         // The options is EDIT and DELETE
@@ -127,15 +129,14 @@ public class AdapterPresenter implements Contract.Presenter {
 
         // If sender is'nt the loggedUser then return
         // Perform Edit and Delete click
-        if (!(post.getAuthorId().equals(loggedUserId))) {
+        if (!(post.getAuthorId().equals(getUserId()))) {
             return;
         }
 
         switch (position) {
 
             case 0:
-                postModel.handleCommentsPermission(post.getAuthor(), post.getId(),
-                        post.getCategory(), post.isCommentsActive(), this);
+                postsRepository.handleCommentsPermission(post, postResultCallback());
                 break;
             case 1: // Edit Option
                 Bundle bundle = new Bundle();
@@ -145,7 +146,7 @@ public class AdapterPresenter implements Contract.Presenter {
 
             case 2: // Delete Option
                 view.showProgressDialog(getContext().getString(R.string.deleting_post));
-                postModel.deletePost(this, post);
+                postsRepository.delete(post, postDeleteResultCallback( post));
                 break;
         }
     }
@@ -162,20 +163,51 @@ public class AdapterPresenter implements Contract.Presenter {
     @Override
     public void onLikeClicked(Post post) {
         HashMap<String, Boolean> likes = post.getLikes();
-        boolean arleadyLiked = likes.containsKey(loggedUserId);
+        boolean arleadyLiked = likes.containsKey( getUserId());
 
         if (arleadyLiked)
-            postModel.handleLikes(this, post, false);
+            postsRepository.handleLikes(post, false, postResultCallback());
         else
-            postModel.handleLikes(this, post, true);
+            postsRepository.handleLikes(post, true, postResultCallback());
     }
+
+    private Callbacks.IRequestCallback postDeleteResultCallback(final Post post) {
+        return new Callbacks.IRequestCallback() {
+            @Override
+            public void onSuccess() {
+                view.delete(post);
+            }
+
+            @Override
+            public void onError() {
+
+                view.showToast(getContext().getString(R.string.something_was_wrong));
+            }
+        };
+    }
+
+    private Callbacks.IResultCallback<Post> postResultCallback() {
+        return new Callbacks.IResultCallback<Post>() {
+            @Override
+            public void onSuccess(Post result) {
+                view.update(result);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+
+                view.showToast(getContext().getString(R.string.something_was_wrong));
+            }
+        };
+    }
+
 
     @Override
     public void onCommentClicked(Post post) {
         Bundle b = new Bundle();
         b.putParcelable(Constants.EXTRA_POST, post);
 
-        postModel.increasePostViews(post, this);
+        postsRepository.increasePostViews(post);
         view.startCommentsActivity(b);
     }
 
@@ -214,7 +246,6 @@ public class AdapterPresenter implements Contract.Presenter {
     @Override
     public void onError() {
 
-        view.showToast(getContext().getString(R.string.something_was_wrong));
     }
 
     @Override
