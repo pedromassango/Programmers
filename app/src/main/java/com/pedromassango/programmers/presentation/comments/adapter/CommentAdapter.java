@@ -74,6 +74,11 @@ public class CommentAdapter extends FirebaseRecyclerAdapter<Comment,CommentVH> i
     }
 
     @Override
+    public void showToastError() {
+        Toast.makeText(activity, R.string.something_was_wrong, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void showProgessDialog(@StringRes int message) {
         progressDialog = new ProgressDialog(activity);
         progressDialog.setCancelable(false);

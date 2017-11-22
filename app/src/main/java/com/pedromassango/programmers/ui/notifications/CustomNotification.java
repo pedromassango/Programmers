@@ -70,17 +70,17 @@ public class CustomNotification {
 
     public CustomNotification setType(Comment comment) {
 
-        String author = Util.getFirstName(comment.getAuthor());
+        String author = comment.getAuthor();
         String title = context.getString(R.string.comments);
 
         // Check if the post author is the
         String currentUserId = PrefsHelper.getName();
-        String text = "";
-        /*String text = comment.getPostAuthorId().equals(currentUserId) ?
+        String text = comment.getPostAuthorId().equals(currentUserId) ?
                 Util.concat(author, context.getString(R.string.notification_current_user_text))
                 :
                 Util.concat(author, context.getString(R.string.notification_non_current_user_text));
-*/
+
+
         setTitleAndText(title, text, false);
 
         // Loading the sender image and set it as LargeIcon Notification

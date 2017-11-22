@@ -5,20 +5,15 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.pedromassango.programmers.AppRules;
-import com.pedromassango.programmers.config.ReputationConfigs;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Post;
-import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.server.Library;
 import com.pedromassango.programmers.server.Worker;
+import com.pedromassango.programmers.services.firebase.NotificationSender;
 
 import java.util.HashMap;
 import java.util.List;
@@ -267,60 +262,11 @@ public class PostsRepository implements PostsDataSource {
                             return;
 
                         // increment or decrement the senderPost skill
-                        runReputationCountTransition(senderId, true, true);
+                        Transations.runReputationCountTransition(senderId, true, true);
                         callback.onSuccess(post);
                     }
                 });
     }
-
-    public static void runReputationCountTransition(String userId,
-                                                    final boolean increment, final boolean isPost) {
-
-        Library.getUserRef( userId).runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                Usuario user = mutableData.getValue(Usuario.class);
-                if (user == null) {
-                    return Transaction.success(mutableData);
-                }
-
-                int reputationCount = user.getReputation();
-                if (increment && isPost) {
-                    reputationCount += ReputationConfigs.POST_INCREMENT;
-                } else if (!increment && isPost) {
-                    reputationCount -= ReputationConfigs.POST_DECREMENT;
-                } else if (increment) {
-                    reputationCount += ReputationConfigs.COMMENT_INCREMENT;
-                } else {
-                    reputationCount -= ReputationConfigs.COMMENT_DECREMENT;
-                }
-
-                String userCodeLevel = user.getCodeLevel();
-//TODO: verify this code
-                if (reputationCount < 375) { // user help less than 25 peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.beginner);
-                } else if (reputationCount >= 375 && reputationCount < 750) { // user help 25 peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.amauter);
-                } else if (reputationCount >= 750 && reputationCount < 1500) { // user help 50 peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.professional);
-                } else if (reputationCount >= 1500) { // user help more than 100 or more  peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.expert);
-                }
-
-                user.setReputation(reputationCount);
-                user.setCodeLevel(userCodeLevel);
-
-                mutableData.setValue(user);
-                return Transaction.success(mutableData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                showLog("update reputations complete: " + (databaseError != null));
-            }
-        });
-    }
-
 
     @Override
     public void search(final String query, final Callbacks.IResultsCallback<Post> callback) {
@@ -376,22 +322,27 @@ public class PostsRepository implements PostsDataSource {
     }
 
     @Override
-    public void save(final Post post, final Callbacks.IRequestCallback callback) {
-        remoteSource.save(post, new Callbacks.IRequestCallback() {
+    public void save(final Post post, final Callbacks.IResultCallback<Post> callback) {
+        remoteSource.save(post, new Callbacks.IResultCallback<Post>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(Post result) {
 
                 //TODO: Send an notification for all users
+                //save it localy
+                localSource.save(result, null);
 
-                //TODO: this post does not have an ID
-                localSource.save(post, null);
+                // subscribe this user to this POST, to receive notifications
+                NotificationSender.subscribe( result.getId());
 
-                callback.onSuccess();
+                // Send an notification for all users
+                NotificationSender.sendNotification(result);
+
+                callback.onSuccess( result);
             }
 
             @Override
-            public void onError() {
-                callback.onError();
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
             }
         });
     }

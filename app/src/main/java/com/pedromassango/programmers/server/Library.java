@@ -179,4 +179,8 @@ public class Library {
         }
         return notificationsRef;
     }
+
+    public static String generateId() {
+        return getRootReference().push().getKey();
+    }
 }

@@ -19,11 +19,9 @@ class Contract {
 
         void setCommentError(@StringRes int empty_text);
 
-        void showTextLoading(String message);
+        void showTextLoading();
 
         void onSendCommentSuccess();
-
-        void showToast(String error);
 
         void fetchComments(String postId);
 
@@ -32,6 +30,10 @@ class Contract {
         void setEditTextVisibility(int visibility);
 
         void bindViews(String postAuthor, String author, String category, String title, String body, String likes, String date);
+
+        void onSendError();
+
+        void showGetPostError();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{

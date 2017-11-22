@@ -266,4 +266,9 @@
     <string name="users">Pessoas</string>
     <string name="messages">Mensagens</string>
     <string name="update_profile_error_message">Impossível actualizar seus dados, verifique a internet.</string>
+    <string name="ops">Oops!</string>
+    <string name="post_not_found_message">Não foi possível encontrar oque procura, ou já foi eliminado. Verifique sua internet e tente novamente.</string>
+    <string name="notification_current_user_text">Comentou sua publicacão. Clicque para ver.</string>
+    <string name="notification_non_current_user_text">Comentou em uma publicacão, clique aqui para ver.</string>
+    <string name="posts_not_foud">A pesquisa não encotrou resultados.</string>
 </resources>

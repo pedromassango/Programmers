@@ -17,7 +17,7 @@ public interface PostsDataSource {
 
     void getById(String postId, Callbacks.IResultCallback<Post> callback);
 
-    void save(Post post, Callbacks.IRequestCallback callback);
+    void save(Post post, Callbacks.IResultCallback<Post> callback);
 
     void update(Post post, Callbacks.IRequestCallback callback);
 

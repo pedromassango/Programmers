@@ -136,7 +136,7 @@ public class AdapterPresenter implements Contract.Presenter {
         switch (position) {
 
             case 0:
-                postsRepository.handleCommentsPermission(post, postResultCallback());
+                postsRepository.handleCommentsPermission(post, postResultCallback(position));
                 break;
             case 1: // Edit Option
                 Bundle bundle = new Bundle();
@@ -146,7 +146,7 @@ public class AdapterPresenter implements Contract.Presenter {
 
             case 2: // Delete Option
                 view.showProgressDialog(getContext().getString(R.string.deleting_post));
-                postsRepository.delete(post, postDeleteResultCallback( post));
+                postsRepository.delete(post, postDeleteResultCallback( post, position));
                 break;
         }
     }
@@ -161,21 +161,21 @@ public class AdapterPresenter implements Contract.Presenter {
     }
 
     @Override
-    public void onLikeClicked(Post post) {
+    public void onLikeClicked(Post post, int position) {
         HashMap<String, Boolean> likes = post.getLikes();
         boolean arleadyLiked = likes.containsKey( getUserId());
 
         if (arleadyLiked)
-            postsRepository.handleLikes(post, false, postResultCallback());
+            postsRepository.handleLikes(post, false, postResultCallback( position));
         else
-            postsRepository.handleLikes(post, true, postResultCallback());
+            postsRepository.handleLikes(post, true, postResultCallback(position));
     }
 
-    private Callbacks.IRequestCallback postDeleteResultCallback(final Post post) {
+    private Callbacks.IRequestCallback postDeleteResultCallback(final Post post, final int position) {
         return new Callbacks.IRequestCallback() {
             @Override
             public void onSuccess() {
-                view.delete(post);
+                view.delete(post, position);
             }
 
             @Override
@@ -186,11 +186,11 @@ public class AdapterPresenter implements Contract.Presenter {
         };
     }
 
-    private Callbacks.IResultCallback<Post> postResultCallback() {
+    private Callbacks.IResultCallback<Post> postResultCallback(final int position) {
         return new Callbacks.IResultCallback<Post>() {
             @Override
             public void onSuccess(Post result) {
-                view.update(result);
+                view.update(result, position);
             }
 
             @Override

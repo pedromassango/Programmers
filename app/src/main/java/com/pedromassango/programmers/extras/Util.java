@@ -283,4 +283,8 @@ public class Util {
         }
         return false;
     }
+
+    public static long getTime() {
+        return System.currentTimeMillis();
+    }
 }

@@ -1,5 +1,6 @@
 package com.pedromassango.programmers.presentation.adapters.holders;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -23,8 +24,11 @@ public class NotificationVH extends RecyclerView.ViewHolder {
         tvDescription = view.findViewById(R.id.tv_description);
     }
 
-    public void bindViews(Notification notification) {
+    public void bindViews(Notification notification, Activity activity) {
         tvDate.setText(Util.getTimeAgo(notification.getTimestamp()));
-        tvDescription.setText(String.valueOf(notification.getDescription()));
+
+        String notificationDescription =
+                String.format("%s %s", notification.getAuthor(), activity.getString(R.string.notification_current_user_text));
+        tvDescription.setText(String.valueOf(notificationDescription));
     }
 }

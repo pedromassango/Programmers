@@ -23,7 +23,6 @@ public class Notification extends RealmObject implements Parcelable {
     private String authorId;
     private String toUserId;
     private String postId;
-    private String description;
     private long timestamp;
 
 
@@ -33,7 +32,6 @@ public class Notification extends RealmObject implements Parcelable {
         authorId = in.readString();
         toUserId = in.readString();
         postId = in.readString();
-        description = in.readString();
         timestamp = in.readLong();
     }
 
@@ -44,7 +42,6 @@ public class Notification extends RealmObject implements Parcelable {
         dest.writeString(authorId);
         dest.writeString(toUserId);
         dest.writeString(postId);
-        dest.writeString(description);
         dest.writeLong(timestamp);
     }
 
@@ -72,23 +69,22 @@ public class Notification extends RealmObject implements Parcelable {
         map.put("author", author);
         map.put("toUserId", toUserId);
         map.put("postId", postId);
-        map.put("description", description);
         map.put("timestamp", timestamp);
         return map;
     }
+
 
     public Notification() {
 
     }
 
 
-    public Notification(String id, String authorId, String author, String toUserId, String postId, String description, long timestamp) {
+    public Notification(String id, String authorId, String author, String toUserId, String postId, long timestamp) {
         this.id = id;
         this.authorId = authorId;
         this.author = author;
         this.toUserId = toUserId;
         this.postId = postId;
-        this.description = description;
         this.timestamp = timestamp;
     }
 
@@ -114,14 +110,6 @@ public class Notification extends RealmObject implements Parcelable {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public long getTimestamp() {

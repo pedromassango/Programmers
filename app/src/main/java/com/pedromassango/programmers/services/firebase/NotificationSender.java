@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class NotificationSender {
 
-    /*// My Firebase sender id
+    // My Firebase sender id
     private static final String SENDER_ID = "781049805208";
 
     private static FirebaseMessaging firebaseMessaging = Library.getFirebaseMessaging();
@@ -46,9 +46,9 @@ public class NotificationSender {
         firebaseMessaging.send(builder.build());
     }
 
-    public static void subscribe(String s) {
+    public static void subscribe(String topic) {
 
-        firebaseMessaging.subscribeToTopic(s);
+        firebaseMessaging.subscribeToTopic(topic);
     }
 
     public static void unsubscribe(String s) {
@@ -59,5 +59,5 @@ public class NotificationSender {
     private static String getNotificationId() {
 
         return String.valueOf(System.currentTimeMillis() / 100);
-    }*/
+    }
 }

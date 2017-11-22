@@ -57,6 +57,8 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
     public void reloadData(String category) {
         PostsRepository repo = RepositoryManager.getInstance().getPostsRepository();
 
+        Log.v(TAG, "reloadData");
+
         if(TextUtils.isEmpty(category)){
             filterAction = false;
             repo.getAll(this);
@@ -68,6 +70,8 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
 
     @Override
     public void onSuccess(List<Post> results) {
+        Log.v(TAG, "onSuccess: " +results.size());
+
         postsAdapterSimple.add(results);
 
         showRecyclerView();
@@ -75,6 +79,8 @@ public class PostsFragment extends BaseFragmentRecyclerView implements Callbacks
 
     @Override
     public void onDataUnavailable() {
+        Log.v(TAG, "onDataUnavailable ");
+
         if(filterAction){
             showToast(getString(R.string.nothing_to_show));
         }else {

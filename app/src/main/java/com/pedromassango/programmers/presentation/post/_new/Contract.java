@@ -36,10 +36,10 @@ class Contract {
 
         void onSuccess();
 
-        void onError(String error);
+        void onError();
     }
 
-    interface Presenter extends BaseContract.PresenterImpl, INewPostListener {
+    interface Presenter extends BaseContract.PresenterImpl {
 
         void initialize(Intent intent);
 
@@ -48,7 +48,6 @@ class Contract {
         void publishPostClicked();
 
         void onActivityResult(int requestCode, int resultCode, Intent data);
-
 
         void clearCurrentSelectedImageClicked();
     }

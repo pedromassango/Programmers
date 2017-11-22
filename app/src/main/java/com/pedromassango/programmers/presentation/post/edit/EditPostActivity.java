@@ -102,9 +102,9 @@ public class EditPostActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void showFailDialog( String message) {
+    public void showFailDialog() {
 
-        new FailDialog(this, message, true)
+        new FailDialog(this, getString(R.string.something_was_wrong), true)
                 .show();
     }
 

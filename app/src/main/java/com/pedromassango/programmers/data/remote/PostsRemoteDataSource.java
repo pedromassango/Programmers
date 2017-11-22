@@ -185,7 +185,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
     }
 
     @Override
-    public void save(Post post, Callbacks.IRequestCallback callback) {
+    public void save(Post post, Callbacks.IResultCallback<Post> callback) {
         String postImage = post.getImgUrl();
 
         // Check if there is an image
@@ -323,7 +323,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
                 });
     }
 
-    private void publishPost(Post post, final Callbacks.IRequestCallback callback) {
+    private void publishPost(final Post post, final Callbacks.IResultCallback<Post> callback) {
 
         //Generate a new Post ID
         DatabaseReference postDb = Library.getAllPostsRef();
@@ -354,17 +354,17 @@ public class PostsRemoteDataSource implements PostsDataSource {
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (!task.isSuccessful()) {
-                            callback.onError();
+                            callback.onDataUnavailable();
                             return;
                         }
 
                         // notify the callback
-                        callback.onSuccess();
+                        callback.onSuccess(post);
                     }
                 });
     }
 
-    private void publishPostWithImage(final Post post, Uri imageUri, final Callbacks.IRequestCallback callback) {
+    private void publishPostWithImage(final Post post, Uri imageUri, final Callbacks.IResultCallback<Post> callback) {
         //Uploading Image
         String postCategory = post.getCategory();
         FirebaseStorage postsImagesStorage = Library.getImageProfilesStorage();
@@ -378,7 +378,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
-                callback.onError();
+                callback.onDataUnavailable();
             }
         })
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

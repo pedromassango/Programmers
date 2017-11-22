@@ -31,9 +31,10 @@ class Contract {
         void setTvEmptyVisibility(int gone);
 
         void setTvEmptyMessage(String string);
+        void showNotFOundMessage();
     }
 
-    interface Presenter extends BaseContract.PresenterImpl, IGetPostsListener {
+    interface Presenter extends BaseContract.PresenterImpl {
 
         void handlerSearch(Intent intent);
 

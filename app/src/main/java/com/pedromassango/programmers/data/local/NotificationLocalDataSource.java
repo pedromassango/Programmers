@@ -14,6 +14,15 @@ import io.realm.Realm;
 
 public class NotificationLocalDataSource implements NotificationDataSOurce {
 
+    private static NotificationLocalDataSource INSTANCE = null;
+
+    public static NotificationLocalDataSource getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new NotificationLocalDataSource();
+        }
+        return INSTANCE;
+    }
+
     @Override
     public void get(String postId, Callbacks.IResultsCallback<Notification> callback) {
         Realm realm = Realm.getDefaultInstance();

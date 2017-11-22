@@ -23,7 +23,7 @@ class Contract {
 
         void fillViews(Post post, int categoryPosition);
 
-        void showFailDialog(@StringRes String message);
+        void showFailDialog();
 
         void showProgress(@StringRes int message);
 
@@ -38,7 +38,7 @@ class Contract {
         void showToast(@StringRes int message);
     }
 
-    interface Presenter extends BaseContract.PresenterImpl, IUpdateListener {
+    interface Presenter extends BaseContract.PresenterImpl {
 
         void initialize(Intent intent, Bundle savedInstanceState);
 

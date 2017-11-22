@@ -9,18 +9,24 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by root on 15-11-2016.
  */
 @IgnoreExtraProperties
-public class Comment implements Parcelable {
+public class Comment extends RealmObject implements Parcelable {
 
+    @PrimaryKey
     private String id;
     private String author;
     private String authorId;
     private String authorUrlPhoto;
     private String postId;
     private String text;
+    @Ignore
     private Map<String, Boolean> votes;
     private long timestamp;
     private String postCategory;

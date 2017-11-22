@@ -95,7 +95,7 @@ public class PostVH extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
 
-                adapterPresenter.onLikeClicked(post);
+                adapterPresenter.onLikeClicked(post, getAdapterPosition());
             }
         });
 

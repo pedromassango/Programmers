@@ -95,6 +95,10 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
         edtText.setVisibility(visibility);
     }
 
+    @Override
+    public void showGetPostError() {
+        showAlertDialog(R.string.ops, R.string.post_not_found_message);
+    }
 
     @Override
     public String getComment() {
@@ -108,10 +112,10 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void showTextLoading(String message) {
+    public void showTextLoading() {
         recyclerView.setVisibility(View.GONE);
         tvEmpty.setVisibility(View.VISIBLE);
-        tvEmpty.setText(message);
+        tvEmpty.setText(getString(R.string.a_carregar));
     }
 
     @Override
@@ -122,14 +126,13 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void onSendCommentSuccess() {
+    public void onSendError() {
 
-        edtText.setText("");
     }
 
     @Override
-    public void showToast(String error) {
+    public void onSendCommentSuccess() {
 
-        super.showToastMessage(error);
+        edtText.setText("");
     }
 }

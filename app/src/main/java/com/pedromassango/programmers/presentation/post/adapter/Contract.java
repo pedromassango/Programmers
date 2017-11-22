@@ -38,9 +38,9 @@ public class Contract {
 
         void startCommentsActivity(Bundle bundle);
 
-        void update(Post result);
+        void update(Post result, int position);
 
-        void delete(Post result);
+        void delete(Post result, int position);
     }
 
     public interface Presenter extends BaseContract.PresenterImpl, IErrorListener, IPostDeleteListener, ISaveListener {
@@ -69,7 +69,7 @@ public class Contract {
 
         void onCommentClicked(Post post);
 
-        void onLikeClicked(Post post);
+        void onLikeClicked(Post post, int position);
 
         String getUserId();
     }

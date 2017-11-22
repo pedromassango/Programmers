@@ -37,7 +37,6 @@ public class PostsAdapterSimple extends RecyclerView.Adapter<PostVH> implements 
     private final Activity activity;
     private final float scale;
     // Save the notify status of IGetDataCompleteListener.
-    private boolean notified;
     private ProgressDialog progressDialog;
     private AdapterPresenter adapterPresenter;
 
@@ -49,25 +48,25 @@ public class PostsAdapterSimple extends RecyclerView.Adapter<PostVH> implements 
     }
 
     @Override
-    public void update(Post result) {
+    public void update(Post result, int position) {
         synchronized (PostsAdapterSimple.class){
             posts.remove(result);
-            posts.add(result);
+            posts.add(position, result);
             notifyDataSetChanged();
         }
     }
 
     @Override
-    public void delete(Post result) {
+    public void delete(Post result, int position) {
         synchronized (PostsAdapterSimple.class){
-            posts.remove(result);
+            posts.remove(position);
             notifyDataSetChanged();
         }
     }
 
     @Override
     public PostVH onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(activity).inflate(R.layout.row_post, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_post, viewGroup, false);
         return (new PostVH(v));
     }
 

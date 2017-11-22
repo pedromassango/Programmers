@@ -118,7 +118,7 @@ public class PostsLocalDataSource implements PostsDataSource {
     }
 
     @Override
-    public void save(Post post, Callbacks.IRequestCallback callback) {
+    public void save(Post post, Callbacks.IResultCallback<Post> callback) {
         Realm realm = Realm.getDefaultInstance();
 
         try {
@@ -127,24 +127,24 @@ public class PostsLocalDataSource implements PostsDataSource {
             realm.commitTransaction(); // close the transation
 
             if (callback != null)
-                callback.onSuccess();
+                callback.onSuccess(post);
         } catch (Exception ex) {
             ex.printStackTrace();
 
             if (callback != null)
-                callback.onError();
+                callback.onDataUnavailable();
         }
     }
 
     @Override
-    public void handleCommentsPermission( Post post, Callbacks.IResultCallback<Post> callback) {
-        update( post, null);
+    public void handleCommentsPermission(Post post, Callbacks.IResultCallback<Post> callback) {
+        update(post, null);
     }
 
 
     @Override
     public void update(Post post, Callbacks.IRequestCallback callback) {
-        save(post, callback);
+        save(post, null);
     }
 
     @Override

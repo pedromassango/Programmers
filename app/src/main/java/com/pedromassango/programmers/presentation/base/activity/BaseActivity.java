@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -127,6 +128,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         progressDialog.setMessage(getString(message));
         progressDialog.show();
+    }
+
+    public void showAlertDialog(@StringRes int title, @StringRes int message){
+        AlertDialog.Builder b = new AlertDialog.Builder(getApplicationContext());
+        b.setCancelable( true);
+        b.setTitle( title);
+        b.setMessage( message);
+        b.setPositiveButton(R.string.str_ok, null);
+
+        AlertDialog dialog = b.create();
+        dialog.show();
     }
 
     protected final void showProgressDialog(String message) {

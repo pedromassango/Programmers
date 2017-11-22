@@ -16,6 +16,16 @@ import java.util.List;
  */
 
 public class NotificationRemoteDataSource implements NotificationDataSOurce {
+
+    private static NotificationRemoteDataSource INSTANCE = null;
+
+    public static NotificationRemoteDataSource getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new NotificationRemoteDataSource();
+        }
+        return INSTANCE;
+    }
+
     @Override
     public void get(String userId, final Callbacks.IResultsCallback<Notification> callback) {
         Library.getNotificationsRef(userId)

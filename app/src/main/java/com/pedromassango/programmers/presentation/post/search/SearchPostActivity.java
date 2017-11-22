@@ -131,6 +131,11 @@ public class SearchPostActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
+    public void showNotFOundMessage() {
+        setTvEmptyMessage( getString(R.string.posts_not_foud));
+    }
+
+    @Override
     public void showToast(String message) {
 
         super.showToastMessage(message);

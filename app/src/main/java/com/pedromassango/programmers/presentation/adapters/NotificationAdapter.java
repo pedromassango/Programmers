@@ -33,7 +33,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationVH> {
     public void onBindViewHolder(NotificationVH notificationVH, int i) {
         Notification notification = notifications.get(i);
 
-        notificationVH.bindViews(notification);
+        notificationVH.bindViews(notification, activity);
     }
 
     @Override
