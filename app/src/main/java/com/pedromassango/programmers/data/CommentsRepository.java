@@ -1,5 +1,6 @@
 package com.pedromassango.programmers.data;
 
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Comment;
 import com.pedromassango.programmers.models.Notification;
@@ -41,8 +42,12 @@ public class CommentsRepository implements CommentsDataSource {
 
                 localDataSource.send(comment, notification, null);
 
-                // subscribe this user to this POST, to receive notifications
-                NotificationSender.subscribe( comment.getPostId());
+                // Only subscribe if the current user is not the author of this comment
+                if(!comment.getPostAuthorId().equals(PrefsHelper.getId())) {
+
+                    // subscribe this user to this POST, to receive notifications
+                    NotificationSender.subscribe(comment.getPostId());
+                }
 
                 // send notification to all users that was commented here
                 NotificationSender.sendNotification(comment);

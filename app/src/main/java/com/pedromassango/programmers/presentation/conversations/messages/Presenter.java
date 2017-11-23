@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.interfaces.IErrorListener;
+import com.pedromassango.programmers.data.MessageRepository;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.Transations;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.interfaces.IPresenceLIstener;
 import com.pedromassango.programmers.models.Contact;
 import com.pedromassango.programmers.models.Message;
-import com.pedromassango.programmers.presentation.conversations.ConversationModel;
+import com.pedromassango.programmers.server.Library;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_FRIEND_CONTACT;
 
@@ -18,15 +22,16 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_FRIEND_CONTAC
  * Created by Pedro Massango on 26/05/2017.
  */
 
-public class Presenter implements Contract.Presenter, IErrorListener, IPresenceLIstener {
+public class Presenter implements Contract.Presenter, IPresenceLIstener, Callbacks.IRequestCallback {
 
     private Contract.View view;
-    private ConversationModel model;
+    private MessageRepository repository;
     private Contact friendContact;
 
     public Presenter(Contract.View view) {
         this.view = view;
-        this.model = new ConversationModel(this);
+        this.repository = RepositoryManager.getInstance()
+                .getMessageRepository();
     }
 
     @Override
@@ -42,7 +47,7 @@ public class Presenter implements Contract.Presenter, IErrorListener, IPresenceL
         view.setActivityTitle(friendContact.getUsername());
         view.handleMessages(friendContact.getUserId());
 
-        model.handleFriendPresence(friendContact.getUserId(), this);
+        Transations.handleUserPresence(friendContact.getUserId(), this);
     }
 
     @Override
@@ -54,20 +59,25 @@ public class Presenter implements Contract.Presenter, IErrorListener, IPresenceL
             return;
         }
 
-        // Clear the current message
-        view.clearTypedText();
-
         Message message = new Message();
         message.setText(text);
-        message.setAuthorId(model.getUserId());
-        message.setAuthor(model.getUsername());
+        message.setId(Library.generateId());
+        message.setAuthorId(PrefsHelper.getId());
+        message.setAuthor(PrefsHelper.getName());
         message.setReceiverId(friendContact.getUserId());
         message.setReceiverName(friendContact.getUsername());
         message.setTimestamp(System.currentTimeMillis());
 
-        model.sendMessage(message, this);
+        repository.send(message, this);
     }
 
+
+    @Override
+    public void onSuccess() {
+
+        // Clear the current message
+        view.clearTypedText();
+    }
 
     @Override
     public void onError() {

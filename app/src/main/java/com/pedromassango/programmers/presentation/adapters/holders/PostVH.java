@@ -1,6 +1,8 @@
 package com.pedromassango.programmers.presentation.adapters.holders;
 
+import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -70,6 +72,9 @@ public class PostVH extends RecyclerView.ViewHolder {
         mComments.setText(commentsCount);
         mViews.setText(viewsCount);
         btnLike.setTextColor(likeButtonTextColor);
+
+        //Detect links, to perfomr actions
+        LinkifyCompat.addLinks(mBody, Linkify.ALL);
 
         // Breaking MVP patterns
         if (!post.isCommentsActive()) {

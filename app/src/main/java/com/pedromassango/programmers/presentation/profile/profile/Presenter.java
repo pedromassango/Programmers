@@ -71,7 +71,7 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
         //TODO: remove this comments
         if (usuario.getId().equals(PrefsHelper.getId())) {
             view.setButtonEditVisibility(View.VISIBLE);
-//            view.setButtonMessageVisibility(View.GONE);
+            view.setButtonMessageVisibility(View.GONE);
 //            view.setButtonCallVisibility(View.GONE);
             view.setButtonEmailVisibility(View.GONE);
 //

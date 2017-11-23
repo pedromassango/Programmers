@@ -46,6 +46,10 @@ public class PostsRepository implements PostsDataSource {
         return INSTANCE;
     }
 
+    public void invalidate(){
+        INSTANCE = null;
+    }
+
     @Override
     public void getAll(final Callbacks.IResultsCallback<Post> callback) {
         localSource.getAll(new Callbacks.IResultsCallback<Post>() {
@@ -376,5 +380,9 @@ public class PostsRepository implements PostsDataSource {
                 callback.onError();
             }
         });
+    }
+
+    public void updateLocaly(Post post) {
+        localSource.update(post, null);
     }
 }

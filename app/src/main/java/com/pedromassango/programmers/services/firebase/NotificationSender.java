@@ -100,7 +100,9 @@ public class NotificationSender {
 
         JSONObject json = new JSONObject();
         json.put("to", "/topics/" + topic);
-        json.put(Constants.FCM_DATA, data);
+        JSONObject info = new JSONObject();
+        info.put(Constants.FCM_DATA, data);
+        json.put("notification", data);
 
         OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 

@@ -82,9 +82,9 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
             @Override
             public void onClick(View v) {
 
-                ProfileActivity.super.showToastMessage(R.string.funtionality_off);
-                //TODO: funtionality_off - Send Message
-                //presenter.onSendMessageClicked();
+                //ProfileActivity.super.showToastMessage(R.string.funtionality_off);
+
+                presenter.onSendMessageClicked();
             }
         });
 

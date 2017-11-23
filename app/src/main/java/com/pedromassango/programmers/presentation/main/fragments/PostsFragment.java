@@ -15,6 +15,7 @@ import com.pedromassango.programmers.presentation.base.fragment.BaseFragmentRecy
 import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
 import com.pedromassango.programmers.extras.TextUtils;
 
+import java.util.Collection;
 import java.util.List;
 
 /**

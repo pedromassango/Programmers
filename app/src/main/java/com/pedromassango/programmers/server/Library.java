@@ -7,6 +7,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pedromassango.programmers.AppRules;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 
 /**
@@ -127,7 +128,7 @@ public class Library {
 
         return getRootReference()
                 .child(AppRules.USER_MESSAGES)
-                .child(getUserId())
+                .child(PrefsHelper.getId())
                 .child(friendId);
     }
     // Messages

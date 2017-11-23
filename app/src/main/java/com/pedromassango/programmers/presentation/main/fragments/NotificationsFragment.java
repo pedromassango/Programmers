@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.NotificationRepository;
 import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.interfaces.Callbacks;
@@ -20,9 +21,10 @@ import java.util.List;
  * Created by Pedro Massango on 14/06/2017 at 18:57.
  */
 
-public class NotificationsFragment extends BaseFragmentRecyclerView implements Callbacks.IResultsCallback<Notification> {
+public class NotificationsFragment extends BaseFragmentRecyclerView implements Callbacks.IResultsCallback<Notification>,Callbacks.IDeleteListener<Notification> {
 
     private NotificationAdapter notificationAdapter;
+    private NotificationRepository notificationRepository;
 
     @Override
     protected void setup(Bundle bundle) {
@@ -36,7 +38,7 @@ public class NotificationsFragment extends BaseFragmentRecyclerView implements C
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                         DividerItemDecoration.VERTICAL));
 
-        notificationAdapter = new NotificationAdapter(getActivity());
+        notificationAdapter = new NotificationAdapter(getActivity(), this);
         return (notificationAdapter);
     }
 
@@ -46,9 +48,11 @@ public class NotificationsFragment extends BaseFragmentRecyclerView implements C
 
         showTextError(R.string.a_carregar);
 
-        RepositoryManager.getInstance()
-                .getNotificationRepository()
-                .get(PrefsHelper.getId(), this);
+        notificationRepository = RepositoryManager.getInstance()
+                .getNotificationRepository();
+
+        // Fetch all notifications
+        notificationRepository.get(PrefsHelper.getId(), this);
     }
 
     @Override
@@ -67,5 +71,21 @@ public class NotificationsFragment extends BaseFragmentRecyclerView implements C
     @Override
     public void onDataUnavailable() {
         showTextError(R.string.nothing_to_show);
+    }
+
+    @Override
+    public void delete(final Notification item) {
+        notificationRepository.delete(item, new Callbacks.IResultCallback<Notification>() {
+            @Override
+            public void onSuccess(Notification result) {
+
+                notificationAdapter.remove(item);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                showToast(getString(R.string.something_was_wrong));
+            }
+        });
     }
 }

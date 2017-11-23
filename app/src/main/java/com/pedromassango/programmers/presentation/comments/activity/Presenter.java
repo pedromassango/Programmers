@@ -3,7 +3,6 @@ package com.pedromassango.programmers.presentation.comments.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.pedromassango.programmers.R;
@@ -24,7 +23,7 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_POST;
  * Created by Pedro Massango on 22-02-2017 1:12.
  */
 
-public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback, Callbacks.IResultCallback<Post> {
+public class Presenter implements Contract.Presenter, Callbacks.IRequestCallback, Callbacks.IResultCallback<Post> {
 
     private Post post = null;
     private Contract.View view;
@@ -65,13 +64,13 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
         // So we receive just the Post ID, and we need to load Post data.
         if (intent.hasExtra(Constants.EXTRA_POST_ID)) {
             String postId = intent.getStringExtra(Constants.EXTRA_POST_ID);
-            Log.i("output", "received post id: " +postId);
+            Log.i("output", "received post id: " + postId);
 
             // Get the post data from server
             view.showTextLoading();
             RepositoryManager.getInstance()
                     .getPostsRepository()
-                    .getById( postId, this);
+                    .getById(postId, this);
         }
     }
 
@@ -110,24 +109,24 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
 
         Comment comment = new Comment();
         comment.setText(text);
-        comment.setId( Library.generateId());
+        comment.setId(Library.generateId());
         comment.setPostId(post.getId());
         comment.setPostAuthorId(post.getAuthorId());
         comment.setPostCategory(post.getCategory());
-        comment.setAuthorId( userId);
-        comment.setAuthor( username);
-        comment.setAuthorUrlPhoto( userPhoto);
+        comment.setAuthorId(userId);
+        comment.setAuthor(username);
+        comment.setAuthorUrlPhoto(userPhoto);
         comment.setTimestamp(currentTime);
 
         Notification n = new Notification();
-        n.setId( String.valueOf( Util.getTime()));
-        n.setAuthor( username);
-        n.setAuthorId( userId);
-        n.setToUserId( post.getAuthorId());
-        n.setPostId( post.getId());
-        n.setTimestamp( currentTime);
+        n.setId(String.valueOf(Util.getTime()));
+        n.setAuthor(username);
+        n.setAuthorId(userId);
+        n.setToUserId(post.getAuthorId());
+        n.setPostId(post.getId());
+        n.setTimestamp(currentTime);
 
-        model.send(comment,n, this);
+        model.send(comment, n, this);
     }
 
     @Override
@@ -146,7 +145,7 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
     public void onSuccess(Post result) {
         // Will show the post info
         // And load all comments from this post
-        showPostInfo(post);
+        showPostInfo(result);
     }
 
     @Override
@@ -157,6 +156,7 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
 
     @Override
     public void onSuccess() {   // send comment success
+
         view.onSendCommentSuccess();
     }
 

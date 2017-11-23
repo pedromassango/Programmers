@@ -249,13 +249,13 @@ public class AdapterPresenter implements Contract.Presenter {
     }
 
     @Override
-    public void onPostDeleteSuccess() {
+    public void onDeleteSuccess() {
         view.dismissProgressDialog();
         view.showToast(getContext().getString(R.string.post_deleted_successfull));
     }
 
     @Override
-    public void onPostDeleteError(String error) {
+    public void onDeleteError(String error) {
 
         view.dismissProgressDialog();
         view.showAlertDialog(error);

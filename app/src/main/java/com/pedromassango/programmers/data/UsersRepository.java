@@ -230,6 +230,10 @@ public class UsersRepository implements UserDataSource {
         });
     }
 
+    public  void updateLoggedUser(Usuario usuario){
+        localDataSource.saveUser(usuario,  null);
+    }
+
     @Override
     public void saveUser(final Usuario usuario, final Callbacks.IRequestCallback callback) {
 

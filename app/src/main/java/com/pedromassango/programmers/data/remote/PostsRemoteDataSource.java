@@ -54,6 +54,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
     @Override
     public void getAll(final Callbacks.IResultsCallback<Post> callback) {
         Library.getAllPostsRef()
+                .orderByChild("timestamp")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,6 +88,7 @@ public class PostsRemoteDataSource implements PostsDataSource {
     @Override
     public void getByUser(String authorId, final Callbacks.IResultsCallback<Post> callback) {
         Library.getUserPostsRef( authorId)
+                .orderByChild("timestamp")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,6 +127,8 @@ public class PostsRemoteDataSource implements PostsDataSource {
         showLog("searchPosts");
 
         Library.getPostsByCategoryRef(category)
+                .orderByChild("timestamp")
+                //.limitToFirst(50)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

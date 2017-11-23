@@ -5,8 +5,8 @@ package com.pedromassango.programmers.config;
  */
 
 public class ReputationConfigs {
-    public static final int POST_INCREMENT = 15;
-    public static final int COMMENT_INCREMENT = 10;
+    public static final int POST_INCREMENT = 10;
+    public static final int COMMENT_INCREMENT = 5;
 
     public static final int POST_DECREMENT = 15;
     public static final int COMMENT_DECREMENT = 10;

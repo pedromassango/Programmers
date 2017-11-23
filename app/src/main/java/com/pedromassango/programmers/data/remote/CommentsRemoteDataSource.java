@@ -47,8 +47,11 @@ public class CommentsRemoteDataSource implements CommentsDataSource {
 
         //All Comments of the Current Post reference
         childUpdates.put("/comments-post/" + postId + "/" + commentId, comment.toMap());
-        // send notification to post author.
-        childUpdates.put("/notifications/" + notification.getToUserId() + "/" + notification.getId() , notification.toMap());
+
+        // send notification to post author, if they is not the author of comment
+        if(!comment.getAuthorId().equals( comment.getPostAuthorId())) {
+            childUpdates.put("/notifications/" + notification.getToUserId() + "/" + notification.getId(), notification.toMap());
+        }
 
         //Start the publish work
         Library.getRootReference()

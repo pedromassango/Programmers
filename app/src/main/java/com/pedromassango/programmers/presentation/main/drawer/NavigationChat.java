@@ -30,14 +30,16 @@ public class NavigationChat extends BaseFragmentRecyclerView {
     @Override
     protected RecyclerView.Adapter adapter() {
 
+        // set background color
+        recyclerView.setBackgroundColor(getResources().getColor(android.R.color.white));
+
         // adding divider on list
         recyclerView.addItemDecoration(
                 new DividerItemDecoration((getContext()),
                 DividerItemDecoration.VERTICAL));
 
         DatabaseReference allUsersChatsRef = Library.getAllUsersChatsRef();
-        //return (new ChatAdapter(getActivity(), allUsersChatsRef, this));
-        return (null);
+        return (new ChatAdapter(getActivity(), allUsersChatsRef, this));
     }
 
     @Override

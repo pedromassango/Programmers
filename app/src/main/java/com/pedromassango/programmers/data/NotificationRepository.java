@@ -64,7 +64,25 @@ public class NotificationRepository implements NotificationDataSOurce {
             }
         });
     }
-/*
+
+    @Override
+    public void delete(final Notification notification, final Callbacks.IResultCallback<Notification> callback) {
+        remoteDataSource.delete(notification, new Callbacks.IResultCallback<Notification>() {
+            @Override
+            public void onSuccess(Notification result) {
+                localDataSource.delete(notification, null);
+
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onDataUnavailable() {
+                callback.onDataUnavailable();
+            }
+        });
+    }
+
+    /*
     @Override
     public void send(final Notification notification, final Callbacks.IRequestCallback callback) {
         remoteDataSource.send(notification, new Callbacks.IRequestCallback() {

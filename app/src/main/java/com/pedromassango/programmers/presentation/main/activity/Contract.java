@@ -7,10 +7,8 @@ import android.support.annotation.StringRes;
 import android.view.MenuItem;
 
 import com.pedromassango.programmers.interfaces.IDialogRetryListener;
-import com.pedromassango.programmers.interfaces.IGetUserListener;
 import com.pedromassango.programmers.interfaces.IRecyclerScrollListener;
 import com.pedromassango.programmers.models.Usuario;
-import com.pedromassango.programmers.presentation.base.BaseContract;
 
 /**
  * Created by Pedro Massango on 23-02-2017 14:58.

@@ -29,4 +29,8 @@ public class Callbacks {
         void onError();
     }
 
+    public interface IDeleteListener<T>{
+        void delete(T item);
+    }
+
 }

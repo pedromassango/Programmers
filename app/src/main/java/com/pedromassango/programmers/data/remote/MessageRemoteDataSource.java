@@ -1,66 +1,48 @@
-package com.pedromassango.programmers.presentation.conversations;
+package com.pedromassango.programmers.data.remote;
 
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.pedromassango.programmers.AppRules;
-import com.pedromassango.programmers.data.prefs.PrefsHelper;
-import com.pedromassango.programmers.interfaces.IErrorListener;
-import com.pedromassango.programmers.interfaces.IPresenceLIstener;
+import com.pedromassango.programmers.data.MessageDataSource;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Message;
-import com.pedromassango.programmers.presentation.base.BaseContract;
 import com.pedromassango.programmers.server.Library;
-import com.pedromassango.programmers.server.Worker;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Pedro Massango on 27/06/2017 at 14:41.
+ * Created by Pedro Massango on 11/23/17.
  */
 
-public class ConversationModel implements ConversationContract.ModelImpl {
+public class MessageRemoteDataSource implements MessageDataSource {
 
-    private BaseContract.PresenterImpl presenter;
+    private static MessageRemoteDataSource INSTANCE = null;
 
-    public ConversationModel(BaseContract.PresenterImpl presenter) {
-
-        this.presenter = presenter;
+    public static MessageRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MessageRemoteDataSource();
+        }
+        return INSTANCE;
     }
 
     @Override
-    public String getUserId() {
-
-        return PrefsHelper.getId();
-    }
-
-
-    public String getUsername() {
-
-        return PrefsHelper.getName();
-    }
-
-    @Override
-    public void handleFriendPresence(String friendId, IPresenceLIstener friendPresenceListener) {
-
-        Worker.handleUserPresence(friendId, friendPresenceListener);
-    }
-
-    public void sendMessage(Message message, final IErrorListener errorListener) {
-
+    public void send(Message message, final Callbacks.IRequestCallback callback) {
         // Message data
         Map<String, Object> messageValue = message.toMap();
 
         // Firebase childs to update
         Map<String, Object> childUpdates = new HashMap<>();
 
-        // References to messages repository
+        // References to users messages ref.
         String myMessagesRef = AppRules.getMessagesRef(message.getAuthorId(), message.getReceiverId());
         String friendMessagesRef = AppRules.getMessagesRef(message.getReceiverId(), message.getAuthorId());
 
-        childUpdates.put(myMessagesRef, messageValue);
-        childUpdates.put(friendMessagesRef, messageValue);
+        // Here, we need to pass reference to mcurrent message location, with their ID
+        childUpdates.put(myMessagesRef + "/" + message.getId(), messageValue);
+        childUpdates.put(friendMessagesRef + "/" + message.getId(), messageValue);
 
         Library.getRootReference()
                 .updateChildren(childUpdates)
@@ -69,15 +51,14 @@ public class ConversationModel implements ConversationContract.ModelImpl {
                     public void onFailure(@NonNull Exception e) {
 
                         // Failed to send Message
-                        errorListener.onError();
+                        callback.onError();
                     }
                 })
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                        callback.onSuccess();
                     }
                 });
-
     }
 }

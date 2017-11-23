@@ -324,17 +324,22 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
 
         switch (menuItem.getItemId()) {
             case R.id.action_home:
+                setFABVisibility(true);
                 break;
             case R.id.action_peoples:
                 title = getString(R.string.users);
+
+                setFABVisibility(false);
                 fragment = new UsersFragment();
                 break;
             case R.id.action_notifications:
                 title = getString(R.string.notifications);
+                setFABVisibility(false);
                 fragment = new NotificationsFragment();
                 break;
             case R.id.action_messages:
                 title = getString(R.string.messages);
+                setFABVisibility(false);
                 fragment = new NotificationsFragment();
                 break;
         }

@@ -18,6 +18,7 @@
         android:title="@string/notifications"/>
 
     <item
+        android:enabled="false"
         android:id="@+id/action_messages"
         android:icon="@drawable/ic_chat_bubble_white"
         android:title="@string/messages"/>

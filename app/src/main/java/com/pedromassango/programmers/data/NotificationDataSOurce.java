@@ -11,5 +11,5 @@ public interface NotificationDataSOurce {
 
     void get(String userId, Callbacks.IResultsCallback<Notification> callback);
 
-    //void send(Notification notification, Callbacks.IRequestCallback callback);
+    void delete(Notification notification, Callbacks.IResultCallback<Notification> callback);
 }

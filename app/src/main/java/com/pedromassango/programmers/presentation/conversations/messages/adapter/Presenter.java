@@ -2,8 +2,8 @@ package com.pedromassango.programmers.presentation.conversations.messages.adapte
 
 import android.content.Context;
 
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.models.Message;
-import com.pedromassango.programmers.presentation.conversations.ConversationModel;
 
 import static com.pedromassango.programmers.presentation.conversations.messages.adapter.MessageAdapter.IN_MSG;
 import static com.pedromassango.programmers.presentation.conversations.messages.adapter.MessageAdapter.OUT_MSG;
@@ -16,12 +16,10 @@ class Presenter implements Contract.Presenter {
 
     private Context context;
     private Contract.View view;
-    private ConversationModel model;
 
     Presenter(Context context, Contract.View view) {
         this.context = context;
         this.view = view;
-        this.model = new ConversationModel(this);
     }
 
     @Override
@@ -32,7 +30,7 @@ class Presenter implements Contract.Presenter {
     @Override
     public int getItemViewType(int position) {
         Message msg = view.getMessageItem(position);
-        String userId = model.getUserId();
+        String userId = PrefsHelper.getId();
 
         return (msg.getAuthorId().equals(userId)) ? OUT_MSG : IN_MSG;
     }

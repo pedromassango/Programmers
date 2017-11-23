@@ -1,7 +1,10 @@
 package com.pedromassango.programmers.data.remote;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -21,11 +24,15 @@ public class NotificationRemoteDataSource implements NotificationDataSOurce {
 
     private static NotificationRemoteDataSource INSTANCE = null;
 
-    public static NotificationRemoteDataSource getInstance(){
-        if(INSTANCE == null){
+    public static NotificationRemoteDataSource getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new NotificationRemoteDataSource();
         }
         return INSTANCE;
+    }
+
+    public static void restoreInstance() {
+        INSTANCE = null;
     }
 
     @Override
@@ -34,7 +41,7 @@ public class NotificationRemoteDataSource implements NotificationDataSOurce {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.e("OFF", "Notification snapshot: " +dataSnapshot);
+                        Log.e("OFF", "Notification snapshot: " + dataSnapshot);
 
                         if (!dataSnapshot.exists()) {
                             callback.onDataUnavailable();
@@ -44,7 +51,7 @@ public class NotificationRemoteDataSource implements NotificationDataSOurce {
                         List<Notification> tempData = new ArrayList<>();
 
                         for (DataSnapshot shot : dataSnapshot.getChildren()) {
-                            Log.e("OFF", "Notification shot: " +shot);
+                            Log.e("OFF", "Notification shot: " + shot);
 
                             Notification notification = shot.getValue(Notification.class);
                             tempData.add(notification);
@@ -59,7 +66,27 @@ public class NotificationRemoteDataSource implements NotificationDataSOurce {
                     }
                 });
     }
-/*
+
+    @Override
+    public void delete(final Notification notification, final Callbacks.IResultCallback<Notification> callback) {
+        Library.getNotificationsRef(notification.getToUserId())
+                .child(notification.getId())
+                .setValue(null)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onDataUnavailable();
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        callback.onSuccess(notification);
+                    }
+                });
+    }
+
+    /*
     @Override
     public void send(Notification notification, Callbacks.IRequestCallback callback) {
         String notificationId = Library.getRootReference().push().getKey();

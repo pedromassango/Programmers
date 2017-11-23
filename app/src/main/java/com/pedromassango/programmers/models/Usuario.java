@@ -263,7 +263,6 @@ public class Usuario extends RealmObject implements Parcelable {
     public Map<String, Boolean> getFavoritesCategory() {
         if (favoritesCategory == null) {
             favoritesCategory = new HashMap<>();
-            return favoritesCategory;
         }
         return favoritesCategory;
     }

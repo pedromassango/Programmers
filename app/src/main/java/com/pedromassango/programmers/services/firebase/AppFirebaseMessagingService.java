@@ -37,11 +37,13 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
         try {
 
             Map<String, String> messageData = remoteMessage.getData();
-            String mapData = messageData.get(Constants.FCM_DATA);
+            String mapData = messageData.get("notification");
 
-            showLog("AppFirebaseMessagingService", "FCM_DATA: " + mapData);
+            showLog("AppFirebaseMessagingService", "notification: " + mapData);
 
-            JSONObject data = new JSONObject(mapData);
+            JSONObject data = new JSONObject(Constants.FCM_DATA);
+
+            showLog("AppFirebaseMessagingService", "FCM_DATA: " + data);
 
             String messageType = data.getString(Constants.FCM_CONTENT_TYPE);
 

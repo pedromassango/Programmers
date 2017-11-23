@@ -9,8 +9,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
+import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.app.Programmers;
 import com.pedromassango.programmers.config.ReputationConfigs;
 import com.pedromassango.programmers.extras.CategoriesUtils;
+import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.interfaces.IPresenceLIstener;
 import com.pedromassango.programmers.interfaces.ISubscriptionCompleteListener;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.models.Usuario;
@@ -31,7 +36,56 @@ import static com.pedromassango.programmers.extras.Util.showLog;
  */
 public class Transations {
 
-    public static void handleUserSubscriptionInCategory(String mCategory, final boolean subscribe, final ISubscriptionCompleteListener completeListener) {
+    public static void handleUserPresence(String userId, final IPresenceLIstener presenceLIstener) {
+
+        final DatabaseReference userChatRef = Library.getAllUsersChatsRef().child(userId);
+        final DatabaseReference onlineRef = userChatRef.child("online");
+        final DatabaseReference lastOnlineRef = userChatRef.child("lastOnline");
+
+        lastOnlineRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long timestamp;
+                String lastOnline;
+
+                if (dataSnapshot == null) {
+                    timestamp = System.currentTimeMillis();
+                    lastOnline = Util.getTimeAgo(timestamp);
+                    presenceLIstener.onFriendOffline(lastOnline);
+                    return;
+                }
+
+                timestamp = dataSnapshot.getValue(Long.class);
+                lastOnline = Util.getTimeAgo(timestamp);
+                presenceLIstener.onFriendOffline(lastOnline);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        onlineRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null) {
+                    presenceLIstener.onFriendOnline(false);
+                    return;
+                }
+
+                presenceLIstener.onFriendOnline(dataSnapshot.getValue(Boolean.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                showLog("FRIEND Presence Listener was disconnected");
+            }
+        });
+    }
+
+    public static void handleUserSubscriptionInCategory(String mCategory, final boolean subscribe, final int position, final ISubscriptionCompleteListener completeListener) {
 
         // Just to be sure that the category is realy formated, to be subscribed
         final String category = CategoriesUtils.getCategoryTopic(mCategory);
@@ -62,11 +116,11 @@ public class Transations {
                         if (subscribe) {
                             NotificationSender.subscribe(category);
                             if (completeListener != null)
-                                completeListener.onComplete(category, true);
+                                completeListener.onComplete(category, true, position);
                         } else {
                             NotificationSender.unsubscribe(category);
                             if (completeListener != null)
-                                completeListener.onComplete(category, false);
+                                completeListener.onComplete(category, false, position);
                         }
                     }
                 });
@@ -94,19 +148,22 @@ public class Transations {
                 }
 
                 String userCodeLevel = user.getCodeLevel();
-//TODO: verify this code
-                if (reputationCount < 375) { // user help less than 25 peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.beginner);
-                } else if (reputationCount >= 375 && reputationCount < 750) { // user help 25 peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.amauter);
-                } else if (reputationCount >= 750 && reputationCount < 1500) { // user help 50 peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.professional);
-                } else if (reputationCount >= 1500) { // user help more than 100 or more  peoples
-                    //userCodeLevel = presenter.getContext().getString(R.string.expert);
+                if (reputationCount < 385) { // user help less than 25 peoples
+                    userCodeLevel = Programmers.getContext().getString(R.string.beginner);
+                } else if (reputationCount >= 385 && reputationCount < 770) { // user help 25 peoples
+                    userCodeLevel = Programmers.getContext().getString(R.string.amauter);
+                } else if (reputationCount >= 770 && reputationCount < 1540) { // user help 50 peoples
+                    userCodeLevel = Programmers.getContext().getString(R.string.professional);
+                } else if (reputationCount >= 3080) { // user help more than 100 or more  peoples
+                    userCodeLevel = Programmers.getContext().getString(R.string.expert);
                 }
 
                 user.setReputation(reputationCount);
                 user.setCodeLevel(userCodeLevel);
+
+                //update user data localy
+                RepositoryManager.getInstance().getUsersRepository()
+                        .updateLoggedUser(user);
 
                 mutableData.setValue(user);
                 return Transaction.success(mutableData);
@@ -138,6 +195,12 @@ public class Transations {
                 int data = increment ? commentsCount + 1 : commentsCount - 1;
 
                 post.setCommentsCount(data);
+
+                //update localy
+                RepositoryManager.getInstance()
+                        .getPostsRepository()
+                        .updateLocaly(post);
+
                 mutableData.setValue(post);
                 return Transaction.success(mutableData);
             }

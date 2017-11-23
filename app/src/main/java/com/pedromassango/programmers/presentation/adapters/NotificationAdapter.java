@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.NotificationRepository;
+import com.pedromassango.programmers.interfaces.Callbacks;
+import com.pedromassango.programmers.interfaces.IDeleteListener;
 import com.pedromassango.programmers.models.Notification;
 import com.pedromassango.programmers.presentation.adapters.holders.NotificationVH;
 
@@ -17,9 +20,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationVH> {
 
     private ArrayList<Notification> notifications;
     private Activity activity;
+    private Callbacks.IDeleteListener<Notification> deleteListener;
 
-    public NotificationAdapter(Activity actvivity) {
+    public NotificationAdapter(Activity actvivity, Callbacks.IDeleteListener<Notification> deleteListener) {
         this.activity = actvivity;
+        this.deleteListener = deleteListener;
         this.notifications = new ArrayList<>();
     }
 
@@ -33,7 +38,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationVH> {
     public void onBindViewHolder(NotificationVH notificationVH, int i) {
         Notification notification = notifications.get(i);
 
-        notificationVH.bindViews(notification, activity);
+        notificationVH.bindViews(notification, activity, deleteListener);
     }
 
     @Override
@@ -49,6 +54,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationVH> {
     public void add(List<Notification> mNotifications) {
         notifications.clear();
         notifications.addAll(mNotifications);
+        notifyDataSetChanged();
+    }
+
+    public void remove(Notification item) {
+        notifications.remove(item);
         notifyDataSetChanged();
     }
 }

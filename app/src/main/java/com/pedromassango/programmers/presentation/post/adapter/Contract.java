@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.pedromassango.programmers.interfaces.IErrorListener;
-import com.pedromassango.programmers.interfaces.IPostDeleteListener;
+import com.pedromassango.programmers.interfaces.IDeleteListener;
 import com.pedromassango.programmers.interfaces.ISaveListener;
 import com.pedromassango.programmers.models.ContextMenuItem;
 import com.pedromassango.programmers.models.Post;
@@ -43,7 +43,7 @@ public class Contract {
         void delete(Post result, int position);
     }
 
-    public interface Presenter extends BaseContract.PresenterImpl, IErrorListener, IPostDeleteListener, ISaveListener {
+    public interface Presenter extends BaseContract.PresenterImpl, IErrorListener, IDeleteListener, ISaveListener {
 
         String getLikesCount(HashMap<String, Boolean> votes);
 
