@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.Transations;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IRecyclerViewCategoryClickListener;
 import com.pedromassango.programmers.interfaces.ISubscriptionCompleteListener;
 import com.pedromassango.programmers.models.Category;
 import com.pedromassango.programmers.models.Usuario;
+import com.pedromassango.programmers.server.Worker;
 import com.vstechlab.easyfonts.EasyFonts;
 
 import java.util.List;
@@ -77,10 +79,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-//                    if (getAdapterPosition() != 0) {
-//                        // Handle user to subscribe to topic with their categories selected
-//                        //showDialogActions();
-//                    }
+                    if (getAdapterPosition() != 0) {
+                        // Handle user to subscribe to topic with their categories selected
+                        showDialogActions();
+                    }
                     return true;
                 }
             });
@@ -111,11 +113,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                     .setItems(actions, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-//                            if (canNotify) {
-//                                Worker.handleUserSubscriptionInCategory(category, false, CategoryAdapter.this);
-//                            } else {
-//                                Worker.handleUserSubscriptionInCategory(category, true, CategoryAdapter.this);
-//                            }
+                            if (canNotify) {
+                                Transations.handleUserSubscriptionInCategory(category, false, CategoryAdapter.this);
+                            } else {
+                                Transations.handleUserSubscriptionInCategory(category, true, CategoryAdapter.this);
+                            }
 
                             // This will update the current state of the category
                             checkNotifyStatus();

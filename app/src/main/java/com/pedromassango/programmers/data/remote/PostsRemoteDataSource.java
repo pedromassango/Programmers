@@ -170,7 +170,6 @@ public class PostsRemoteDataSource implements PostsDataSource {
                         }
 
                         // Here we have the data
-
                         Post result = dataSnapshot.getValue(Post.class);
 
                         // release the data

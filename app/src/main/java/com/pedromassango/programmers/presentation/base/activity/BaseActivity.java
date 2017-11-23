@@ -131,7 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showAlertDialog(@StringRes int title, @StringRes int message){
-        AlertDialog.Builder b = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setCancelable( true);
         b.setTitle( title);
         b.setMessage( message);

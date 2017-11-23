@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.util.Log;
 
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.CommentsRepository;
@@ -64,6 +65,7 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
         // So we receive just the Post ID, and we need to load Post data.
         if (intent.hasExtra(Constants.EXTRA_POST_ID)) {
             String postId = intent.getStringExtra(Constants.EXTRA_POST_ID);
+            Log.i("output", "received post id: " +postId);
 
             // Get the post data from server
             view.showTextLoading();
@@ -118,7 +120,7 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
         comment.setTimestamp(currentTime);
 
         Notification n = new Notification();
-        n.setId( Library.generateId());
+        n.setId( String.valueOf( Util.getTime()));
         n.setAuthor( username);
         n.setAuthorId( userId);
         n.setToUserId( post.getAuthorId());
@@ -149,6 +151,7 @@ public class Presenter implements Contract.Presenter,Callbacks.IRequestCallback,
 
     @Override
     public void onDataUnavailable() {   // get post error
+
         view.showGetPostError();
     }
 

@@ -9,11 +9,13 @@ import android.view.MenuItem;
 
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.UsersRepository;
+import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.services.GoogleServices;
+import com.pedromassango.programmers.services.firebase.NotificationSender;
 
 import static com.pedromassango.programmers.extras.Constants._DEVELOP_MODE;
 import static com.pedromassango.programmers.extras.Util.showLog;
@@ -45,6 +47,10 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
                 // Test only
                 if (Constants._DEVELOP_MODE) {
                     view.showHeaderInfo(Util.getUser());
+
+                    // Subscribe user to NEWS topic
+                    NotificationSender.subscribe( Constants.NotificationTopics.NEWS);
+
                     // set Empty, to get all default info on  all fragments
                     view.setFragmentByCategory("");
                     return;

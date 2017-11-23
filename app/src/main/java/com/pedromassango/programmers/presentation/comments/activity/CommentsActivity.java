@@ -22,6 +22,8 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
     private TextView tvEmpty;
     private TextView tvViews, tvDate, tvBody, tvLikes, tvCategory, tvTitle;
     private RecyclerView recyclerView;
+
+    private CommentAdapter adapter;
     private Presenter presenter;
 
     @Override
@@ -85,7 +87,8 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
     public void fetchComments(String postId) {
         tvEmpty.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        CommentAdapter adapter = new CommentAdapter(this, Library.getCommentsRef(postId), presenter);
+
+        adapter = new CommentAdapter(this, Library.getCommentsRef(postId), presenter);
         recyclerView.setAdapter(adapter);
     }
 
@@ -123,6 +126,8 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
 
         tvEmpty.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+
+        recyclerView.scrollToPosition( adapter.getItemCount()-1);
     }
 
     @Override
@@ -134,5 +139,6 @@ public class CommentsActivity extends BaseActivity implements Contract.View {
     public void onSendCommentSuccess() {
 
         edtText.setText("");
+        recyclerView.scrollToPosition( adapter.getItemCount()-1);
     }
 }

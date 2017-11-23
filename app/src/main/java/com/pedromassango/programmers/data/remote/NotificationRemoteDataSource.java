@@ -1,5 +1,7 @@
 package com.pedromassango.programmers.data.remote;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -32,6 +34,8 @@ public class NotificationRemoteDataSource implements NotificationDataSOurce {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.e("OFF", "Notification snapshot: " +dataSnapshot);
+
                         if (!dataSnapshot.exists()) {
                             callback.onDataUnavailable();
                             return;
@@ -40,8 +44,9 @@ public class NotificationRemoteDataSource implements NotificationDataSOurce {
                         List<Notification> tempData = new ArrayList<>();
 
                         for (DataSnapshot shot : dataSnapshot.getChildren()) {
-                            Notification notification = shot.getValue(Notification.class);
+                            Log.e("OFF", "Notification shot: " +shot);
 
+                            Notification notification = shot.getValue(Notification.class);
                             tempData.add(notification);
                         }
 

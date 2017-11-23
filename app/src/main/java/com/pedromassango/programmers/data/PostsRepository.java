@@ -309,14 +309,14 @@ public class PostsRepository implements PostsDataSource {
             @Override
             public void onSuccess(Post result) {
 
-                getFromRemoteAndUpdateLocalSource(postId, callback);
-
                 callback.onSuccess(result);
+
+                getFromRemoteAndUpdateLocalSource(postId, callback);
             }
 
             @Override
             public void onDataUnavailable() {
-                callback.onDataUnavailable();
+                getFromRemoteAndUpdateLocalSource(postId, callback);
             }
         });
     }
@@ -327,7 +327,6 @@ public class PostsRepository implements PostsDataSource {
             @Override
             public void onSuccess(Post result) {
 
-                //TODO: Send an notification for all users
                 //save it localy
                 localSource.save(result, null);
 

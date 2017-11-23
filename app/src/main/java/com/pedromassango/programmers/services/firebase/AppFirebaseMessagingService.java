@@ -1,25 +1,17 @@
 package com.pedromassango.programmers.services.firebase;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.config.Settings;
-import com.pedromassango.programmers.config.SettingsPreference;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.models.Comment;
 import com.pedromassango.programmers.models.Post;
-import com.pedromassango.programmers.services.LocalBroadcast;
 import com.pedromassango.programmers.ui.notifications.CustomNotification;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -35,30 +27,55 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         //super.onMessageReceived(remoteMessage);
-        if (remoteMessage == null) return;
 
-        Map<String, String> data = remoteMessage.getData();
+        showLog("AppFirebaseMessagingService", "onMessageReceived: " + remoteMessage);
 
-        showLog("NOTIFY: " + data.toString());
+        if (remoteMessage.getData().size() == 0) {    // There are no messages
+            return;
+        }
 
-        switch (remoteMessage.getMessageType()) {
-            case Constants.NotificationType.POST:
-                Post post = new Gson().fromJson(data.get(Constants.EXTRA_POST), Post.class);
-                new CustomNotification()
-                        .create(this)
-                        .setType(post)
-                        .show();
-                break;
+        try {
 
-            case Constants.NotificationType.COMMENT:
-                Comment comment = new Gson().fromJson(data.get(Constants.EXTRA_COMMENT), Comment.class);
-                new CustomNotification()
-                        .create(this)
-                        .setType(comment)
-                        .show();
-                break;
+            Map<String, String> messageData = remoteMessage.getData();
+            String mapData = messageData.get(Constants.FCM_DATA);
+
+            showLog("AppFirebaseMessagingService", "FCM_DATA: " + mapData);
+
+            JSONObject data = new JSONObject(mapData);
+
+            String messageType = data.getString(Constants.FCM_CONTENT_TYPE);
+
+            showLog("AppFirebaseMessagingService", "messageType: " + messageType);
+
+            String content = data.getString(Constants.FCM_CONTENT);
+
+            showLog("AppFirebaseMessagingService", "content: " + content);
+
+            switch (messageType) {
+                case Constants.NotificationType.POST:
+                    Post post = new Gson().fromJson(content, Post.class);
+                    new CustomNotification()
+                            .create(this)
+                            .setType(post)
+                            .show();
+                    break;
+
+                case Constants.NotificationType.COMMENT:
+                    Comment comment = new Gson().fromJson(content, Comment.class);
+                    new CustomNotification()
+                            .create(this)
+                            .setType(comment)
+                            .show();
+                    break;
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+            showLog("AppFirebaseMessagingService", "EXCEPTION");
+            Log.e("MessagingService", "EXCEPTION");
+            showLog("AppFirebaseMessagingService", "EXCEPTION");
         }
     }
+
 
     @Override
     public void onMessageSent(String s) {

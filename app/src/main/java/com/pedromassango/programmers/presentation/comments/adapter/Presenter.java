@@ -9,8 +9,6 @@ import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Comment;
-import com.pedromassango.programmers.presentation.comments.CommentsContract;
-import com.pedromassango.programmers.presentation.comments.CommentsModel;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.Util;
 

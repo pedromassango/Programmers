@@ -1,14 +1,24 @@
 package com.pedromassango.programmers.data;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.pedromassango.programmers.config.ReputationConfigs;
+import com.pedromassango.programmers.extras.CategoriesUtils;
+import com.pedromassango.programmers.interfaces.ISubscriptionCompleteListener;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.server.Library;
+import com.pedromassango.programmers.services.firebase.NotificationSender;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.pedromassango.programmers.extras.Util.showLog;
 
@@ -21,9 +31,50 @@ import static com.pedromassango.programmers.extras.Util.showLog;
  */
 public class Transations {
 
+    public static void handleUserSubscriptionInCategory(String mCategory, final boolean subscribe, final ISubscriptionCompleteListener completeListener) {
+
+        // Just to be sure that the category is realy formated, to be subscribed
+        final String category = CategoriesUtils.getCategoryTopic(mCategory);
+
+        final Map<String, Boolean> subscriptionValue = new HashMap<>();
+        subscriptionValue.put(category, true);
+
+        Object value = subscribe ? subscriptionValue : null;
+
+        Library.getCurrentUserRef()
+                .child("favoritesCategory")
+                .setValue(value)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showLog("handleUserSubscriptionInCategory: fail");
+
+                        // sent fail
+                        if (completeListener != null) {
+                            completeListener.onError();
+                        }
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        showLog("handleUserSubscriptionInCategory: sucess");
+                        if (subscribe) {
+                            NotificationSender.subscribe(category);
+                            if (completeListener != null)
+                                completeListener.onComplete(category, true);
+                        } else {
+                            NotificationSender.unsubscribe(category);
+                            if (completeListener != null)
+                                completeListener.onComplete(category, false);
+                        }
+                    }
+                });
+    }
+
     public static void runReputationCountTransition(String userId, final boolean increment, final boolean isPost) {
 
-        Library.getUserRef( userId).runTransaction(new Transaction.Handler() {
+        Library.getUserRef(userId).runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Usuario user = mutableData.getValue(Usuario.class);

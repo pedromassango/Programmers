@@ -127,7 +127,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-         FIREBASE SERVICES
 
         <activity
             android:name=".presentation.settings.activity.SettingsActivity"

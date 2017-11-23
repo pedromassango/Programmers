@@ -244,7 +244,6 @@ public class Usuario extends RealmObject implements Parcelable {
         this.username = username;
     }
 
-
     public Contact toContact() {
         Contact c = new Contact();
         c.setUserId(id);

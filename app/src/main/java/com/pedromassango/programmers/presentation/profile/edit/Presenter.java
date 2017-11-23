@@ -10,9 +10,11 @@ import com.google.gson.Gson;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.data.UsersRepository;
+import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
+import com.pedromassango.programmers.services.firebase.NotificationSender;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 import static com.pedromassango.programmers.extras.Constants._DEVELOP_MODE;
@@ -159,6 +161,10 @@ class Presenter implements Contract.Presenter, Callbacks.IRequestCallback {
 
     @Override
     public void onSuccess() {
+
+        // subscribe user to selected topic
+        String topic = CategoriesUtils.getCategoryTopic( usuario.getProgrammingLanguage());
+        NotificationSender.subscribe( topic);
 
         view.dismissProgress();
         view.startMainActivity();
