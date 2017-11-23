@@ -8,7 +8,6 @@ import android.support.design.widget.AppBarLayout;
 
 import com.pedromassango.programmers.interfaces.IDialogRetryListener;
 import com.pedromassango.programmers.interfaces.IGetDataCompleteListener;
-import com.pedromassango.programmers.interfaces.IGetUserListener;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 
@@ -22,7 +21,6 @@ class Contract {
 
         String getUserId();
 
-        void getUser(String userId, IGetUserListener getUserListener);
     }
 
     interface View extends IGetDataCompleteListener, AppBarLayout.OnOffsetChangedListener {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 
-import com.pedromassango.programmers.interfaces.IUpdateListener;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 

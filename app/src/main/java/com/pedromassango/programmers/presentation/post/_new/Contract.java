@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.StringRes;
 
-import com.pedromassango.programmers.interfaces.INewPostListener;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 
 /**
