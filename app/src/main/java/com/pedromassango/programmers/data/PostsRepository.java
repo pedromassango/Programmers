@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.pedromassango.programmers.extras.Util.showLog;
-
 /**
  * Created by pedromassango on 11/12/17.
  */
@@ -34,9 +32,14 @@ public class PostsRepository implements PostsDataSource {
     private final PostsDataSource remoteSource;
     private final PostsDataSource localSource;
 
+    // whether we nedd to get data from server
+    private boolean shouldFetchFromServer;
+
     private PostsRepository(PostsDataSource remoteSource, PostsDataSource localSource) {
         this.remoteSource = remoteSource;
         this.localSource = localSource;
+
+        shouldFetchFromServer = PrefsHelper.shouldFetchFromServer();
     }
 
     public static PostsRepository getInstance(PostsDataSource remoteSource, PostsDataSource localSource) {
@@ -57,7 +60,8 @@ public class PostsRepository implements PostsDataSource {
             public void onSuccess(List<Post> results) {
                 callback.onSuccess(results);
 
-                getFromRemoteAndUpdateLocalSource(callback);
+                if(shouldFetchFromServer)
+                    getFromRemoteAndUpdateLocalSource(callback);
             }
 
             @Override
@@ -74,7 +78,8 @@ public class PostsRepository implements PostsDataSource {
             public void onSuccess(List<Post> results) {
                 callback.onSuccess(results);
 
-                getFromRemoteByAuthorId(authorId, callback);
+                if(shouldFetchFromServer)
+                    getFromRemoteByAuthorId(authorId, callback);
             }
 
             @Override
@@ -91,6 +96,7 @@ public class PostsRepository implements PostsDataSource {
             public void onSuccess(List<Post> results) {
                 callback.onSuccess(results);
 
+                if(shouldFetchFromServer)
                 getFromRemoteByCategory(category, callback);
             }
 
@@ -279,8 +285,9 @@ public class PostsRepository implements PostsDataSource {
             public void onSuccess(List<Post> results) {
                 callback.onSuccess(results);
 
-                // get from remote but not notify if have error
-                searchOnRemote(false, query, callback);
+                if(shouldFetchFromServer)
+                    // get from remote but not notify if have error
+                    searchOnRemote(false, query, callback);
             }
 
             @Override
@@ -315,7 +322,8 @@ public class PostsRepository implements PostsDataSource {
 
                 callback.onSuccess(result);
 
-                getFromRemoteAndUpdateLocalSource(postId, callback);
+                if(shouldFetchFromServer)
+                    getFromRemoteAndUpdateLocalSource(postId, callback);
             }
 
             @Override

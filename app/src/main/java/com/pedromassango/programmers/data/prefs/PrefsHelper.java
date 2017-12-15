@@ -18,6 +18,7 @@ public class PrefsHelper {
     private static final String TOKEN_KEY = "com.pedromassango.programmers.extras.token";
 
     private static final String PREF_NAME = "com.pedromassango.programmers.extras.programmers";
+    private static final String KEY_SHOULD_FETCH_FROM_SERVER = "com.pedromassango.programmers.extras.KEY_SHOULD_FETCH_FROM_SERVER";
     private static final String KEY_TIMES_THAT_THE_APP_WAS_OPENED = "com.pedromassango.programmers.extras.programmers";
     private static final String KEY_USERNAME = "com.pedromassango.programmers.extras.usr_name";
     private static final String KEY_USERPHOTO = "com.pedromassango.programmers.extras.usr_photo";
@@ -66,6 +67,25 @@ public class PrefsHelper {
 
     public static void saveToPreferences(String preferenceName, int preferenceValue) {
         editor.putInt(preferenceName, preferenceValue);
+        editor.apply();
+    }
+
+    // Save the state of whether we need to fetch from server
+    public static boolean shouldFetchFromServer(){
+        return preferences.getBoolean(KEY_SHOULD_FETCH_FROM_SERVER, true);
+    }
+
+    // Save the state of whether we need to fetch from server
+    public static void setShouldFetchFromServer(boolean state){
+        editor.putBoolean(KEY_SHOULD_FETCH_FROM_SERVER, state);
+        editor.apply();
+    }
+
+    public static long getLastTimeOpened(){
+        return preferences.getLong(KEY_SHOULD_FETCH_FROM_SERVER, 0);
+    }
+    public static void saveLastTimeOpened(long timestamp){
+        editor.putLong(KEY_SHOULD_FETCH_FROM_SERVER, timestamp);
         editor.apply();
     }
 

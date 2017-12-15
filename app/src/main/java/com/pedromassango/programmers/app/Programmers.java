@@ -8,6 +8,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
+import com.pedromassango.programmers.extras.Util;
 
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
@@ -61,6 +62,16 @@ public class Programmers extends MultiDexApplication {
 
         // Use the config
         Realm realm = Realm.getInstance(config);
+
+        // Manage the current date to manage wheter we need to fetch from server
+        // in our models
+        long lastTime = PrefsHelper.getLastTimeOpened();
+
+        PrefsHelper.setShouldFetchFromServer(Util.getTimeState( lastTime));
+
+
+        // Save the time that the app was opened
+        PrefsHelper.saveLastTimeOpened( System.currentTimeMillis());
 
         //Whill persit the application data on device
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);

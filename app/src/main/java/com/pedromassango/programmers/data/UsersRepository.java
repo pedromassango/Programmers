@@ -4,12 +4,9 @@ package com.pedromassango.programmers.data;
  * Created by pedromassango on 11/8/17.
  */
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.interfaces.Callbacks;
@@ -34,12 +31,16 @@ public class UsersRepository implements UserDataSource {
     // Retrieve data from local data source.
     private final UserDataSource localDataSource;
 
+    private boolean shouldFetchFromServer;
+
     // Private to prevent instatiation by constructor
     private UsersRepository(UserDataSource remoteDataSource,
                             UserDataSource localDataSource) {
 
         this.remoteDataSource = remoteDataSource;
         this.localDataSource = localDataSource;
+
+        shouldFetchFromServer = PrefsHelper.shouldFetchFromServer();
     }
 
     // To return always the same instance, create if necessary.
@@ -89,8 +90,9 @@ public class UsersRepository implements UserDataSource {
                 // respond imediately with local results
                 callback.onSuccess(results);
 
-                // get from remote if availabe, and update the local source
-                getUsersFromRemoteAndUpdateLocalSource(callback);
+                if(shouldFetchFromServer)
+                    // get from remote if availabe, and update the local source
+                    getUsersFromRemoteAndUpdateLocalSource(callback);
             }
 
             @Override
@@ -134,8 +136,9 @@ public class UsersRepository implements UserDataSource {
                 // respond with result from local data source
                 callback.onSuccess(result);
 
-                // and, try to get updated usuario from remoteDataSource
-                getUserFromRemoteAndUpdateLocalSource(userId, callback);
+                if(shouldFetchFromServer)
+                    // and, try to get updated usuario from remoteDataSource
+                    getUserFromRemoteAndUpdateLocalSource(userId, callback);
             }
 
             @Override

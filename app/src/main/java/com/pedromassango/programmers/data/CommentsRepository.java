@@ -19,10 +19,14 @@ public class CommentsRepository implements CommentsDataSource {
     private final CommentsDataSource remoteDataSource;
     private final CommentsDataSource localDataSource;
 
+    private boolean shouldFetchFromServer;
+
     private CommentsRepository(CommentsDataSource remoteDataSource, CommentsDataSource localDataSource){
 
         this.remoteDataSource = remoteDataSource;
         this.localDataSource = localDataSource;
+
+        shouldFetchFromServer = PrefsHelper.shouldFetchFromServer();
     }
 
     public static CommentsRepository getInstance(CommentsDataSource remoteDataSource,
@@ -103,7 +107,8 @@ public class CommentsRepository implements CommentsDataSource {
             public void onSuccess(List<Comment> results) {
                 callback.onSuccess(results);
 
-                getNewsCommentsFromRemote(postId, callback);
+                if(shouldFetchFromServer)
+                    getNewsCommentsFromRemote(postId, callback);
             }
 
             @Override
