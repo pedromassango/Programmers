@@ -103,7 +103,7 @@ public class Util {
     }
 
     public static boolean getTimeState(long time) {
-        boolean output = false;
+        boolean output;
 
         Date last = new Date(time);
         Date current = new Date(System.currentTimeMillis());
