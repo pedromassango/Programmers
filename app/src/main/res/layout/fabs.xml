@@ -126,14 +126,5 @@
             fab:fab_label="Add post"
             fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:src="@drawable/ic_job"
-            fab:fab_label="Add job"
-            fab:fab_size="mini" />
-
     </com.github.clans.fab.FloatingActionMenu>
 </LinearLayout>

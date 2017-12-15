@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.pedromassango.programmers.extras.PrefsUtil;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.models.Payment;
 import com.pedromassango.programmers.server.Library;
 
@@ -22,8 +22,8 @@ class Model implements Contract.Model, OnFailureListener, OnSuccessListener<Void
 
     Model(Presenter presenter) {
 
-        this.loggedUsername = PrefsUtil.getName(presenter.getContext());
-        this.loggedUserId = PrefsUtil.getId(presenter.getContext());
+        this.loggedUsername = PrefsHelper.getName();
+        this.loggedUserId = PrefsHelper.getId();
     }
 
     @Override

@@ -10,10 +10,10 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.config.Settings;
 import com.pedromassango.programmers.config.SettingsPreference;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
+import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.presentation.login.LoginActivity;
 import com.pedromassango.programmers.services.GoogleServices;
-import com.pedromassango.programmers.extras.IntentUtils;
-import com.pedromassango.programmers.extras.PrefsUtil;
 
 public class IntroActivity extends AppIntro {
 
@@ -85,7 +85,7 @@ public class IntroActivity extends AppIntro {
         // Save the show splash state. that, the splash activity
         // will read it, to switch witch activity will open
         // betwen IntroActivity OR LoginActivity
-        PrefsUtil.isFirstTime(this, false);
+        PrefsHelper.isFirstTime( false);
 
         // Do something when users tap on Done button.
         IntentUtils.startActivity(this, LoginActivity.class);

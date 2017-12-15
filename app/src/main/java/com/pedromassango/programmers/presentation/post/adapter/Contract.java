@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.pedromassango.programmers.interfaces.IErrorListener;
-import com.pedromassango.programmers.interfaces.IPostDeleteListener;
+import com.pedromassango.programmers.interfaces.IDeleteListener;
 import com.pedromassango.programmers.interfaces.ISaveListener;
 import com.pedromassango.programmers.models.ContextMenuItem;
 import com.pedromassango.programmers.models.Post;
@@ -37,9 +37,13 @@ public class Contract {
         void showAlertDialog(String error);
 
         void startCommentsActivity(Bundle bundle);
+
+        void update(Post result, int position);
+
+        void delete(Post result, int position);
     }
 
-    public interface Presenter extends BaseContract.PresenterImpl, IErrorListener, IPostDeleteListener, ISaveListener {
+    public interface Presenter extends BaseContract.PresenterImpl, IErrorListener, IDeleteListener, ISaveListener {
 
         String getLikesCount(HashMap<String, Boolean> votes);
 
@@ -65,7 +69,7 @@ public class Contract {
 
         void onCommentClicked(Post post);
 
-        void onLikeClicked(Post post);
+        void onLikeClicked(Post post, int position);
 
         String getUserId();
     }

@@ -15,6 +15,7 @@ import com.pedromassango.programmers.models.Usuario;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -99,6 +100,21 @@ public class Util {
         } else {
             return concat(HA, join((diff / DAY_MILLIS), "d"));
         }
+    }
+
+    public static boolean getTimeState(long time) {
+        boolean output;
+
+        Date last = new Date(time);
+        Date current = new Date(System.currentTimeMillis());
+
+        output = last.getYear() < current.getYear() ||
+                last.getMonth() < current.getMonth() ||
+                last.getDay() < current.getDay() ||
+                last.getHours() < current.getHours() ||
+                last.getMinutes() < current.getMinutes();
+
+        return output;
     }
 
     public static ArrayList<Post> getPosts() {
@@ -282,5 +298,9 @@ public class Util {
             }
         }
         return false;
+    }
+
+    public static long getTime() {
+        return System.currentTimeMillis();
     }
 }

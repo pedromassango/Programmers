@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.Transations;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IRecyclerViewCategoryClickListener;
@@ -33,6 +35,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private List<Category> drawerItems;
     private IRecyclerViewCategoryClickListener clickListener;
     private LayoutInflater inflater;
+    private CategoryVH vh;
 
     public CategoryAdapter(Context context, Usuario currentUser, List<Category> drawerItems, IRecyclerViewCategoryClickListener clickListener) {
         inflater = LayoutInflater.from(context);
@@ -45,7 +48,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public CategoryVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.row_category, parent, false);
-        return (new CategoryVH(view));
+        vh = new CategoryVH(view);
+        return (vh);
     }
 
     @Override
@@ -54,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         holder.tvTitle.setText(category.getTitle());
         holder.tvIcon.setText(category.getSimpleName());
-        holder.checkNotifyStatus();
+        holder.checkNotifyStatus( position);
     }
 
     @Override
@@ -77,10 +81,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-//                    if (getAdapterPosition() != 0) {
-//                        // Handle user to subscribe to topic with their categories selected
-//                        //showDialogActions();
-//                    }
+                    if (getAdapterPosition() != 0) {
+                        // Handle user to subscribe to topic with their categories selected
+                        showDialogActions();
+                    }
                     return true;
                 }
             });
@@ -95,9 +99,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
 
         private void showDialogActions() {
-            Category oCategory = drawerItems.get(getAdapterPosition());
+            final int position = getAdapterPosition();
+            Category oCategory = drawerItems.get(position);
             final String category = CategoriesUtils.getCategoryTopic(oCategory.getTitle());
-            final boolean canNotify = canNotify();
+            final boolean canNotify = canNotify(position);
 
             // Check to handle witch message we need to show
             CharSequence[] actions = {canNotify ?
@@ -111,14 +116,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                     .setItems(actions, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-//                            if (canNotify) {
-//                                Worker.handleUserSubscriptionInCategory(category, false, CategoryAdapter.this);
-//                            } else {
-//                                Worker.handleUserSubscriptionInCategory(category, true, CategoryAdapter.this);
-//                            }
+                            if (canNotify) {
+                                Transations.handleUserSubscriptionInCategory(category, false, position, CategoryAdapter.this);
+                            } else {
+                                Transations.handleUserSubscriptionInCategory(category, true,position, CategoryAdapter.this);
+                            }
 
                             // This will update the current state of the category
-                            checkNotifyStatus();
+                            checkNotifyStatus(position);
                         }
                     });
 
@@ -126,23 +131,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                     .show();
         }
 
-        boolean canNotify() {
-            Category category = drawerItems.get(getAdapterPosition());
+        boolean canNotify(int position) {
+            Category category = drawerItems.get(position);
             Map<String, Boolean> userFavoritesCategory = currentUser.getFavoritesCategory();
             String categoryName = CategoriesUtils.getCategoryTopic(category.getTitle());
 
             return userFavoritesCategory.containsKey(categoryName);
         }
 
-        void checkNotifyStatus() {
-            if (canNotify()) {
+        void checkNotifyStatus(int position) {
+            if (canNotify( position)) {
                 img.setVisibility(View.VISIBLE);
                 tvIcon.setVisibility(View.GONE);
             } else {
                 img.setVisibility(View.GONE);
                 tvIcon.setVisibility(View.VISIBLE);
             }
-
         }
     }
 
@@ -153,10 +157,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     @Override
-    public void onComplete(String category, boolean subscribed) {
+    public void onComplete(String category, boolean subscribed, int position) {
         if (subscribed)
             currentUser.addCategory(category);
         else
             currentUser.removeCategory(category);
+
+        vh.checkNotifyStatus( position);
+
+        // update user data localy
+        RepositoryManager.getInstance()
+                .getUsersRepository()
+                .updateLoggedUser(currentUser);
     }
 }

@@ -7,6 +7,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pedromassango.programmers.AppRules;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
 
 /**
@@ -20,6 +21,7 @@ public class Library {
     private static DatabaseReference postsDatabase;
     private static FirebaseStorage imagePostsStorage;
     private static DatabaseReference rootReference;
+    private static DatabaseReference notificationsRef;
     private static DatabaseReference linksRef;
 
     public static FirebaseStorage getImageProfilesStorage() {
@@ -126,7 +128,7 @@ public class Library {
 
         return getRootReference()
                 .child(AppRules.USER_MESSAGES)
-                .child(getUserId())
+                .child(PrefsHelper.getId())
                 .child(friendId);
     }
     // Messages
@@ -170,5 +172,16 @@ public class Library {
         }
         return linksRef;
     }
-    //Links
+
+    public static DatabaseReference getNotificationsRef(String userId) {
+        if (notificationsRef == null) {
+            notificationsRef = getRootReference().child(AppRules.NOTIFICATIONS)
+            .child(userId);
+        }
+        return notificationsRef;
+    }
+
+    public static String generateId() {
+        return getRootReference().push().getKey();
+    }
 }

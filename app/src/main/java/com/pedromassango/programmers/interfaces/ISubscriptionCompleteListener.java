@@ -9,5 +9,5 @@ package com.pedromassango.programmers.interfaces;
  *  This class is used to handle when tring to send an category topic to server
  */
 public interface ISubscriptionCompleteListener extends IErrorListener{
-    void onComplete(String category, boolean subscribed);
+    void onComplete(String category, boolean subscribed, int position);
 }

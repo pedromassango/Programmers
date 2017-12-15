@@ -8,7 +8,6 @@ import android.support.design.widget.AppBarLayout;
 
 import com.pedromassango.programmers.interfaces.IDialogRetryListener;
 import com.pedromassango.programmers.interfaces.IGetDataCompleteListener;
-import com.pedromassango.programmers.interfaces.IGetUserListener;
 import com.pedromassango.programmers.models.Usuario;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 
@@ -22,7 +21,6 @@ class Contract {
 
         String getUserId();
 
-        void getUser(String userId, IGetUserListener getUserListener);
     }
 
     interface View extends IGetDataCompleteListener, AppBarLayout.OnOffsetChangedListener {
@@ -51,7 +49,7 @@ class Contract {
 
         void setButtonMessageVisibility(int gone);
 
-        void showNoInternetDialog(String message, IDialogRetryListener iDialogNoInternetListener);
+        void showNoInternetDialog(IDialogRetryListener iDialogNoInternetListener);
 
         void showProgress(@StringRes int text);
 
@@ -62,7 +60,7 @@ class Contract {
         void showViewImageFragment(Bundle b);
     }
 
-    interface Presenter extends BaseContract.PresenterImpl, IGetUserListener, IDialogRetryListener {
+    interface Presenter extends BaseContract.PresenterImpl, IDialogRetryListener {
 
         void initialize(Intent intent, Bundle bundle);
 

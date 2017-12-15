@@ -14,14 +14,14 @@ import android.widget.TextView;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.presentation.base.activity.BaseActivity;
-import com.pedromassango.programmers.presentation.post.adapter.SearchedPostsAdapter;
+import com.pedromassango.programmers.presentation.post.adapter.PostsAdapterSimple;
 
 import java.util.ArrayList;
 
 public class SearchPostActivity extends BaseActivity implements Contract.View {
 
     private RecyclerView recyclerView;
-    private SearchedPostsAdapter postsAdapter;
+    private PostsAdapterSimple postsAdapter;
     private TextView tvEmpty;
 
     private Presenter presenter;
@@ -37,7 +37,8 @@ public class SearchPostActivity extends BaseActivity implements Contract.View {
         recyclerView = findViewById(R.id.recycler_posts);
         tvEmpty = findViewById(R.id.tv_empty);
 
-        postsAdapter = new SearchedPostsAdapter(this);
+        postsAdapter = new PostsAdapterSimple(this);
+        recyclerView.setAdapter( postsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(postsAdapter);
         recyclerView.setHasFixedSize(true);
@@ -120,15 +121,18 @@ public class SearchPostActivity extends BaseActivity implements Contract.View {
 
     @Override
     public void showResults(ArrayList<Post> result) {
-
-        postsAdapter = new SearchedPostsAdapter(this, result);
-        recyclerView.setAdapter(postsAdapter);
+        postsAdapter.add(result);
     }
 
     @Override
     public void notifyAdapterDataSetChanged() {
 
         postsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showNotFOundMessage() {
+        setTvEmptyMessage( getString(R.string.posts_not_foud));
     }
 
     @Override

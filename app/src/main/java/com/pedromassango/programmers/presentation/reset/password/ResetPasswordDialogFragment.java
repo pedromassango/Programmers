@@ -64,9 +64,9 @@ public class ResetPasswordDialogFragment extends AppCompatDialogFragment impleme
     }
 
     @Override
-    public void setEmailError(String emailError) {
+    public void setEmailError() {
 
-        edtEmail.setError(emailError);
+        edtEmail.setError(getString(R.string.incorrect_email));
     }
 
     @Override
@@ -76,9 +76,25 @@ public class ResetPasswordDialogFragment extends AppCompatDialogFragment impleme
     }
 
     @Override
-    public void showProgress(String message) {
+    public void showDialogSuccess() {
 
-        progressDialog.setMessage(message);
+        Util.showAlertDialog(getActivity(),
+                getString(R.string.email_verification_success_title),
+                getString(R.string.email_verification_success_message));
+
+        dismiss();
+    }
+
+    @Override
+    public void showError() {
+
+        Util.showAlertDialog(getActivity(), getString(R.string.fail_title), getString(R.string.something_was_wrong));
+    }
+
+    @Override
+    public void showProgress() {
+
+        progressDialog.setMessage(getString(R.string.sending));
         progressDialog.show();
     }
 
@@ -86,18 +102,5 @@ public class ResetPasswordDialogFragment extends AppCompatDialogFragment impleme
     public void dismissProgress() {
 
         progressDialog.dismiss();
-    }
-
-    @Override
-    public void showDialogNextStep(String title, String message) {
-
-        Util.showAlertDialog(getActivity(), title, message);
-        dismiss();
-    }
-
-    @Override
-    public void showError(String title, String error) {
-
-        Util.showAlertDialog(getActivity(), title, error);
     }
 }

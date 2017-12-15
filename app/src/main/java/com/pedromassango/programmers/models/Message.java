@@ -8,12 +8,14 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.RealmObject;
+
 /**
  * Created by JANU on 14/05/2017.
  */
 
 @IgnoreExtraProperties
-public class Message implements Parcelable {
+public class Message extends RealmObject implements Parcelable {
 
     private String id;
     private String author;

@@ -3,8 +3,8 @@ package com.pedromassango.programmers.presentation.conversations.chat.adapter;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.PrefsUtil;
 import com.pedromassango.programmers.models.Contact;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_USER_ID;
@@ -22,7 +22,7 @@ public class Presenter implements Contract.Presenter {
     public Presenter(Contract.View view, Context context) {
         this.view = view;
         this.context = context;
-        loggedUserId = PrefsUtil.getId(getContext());
+        loggedUserId = PrefsHelper.getId();
     }
 
     @Override

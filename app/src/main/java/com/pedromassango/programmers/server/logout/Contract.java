@@ -9,11 +9,6 @@ import com.pedromassango.programmers.presentation.base.BaseContract;
 
 class Contract {
 
-    interface Model extends FirebaseAuth.AuthStateListener {
-
-        void signOut();
-    }
-
     interface View {
 
         void showAlertDialogLogout();
@@ -25,10 +20,5 @@ class Contract {
         void startLoginActivity();
 
         void showToast(String message);
-    }
-
-    interface Presenter extends BaseContract.PresenterImpl{
-
-        void logoutClicked();
     }
 }

@@ -1,12 +1,16 @@
 package com.pedromassango.programmers.server.logout;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.UsersRepository;
 import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 import com.pedromassango.programmers.presentation.login.LoginActivity;
 
@@ -19,21 +23,26 @@ import com.pedromassango.programmers.presentation.login.LoginActivity;
  * @Method showAlertDialogLogout() - ask to the user if he is sure to quit.
  */
 
-public class LogoutHadler implements Contract.View {
+public class LogoutHadler implements Contract.View, Callbacks.IRequestCallback {
 
     private ProgressDialog progressDialogLogout;
-    private BaseContract.PresenterImpl presenter;
-    private Presenter logoutPresenter;
+    private UsersRepository usersRepository;
+    private Context context;
 
+    @Deprecated
     public LogoutHadler(BaseContract.PresenterImpl presenter) {
-        this.presenter = presenter;
-        this.logoutPresenter = new Presenter(presenter.getContext(), this);
+        //this.logoutPresenter = new Presenter(presenter.getContext(), this);
+    }
+
+    public LogoutHadler(Context context) {
+        this.context = context;
+        this.usersRepository = RepositoryManager.getInstance().getUsersRepository();
     }
 
     @Override
     public void showAlertDialogLogout() {
         // AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(presenter.getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.dialog_logout_title)
                 .setMessage(R.string.dialog_logout_description)
                 .setNegativeButton(R.string.str_cancel, null)
@@ -41,7 +50,9 @@ public class LogoutHadler implements Contract.View {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        logoutPresenter.logoutClicked();
+                        showProgressDialog();
+
+                        usersRepository.logout(LogoutHadler.this);
                     }
                 });
 
@@ -53,10 +64,10 @@ public class LogoutHadler implements Contract.View {
     public void showProgressDialog() {
 
         // ProgressDialog
-        progressDialogLogout = new ProgressDialog(presenter.getContext());
+        progressDialogLogout = new ProgressDialog(context);
         progressDialogLogout.setCancelable(false);
         progressDialogLogout.setIndeterminate(true);
-        progressDialogLogout.setMessage(presenter.getContext().getString(R.string.str_quiting));
+        progressDialogLogout.setMessage(context.getString(R.string.str_quiting));
 
         progressDialogLogout.show();
     }
@@ -70,12 +81,24 @@ public class LogoutHadler implements Contract.View {
     @Override
     public void startLoginActivity() {
 
-        IntentUtils.startActivityCleaningTask(presenter.getContext(), LoginActivity.class);
+        IntentUtils.startActivityCleaningTask(context, LoginActivity.class);
     }
 
     @Override
     public void showToast(String message) {
 
-        Util.showToast(presenter.getContext(), message);
+        Util.showToast(context, message);
+    }
+
+    @Override
+    public void onSuccess() { //Logout success
+        dismissProgressDialog();
+        startLoginActivity();
+    }
+
+    @Override
+    public void onError() { // Logout error
+        dismissProgressDialog();
+        showToast(context.getString(R.string.something_was_wrong));
     }
 }

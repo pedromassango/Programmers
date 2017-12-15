@@ -11,7 +11,11 @@ public class Constants {
     //public static final boolean _DEVELOP_MODE = BuildConfig.DEBUG;
     public static final boolean _DEVELOP_MODE = false;
 
+    public static final String FCM_DATA = "DATA";
+    public static final String FCM_CONTENT = "CONTENT";
+    public static final String FCM_CONTENT_TYPE = "TYPE";
     public static final String _FIRST_TIME = "com.pedromassango.programmers.first_time";
+    public static final String EXTRA_SIGNUP = "com.pedromassango.programmers.EXTRA_SIGNUP";
     public static final String EXTRA_USER = "com.pedromassango.programmers._user";
     public static final String EXTRA_FRIEND_CONTACT = "com.pedromassango.programmers.EXTRA_FRIEND_CONTACT";
     public static final String EXTRA_POST = "com.pedromassango.programmers._post_extra";
@@ -33,5 +37,9 @@ public class Constants {
     public class NotificationType {
        public static final String POST = "com.pedromassango.programmers.notify.post";
        public static final String COMMENT = "com.pedromassango.programmers.notify.sendComment";
+    }
+
+    public class NotificationTopics {
+        public static final String NEWS = "news";
     }
 }

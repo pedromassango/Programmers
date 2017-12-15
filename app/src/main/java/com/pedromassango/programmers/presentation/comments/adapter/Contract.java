@@ -23,6 +23,8 @@ public class Contract {
         void dismissProgessDialog();
 
         void startProfileActivity(Bundle b);
+
+        void showToastError();
     }
 
     interface Presenter extends BaseContract.PresenterImpl{

@@ -7,11 +7,13 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,8 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.config.Settings;
 import com.pedromassango.programmers.config.SettingsPreference;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.PrefsUtil;
 import com.pedromassango.programmers.models.Contact;
 import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 import com.pedromassango.programmers.server.Library;
@@ -51,6 +53,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.initializeViews();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void setupToolbar() {
 
         toolbar = findViewById(R.id.toolbar);
@@ -73,10 +80,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             showLog("BaseActivity - contact is null.");
             contact = new Contact();
             contact.setOnline(true);
-            contact.setUserId(PrefsUtil.getId(this));
-            contact.setUsername(PrefsUtil.getName(this));
-            contact.setUserUrlPhoto(PrefsUtil.getPhoto(this));
+            contact.setUserId(PrefsHelper.getId());
+            contact.setUsername(PrefsHelper.getName());
+            contact.setUserUrlPhoto(PrefsHelper.getPhoto());
         }
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
 
         final DatabaseReference userPresence = Library.getAllUsersChatsRef().child(contact.getUserId());
         final DatabaseReference lastOnlineRef = userPresence.child("lastOnline");
@@ -119,6 +128,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         progressDialog.setMessage(getString(message));
         progressDialog.show();
+    }
+
+    public void showAlertDialog(@StringRes int title, @StringRes int message){
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setCancelable( true);
+        b.setTitle( title);
+        b.setMessage( message);
+        b.setPositiveButton(R.string.str_ok, null);
+
+        AlertDialog dialog = b.create();
+        dialog.show();
     }
 
     protected final void showProgressDialog(String message) {

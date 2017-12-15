@@ -3,7 +3,6 @@ package com.pedromassango.programmers.presentation.login;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Patterns;
@@ -15,29 +14,30 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.UsersRepository;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
-import com.pedromassango.programmers.extras.PrefsUtil;
 import com.pedromassango.programmers.extras.TextUtils;
-import com.pedromassango.programmers.interfaces.ILoginListener;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
-import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 import static com.pedromassango.programmers.extras.Util.showLog;
 
 /**
  * Created by Pedro Massango on 21-02-2017 1:05.
  */
 
-class Presenter implements Contract.Presenter, ILoginListener {
+class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario> {
 
     private static final int RC_SIGN_IN = 1024;
     private Contract.View view;
-    private Model model;
+    private UsersRepository usersRepository;
     private GoogleApiClient googleApiClient;
 
     Presenter(Contract.View view) {
         this.view = view;
-        this.model = new Model(this, this);
+        this.usersRepository = RepositoryManager.getInstance().getUsersRepository();
     }
 
     @Override
@@ -46,9 +46,14 @@ class Presenter implements Contract.Presenter, ILoginListener {
     }
 
     @Override
-    public void initialize() {
+    public void checkFirstTimeStatus() {
+        if (PrefsHelper.isFirstTime())
+            view.stratIntroActivity();
+    }
 
-        String lastEmail = PrefsUtil.readString(getContext(), Constants.LAST_EMAIL);
+    @Override
+    public void initialize() {
+        String lastEmail = PrefsHelper.readString(Constants.LAST_EMAIL);
         view.setEmail(lastEmail);
     }
 
@@ -69,7 +74,7 @@ class Presenter implements Contract.Presenter, ILoginListener {
 
                         showLog("GOOGLE SIGN_IN ERROR: " + connectionResult);
 
-                       // view.showToast(getContext().getString(R.string.something_was_wrong));
+                        // view.showToast(getContext().getString(R.string.something_was_wrong));
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -93,8 +98,8 @@ class Presenter implements Contract.Presenter, ILoginListener {
 
             if (requestCode == RC_SIGN_IN) {
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                showLog(" Google Sign In state: " +result.getStatus().getStatusMessage());
-                showLog(" Google Sign In state code: " +result.getStatus().getStatusCode());
+                showLog(" Google Sign In state: " + result.getStatus().getStatusMessage());
+                showLog(" Google Sign In state code: " + result.getStatus().getStatusCode());
 
                 if (result.isSuccess()) {
                     showLog(" Google Sign In success, update UI appropriately:");
@@ -104,7 +109,7 @@ class Presenter implements Contract.Presenter, ILoginListener {
 
                     //Do login work
                     view.showProgressDialog();
-                    model.firebaseAuthWithGoogle(account);
+                    usersRepository.firebaseAuthWithGoogle(account, this);
                 } else {
                     showLog(" Google Sign In failed, update UI");
 
@@ -137,7 +142,7 @@ class Presenter implements Contract.Presenter, ILoginListener {
         }
 
         view.showProgressDialog();
-        model.login(email, password);
+        usersRepository.login(email, password, this);
     }
 
     @Override
@@ -153,37 +158,30 @@ class Presenter implements Contract.Presenter, ILoginListener {
     }
 
     @Override
-    public void loginAccountComplete(Usuario usuario) {
-
-        Bundle b = new Bundle();
-        b.putParcelable(Constants.EXTRA_USER, usuario);
-
-        view.dismissProgressDialog();
-        view.startMainActivity(b);
-    }
-
-    @Override
-    public void loginAccountInComplete(Usuario usuario) {
-
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(Constants._FIRST_TIME, true);
-        bundle.putParcelable(EXTRA_USER, usuario);
-
-        view.dismissProgressDialog();
-        view.startEditProfileActivity(bundle);
-    }
-
-    @Override
-    public void loginError(String error) {
-        view.dismissProgressDialog();
-        view.showFailDialog(error);
-    }
-
-    @Override
     public void leavingActivity() {
         String currentEmail = view.getEmail();
         if (!TextUtils.isEmpty(currentEmail))
-            PrefsUtil.saveToPreferences(getContext(), Constants.LAST_EMAIL, currentEmail);
-        model.disconnectListeners();
+            PrefsHelper.saveToPreferences(Constants.LAST_EMAIL, currentEmail);
+    }
+
+    @Override
+    public void onSuccess(Usuario result) {
+        view.dismissProgressDialog();
+
+        if (result.getAccountComplete() == Constants.AcountStatus.INCOMPLETE) {
+
+            // account need yo be updated
+            view.startEditProfileActivity(result);
+            return;
+        }
+
+        // user arleady have an profile updated
+        view.startMainActivity(result);
+    }
+
+    @Override
+    public void onDataUnavailable() {
+        view.dismissProgressDialog();
+        view.showFailDialog();
     }
 }

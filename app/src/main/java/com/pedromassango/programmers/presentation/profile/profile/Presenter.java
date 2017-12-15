@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.UsersRepository;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
-import com.pedromassango.programmers.presentation.profile.ProfileModel;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 
@@ -17,10 +20,10 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
  * Created by Pedro Massango on 23-02-2017 14:05.
  */
 
-class Presenter implements Contract.Presenter {
+class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario> {
 
     private Contract.View view;
-    private ProfileModel model;
+    private UsersRepository model;
     private Usuario usuario;
     private Context context;
     private String userIdToLoadData;
@@ -28,7 +31,7 @@ class Presenter implements Contract.Presenter {
     Presenter(Contract.View view) {
         this.view = view;
         this.context = (Context) view;
-        this.model = new ProfileModel(this);
+        this.model = RepositoryManager.getInstance().getUsersRepository();
     }
 
     @Override
@@ -66,9 +69,9 @@ class Presenter implements Contract.Presenter {
     private void bindDataToViews(Usuario usuario) {
         this.usuario = usuario;
         //TODO: remove this comments
-        if (usuario.getId().equals(model.getUserId())) {
+        if (usuario.getId().equals(PrefsHelper.getId())) {
             view.setButtonEditVisibility(View.VISIBLE);
-//            view.setButtonMessageVisibility(View.GONE);
+            view.setButtonMessageVisibility(View.GONE);
 //            view.setButtonCallVisibility(View.GONE);
             view.setButtonEmailVisibility(View.GONE);
 //
@@ -79,13 +82,13 @@ class Presenter implements Contract.Presenter {
             view.setButtonEmailVisibility(View.VISIBLE);
         }
 
-            view.fillViews(usuario);
+        view.fillViews(usuario);
     }
 
     private void loadUserData(String userId) {
 
         view.showProgress(R.string.a_carregar);
-        model.getUser(userId, this);
+        model.getUserById(userId, this);
     }
     //END Private Methods they are not in LinkContract class
 
@@ -144,21 +147,6 @@ class Presenter implements Contract.Presenter {
     }
 
     @Override
-    public void onGetUserSuccess(Usuario usuario) {
-        view.dismissProgress();
-        view.setButtonsEnabled(true);
-        this.bindDataToViews(usuario);
-    }
-
-    @Override
-    public void onGetUserError(String error) {
-        view.dismissProgress();
-        view.setButtonsEnabled(false);
-        view.showNoInternetDialog(error, this);
-    }
-
-
-    @Override
     public void showNoPostsMessage() {
 
     }
@@ -170,5 +158,21 @@ class Presenter implements Contract.Presenter {
     public final void onRetry() {
 
         loadUserData(userIdToLoadData);
+    }
+
+    @Override
+    public void onSuccess(Usuario result) {
+
+        view.dismissProgress();
+        view.setButtonsEnabled(true);
+        this.bindDataToViews(result);
+    }
+
+    @Override
+    public void onDataUnavailable() {
+
+        view.dismissProgress();
+        view.setButtonsEnabled(false);
+        view.showNoInternetDialog(this);
     }
 }

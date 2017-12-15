@@ -4,6 +4,7 @@ package com.pedromassango.programmers.presentation.base.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
     private IRecyclerScrollListener iRecyclerScrollListener;
     public RecyclerView recyclerView;
     private TextView tvEmpty;
+
+    public abstract void reloadData(String category);
 
     protected abstract void setup(Bundle bundle);
 
@@ -64,7 +67,10 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
         tvEmpty = rootView.findViewById(R.id.tv_no_data);
         //tvEmpty.startAnimation( Util.Anim.blink());
 
-        recyclerView.setAdapter(adapter());
+        if(adapter() !=null) {
+            recyclerView.setAdapter(adapter());
+        }
+
         return rootView;
     }
 
@@ -91,14 +97,20 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
         setup(savedInstanceState);
     }
 
-    private void showRecyclerView() {
+    public void showRecyclerView() {
         if (tvEmpty.getVisibility() == View.VISIBLE) {
             tvEmpty.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
-    private void showTextError(String error) {
+    public void showTextError(String error) {
+        recyclerView.setVisibility(View.GONE);
+        tvEmpty.setVisibility(View.VISIBLE);
+        tvEmpty.setText(error);
+    }
+
+    public void showTextError(@StringRes int error) {
         recyclerView.setVisibility(View.GONE);
         tvEmpty.setVisibility(View.VISIBLE);
         tvEmpty.setText(error);

@@ -12,10 +12,6 @@ import com.pedromassango.programmers.presentation.base.BaseContract;
 
 public class Contract {
 
-    interface Model {
-        void signup(Context context, OnSignupListener listener, Usuario usuario);
-    }
-
     interface View {
 
         String getEmail();
@@ -36,9 +32,7 @@ public class Contract {
 
         void startLoginActivity();
 
-        void startEditProfileActivity(Bundle bundle);
-
-        void showFailDialog(String error);
+        void showFailDialog();
 
         void startPrivacyPolicyActivity();
     }
@@ -52,9 +46,4 @@ public class Contract {
         void onTermsAndConditionsClicked();
     }
 
-    public interface OnSignupListener {
-        void onSuccess(Usuario usuario);
-
-        void onError(String error);
-    }
 }

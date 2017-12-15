@@ -169,8 +169,8 @@ public class NewPostActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void onError(String error) {
+    public void onError() {
 
-        super.showToastMessage(error);
+        super.showToastMessage(R.string.something_was_wrong);
     }
 }

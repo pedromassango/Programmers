@@ -8,9 +8,7 @@
         android:id="@+id/recycler_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/size4dp"
-        android:scrollbars="none"
-        android:paddingBottom="@dimen/size4dp"/>
+        android:scrollbars="none"/>
 
     <TextView
         android:id="@+id/tv_no_data"

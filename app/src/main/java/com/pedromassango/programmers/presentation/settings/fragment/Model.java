@@ -11,15 +11,10 @@ import com.pedromassango.programmers.server.logout.LogoutHadler;
 
 class Model implements Contract.Model {
 
-    // To logout service
-    private LogoutHadler logoutHadler;
-
     // To store settings data
     private static Settings settings;
 
     public Model(BaseContract.PresenterImpl presenter) {
-
-        logoutHadler = new LogoutHadler(presenter);
         settings = new Settings(presenter.getContext());
     }
 
@@ -44,14 +39,5 @@ class Model implements Contract.Model {
     public void setBoolean(SettingsPreference settingsPreference, boolean newValue) {
 
         settings.setBoolean(settingsPreference, newValue);
-    }
-
-    /**
-     * Method to logout the user
-     */
-    @Override
-    public void logout() {
-
-        logoutHadler.showAlertDialogLogout();
     }
 }

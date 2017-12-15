@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.PostsRepository;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Post;
-import com.pedromassango.programmers.presentation.post.PostContract;
-import com.pedromassango.programmers.presentation.post.PostModel;
 import com.pedromassango.programmers.provider.SearchableProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.pedromassango.programmers.extras.Util.showLog;
 
@@ -22,16 +24,16 @@ import static com.pedromassango.programmers.extras.Util.showLog;
  * Created by Pedro Massango on 23-03-2017 20:01.
  */
 
-class Presenter implements Contract.Presenter {
+class Presenter implements Contract.Presenter, Callbacks.IResultsCallback<Post> {
 
     private static final String SEARCHED_POSTS = "com.pedromassango.programmers.mvp.post.search.SEARCHED_POSTS";
     private Contract.View view;
-    private PostContract.ModelImpl model;
+    private PostsRepository model;
     private ArrayList<Post> searchedPosts = new ArrayList<>();
 
     public Presenter(Contract.View view) {
         this.view = view;
-        this.model = new PostModel(this);
+        this.model = RepositoryManager.getInstance().getPostsRepository();
     }
 
     @Override
@@ -93,14 +95,14 @@ class Presenter implements Contract.Presenter {
         view.setTvEmptyVisibility(View.VISIBLE);
         view.setTvEmptyMessage(getContext().getString(R.string.searching));
 
-        model.searchPosts(query, this);
+        model.search(query, this);
     }
 
     @Override
-    public void onGetPostSuccessfull(ArrayList<Post> result) {
-        showLog("onGetPostSuccessfull: "+result.size());
+    public void onSuccess(List<Post> results) {
+        showLog("onGetPostSuccessfull: " + results.size());
         searchedPosts.clear();
-        searchedPosts.addAll(result);
+        searchedPosts.addAll(results);
 
         view.setTvEmptyVisibility(View.GONE);
         view.setRecyclerViewVisibility(View.VISIBLE);
@@ -109,9 +111,8 @@ class Presenter implements Contract.Presenter {
     }
 
     @Override
-    public void onError(String error) {
-        showLog("onGetPost-Error: "+error);
-        view.setTvEmptyMessage(error);
-        //view.showToastMessage(getContext().getString(error));
+    public void onDataUnavailable() {
+        showLog("onGetPost-onDataUnavailable: ");
+        view.showNotFOundMessage();
     }
 }

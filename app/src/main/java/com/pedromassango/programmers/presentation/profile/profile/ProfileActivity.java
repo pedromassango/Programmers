@@ -82,9 +82,9 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
             @Override
             public void onClick(View v) {
 
-                ProfileActivity.super.showToastMessage(R.string.funtionality_off);
-                //TODO: funtionality_off - Send Message
-                //presenter.onSendMessageClicked();
+                //ProfileActivity.super.showToastMessage(R.string.funtionality_off);
+
+                presenter.onSendMessageClicked();
             }
         });
 
@@ -143,9 +143,9 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
     }
 
     @Override
-    public void showNoInternetDialog(String message, IDialogRetryListener noInternetListener) {
+    public void showNoInternetDialog(IDialogRetryListener noInternetListener) {
 
-        new FailDialog(this, message, noInternetListener)
+        new FailDialog(this, getString(R.string.internet_connection_error_description), noInternetListener)
                 .show();
     }
 
@@ -240,7 +240,6 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
 
         presenter.showNoPostsMessage();
     }
-    //END From PostsAdapter
 
     @Override
     public void startEditProfileActivity(Bundle b) {

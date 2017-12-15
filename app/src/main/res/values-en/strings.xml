@@ -1,0 +1,269 @@
+<resources>
+    <string name="app_name">Programmers</string>
+    <string name="app_version">1.1.1</string>
+    <string name="default_google_web_client_id">781049805208-62rffq36rhs5hca0qsh616oui4eeem79.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1781345812193019</string>
+
+    <string name="app_email">pedromassango.developer@gmail.com</string>
+    <string name="about_app">About Programmers</string>
+    <string name="app_developer">By: Pedro Massango</string>
+    <string name="app_description">Programmers is an application developed by Pedro Massango, aimed at jutting developers around the world, and maintaining a relationship with each other. \n \nShare knowledge, and assist in the most common problem resolutions as well as the most complex. \n \nThis is the first version (beta), the system still has some Bugs, if you check some, do not hesitate to report. \n \nVisit the page on facebook, and tell me your experience. Thank you!</string>
+    <string name="app_developed_and_designed">Developed and Designed by: \n Pedro Massango.</string>
+
+    <string name="intro_one_title">Welcome to Programmers</string>
+    <string name="intro_one_description">An application made specifically for programmers/developers and technology lovers.</string>
+
+    <string name="intro_two_title">Are you in doubt? Ask for help.</string>
+    <string name="intro_two_description">Join fellow professionals. And learn from them, casting doubt on what you need.</string>
+
+    <string name="intro_tree_title">Help, share your knowledge.</string>
+    <string name="intro_tree_description">A place where everyone helps and is helped. The more you help your reputation, the more solid your knowledge.</string>
+
+    <string name="intro_four_title">Start by creating an account.</string>
+    <string name="intro_four_description">Or enter some available services to login.</string>
+
+    <!--funtionality_off-->
+    <string name="funtionality_off">Message functionality unavailable!</string>
+
+    <!--User levels by helping peoples-->
+    <string name="beginner">Beginner</string>
+    <string name="amauter">Amateur</string>
+    <string name="professional">Professional</string>
+    <string name="expert">Expert</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Closed</string>
+
+    <!--Titles-->
+    <string name="contacts">Contacts</string>
+    <string name="others_info">Other information</string>
+
+    <string name="age">Age</string>
+    <string name="gender">Genre</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="energy">Energy</string>
+    <string name="level">Level</string>
+
+    <string name="btn_save_activity_edit_profile">Save</string>
+
+    <!--Edit Profile-->
+    <string name="phone">Telephone</string>
+    <string name="email">E-mail</string>
+    <string name="language">Language</string>
+    <string name="platform">Platform</string>
+
+    <!--Login-->
+    <string name="password">Password</string>
+    <string name="entrar">Get in</string>
+
+    <!--Signin-->
+    <string name="haveAccount">I\'m already registered.</string>
+
+    <!--End Strings for hint-->
+
+
+    <!--String childs, only lowerCase here-->
+    <string name="home_page">All</string>
+    <string name="developers">Developers</string>
+
+    <string name="terminar_sess_o">Log out</string>
+
+    <string name="publish">Publish</string>
+    <string name="publishing">Publishing…</string>
+    <string name="str_ok">OK</string>
+    <string name="something_was_wrong">Something went wrong. Try again.</string>
+    <string name="str_cancel">CANCEL</string>
+    <string name="dialog_logout_title">Do you really want to leave?</string>
+    <string name="dialog_logout_description">You will need to login, the next time!</string>
+    <string name="str_quiting">Ending session…</string>
+    <string name="title">Title</string>
+    <string name="str_select">Select</string>
+    <string name="str_login_error_title">Login failed</string>
+    <string name="error">Fail</string>
+    <string name="a_carregar">Loading…</string>
+    <string name="publicar">PUBLISH</string>
+    <string name="comment">Comment</string>
+    <string name="like">Like</string>
+    <string name="selecione_uma_imagem">Select an image</string>
+    <string name="autenticando">Authenticating…</string>
+    <string name="email_invalido">Enter a valid email address.</string>
+    <string name="por">By:</string>
+    <string name="postagens">Posts</string>
+    <string name="mostrar_mais">Show more</string>
+    <string name="mostrar_menos">Show less</string>
+    <string name="cidade">City</string>
+    <string name="cadastrando">Signing up…</string>
+    <string name="empty_username">Empty user name</string>
+    <string name="empty_password">Please enter a valid password</string>
+    <string name="empty_email">Enter an email</string>
+    <string name="empty_text">Enter something</string>
+    <string name="nome_completo">Full name</string>
+    <string name="empty_phone">Enter a phone number</string>
+    <string name="empty_city">Enter the name of the city</string>
+
+    <!--TODO: replace to english language-->
+    <string name="empty_title">Digite um título</string>
+    <string name="empty_description">Necessário uma descrição</string>
+    <string name="password_2">Repita a palavra-passe</string>
+    <string name="empty_password_2">Re-digite a palavra-passe</string>
+    <string name="password_less_than_eight">Mínimo 8 digitos, máximo 14</string>
+    <string name="password_dont_match">Palavra-passe não conscide com a primeira</string>
+    <string name="incorrect_email">Digite um e-mail válido</string>
+    <string name="outras_informa_es">Outras informações</string>
+    <string name="cadastrar">Sign up</string>
+    <string name="action_mark_util">Marcar como útil</string>
+    <string name="action_delete_comment">Eliminar comentário</string>
+    <string name="action_unmark_util">Desmarcar como útil</string>
+    <string name="comment_deleted_successfull">Comentário eliminado</string>
+    <string name="deleting_comment">Deleting comment…</string>
+    <string name="comment_unmarking">Desmarcando…</string>
+    <string name="comment_marking">Marcando…</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_deative_comments">Desativar comentários</string>
+    <string name="action_ative_comments">Ativar comentários</string>
+    <string name="deleting_post">Deleting post…</string>
+    <string name="post_deleted_successfull">Publicação eliminada!</string>
+    <string name="done">Done</string>
+    <string name="getting_user_info">Preparando infomações…</string>
+    <string name="no_changes_maked_in_edit_post">Sem alterações feitas. Faça alterações para salvar!</string>
+    <string name="updating_post">Actualizando publicação…</string>
+    <string name="incorrect_phone_number">Número de telefone inválido</string>
+    <string name="about">About</string>
+    <string name="bug_repport">Bug repport</string>
+    <string name="bug_repport_info">Descreva detalhadamente oque aconteceu de errado para que possa se resolver o problema.</string>
+    <string name="less_description">Mínimo 15 carácteres.</string>
+    <string name="sending_bug">Enviando…</string>
+    <string name="send">Enviar</string>
+    <string name="internet_connection_error">Impossível conectar com o servidor!</string>
+    <string name="internet_connection_error_description">Não foi possível estabelecer conexão com servidor.Verifique sua conexão com a internet e tente novamente.</string>
+
+    <string name="try_again">Tentar novamente</string>
+    <string name="quit">Sair</string>
+    <string name="get_user_info_error">Falha ao obter informações do usuário. Verifique sua conexão com a internet, e tente novamente.</string>
+    <string name="empty_bug_description">Diga oque aconteceu de errado</string>
+    <string name="on_facebook">Página no facebook</string>
+    <string name="open_with">Abrir com</string>
+    <string name="updating_profile">Actualizando perfil…</string>
+    <string name="title_activity_edit_profile">Actualizar perfil</string>
+    <string name="seus_posts_estar_o_aqui">Seus posts estarão aqui.</string>
+
+    <string name="search">Procurar</string>
+    <string name="searching">Procurando…</string>
+    <string name="search_hint">Procurar Publicação</string>
+    <string name="delete_history">Delete history search</string>
+    <string name="search_history_deleted">Histórico de pesquisa eliminado</string>
+    <string name="search_not_found">Sem resultados.</string>
+    <string name="reset_password_info">Digite seu E-mail para receber instruções de configuração de uma nova palavra-passe.</string>
+    <string name="developer">Developer</string>
+    <string name="share">Partilhar</string>
+    <string name="sending">Enviando</string>
+    <string name="email_verification_success_message">Verifica a caixa de entrada do seu e-mail, e siga os passos para alterar sua palavra-passe!</string>
+    <string name="email_verification_success_title">Enviado</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="terms_adn_conditions_info">Termos e condições.</string>
+    <string name="bug_repport_alert">Enviar juntamente com minha identificação para ser notificado assim que o problema for resolvido (recomendado).</string>
+
+
+    <string name="delete_post_title">Delete post</string>
+    <string name="delete_post_message">Deseja realmente eliminar esta publicação?\\nNão é possível reverter esta acção.</string>
+    <string name="say_someting">Escreva alguma coisa…</string>
+
+    <string name="notifications">Notificações</string>
+
+    <string name="vibrate">Vibrar</string>
+    <string name="donate_title">Donate</string>
+    <string name="rate">Avaliar aplicativo</string>
+    <string name="job_title">Emprego</string>
+    <string name="link_title">Link</string>
+    <string name="post_title">Publicação</string>
+    <string name="donate_description">Programmers é gratuito. Ajude com um donativo.</string>
+    <string name="system_settings">DEFINIÇÔES DE SISTEMA</string>
+    <string name="end_session">Terminar sessão</string>
+    <string name="privacy_police">Política de Privacidade</string>
+    <string name="updates">Actualizações</string>
+    <string name="general_settings">GERAIS</string>
+    <string name="update">Update</string>
+    <string name="version">Version</string>
+    <string name="feedback">Feedback</string>
+    <string name="send_me_an_email">Envie-me um email</string>
+    <string name="check_automaticaly">Verificação automática</string>
+    <string name="check_for_updates_automaticaly_summary">Verificar novas actualizações de acordo com o calendário.</string>
+    <string name="settings">Definições</string>
+    <string name="new_nersion_summary_off">Não receberá alertas sobre novas versõesdo app.</string>
+    <string name="new_nersion_summary_on">Será apresentado alertas sempre houver uma nova versão do app (recomendado).</string>
+    <string name="send_with">Enviar com</string>
+
+    <string name="tell_me_if_you_find_a_bug">Diz-me se você encontrou algum problema</string>
+    <string name="make_an_donation">Doar projeto</string>
+    <string name="we_are_on_facebook">Visite, curte e comente sobre o app.</string>
+    <string name="empty_payment_amount">Digite uma quantia</string>
+    <string name="make_pay">Contribuir</string>
+    <string name="digite_a_quantia_que_deseja_doar_considerando_que_esta_quantia_em_usd">Obrigado por estar a ajudar para o desenvolvimento deste projeto.\n\nDigite a quantia que deseja doar (considerando que esta quantia é em USD).</string>
+    <string name="amount">Quantity</string>
+    <string name="paiment_app_detail">Ajudando Programmers</string>
+    <string name="payment_success_title_info">Pagamento efectuado com sucesso!</string>
+    <string name="payment_success_description_info">Obrigado por contribuir para o desenvolvimento deste aplicativo, o desenvolvedor agradeçe.</string>
+    <string name="message">Message</string>
+    <string name="empty_message">Digite algum texto</string>
+    <string name="up_vote">Votar positivo</string>
+    <string name="down_vote">Vote up</string>
+    <string name="escreve_ou_cola_um_url">Escreve ou cola um URL</string>
+    <string name="link_description">Breve descrição</string>
+    <string name="selecione_a_categoria_do_link">Selecione a categoria do notification</string>
+    <string name="selecione_a_categoria_da_vaga">Selecione uma categoria</string>
+    <string name="description_less">Min 10 chars</string>
+    <string name="url_empty">Opa! digite alguma coisa.</string>
+    <string name="url_invalid">isto não se parece com uma URL.</string>
+    <string name="deleting">Deleting…</string>
+    <string name="str_empregador_name">Nome do empregador</string>
+    <string name="anos_de_experiencia">Anos de experiência</string>
+    <string name="enviar_candidatura">enviar candidatura</string>
+    <string name="trabalhadores_remoto">Trabalho remoto</string>
+    <string name="trabalhador_remoto">Trabalhador remoto</string>
+    <string name="empty_empregador">Opa! parece que você esqueceu de prencher isto.</string>
+    <string name="name_too_short">Nome muito curto.</string>
+    <string name="title_too_short">Título muito curto.</string>
+    <string name="description_too_short">Isto não se parece com uma descrição.</string>
+    <string name="empty_work_zone">Precisa preencher este campo. Isto é sério.</string>
+    <string name="anos_de_experi_ncia_opcional">Anos de experiência (opcional)</string>
+    <string name="empty_country">type the country.</string>
+    <string name="str_yes">Sim</string>
+    <string name="str_no">Não</string>
+    <string name="year_must_be_less_than_eight">Máximo 8 anos de experiência.</string>
+    <string name="share_this_app">Partilhar este app</string>
+    <string name="account_settings">ACCOUNT</string>
+    <string name="new_password">Alterar senha</string>
+    <string name="criar_conta">Sign up</string>
+    <string name="reputacao">Reputação</string>
+    <string name="cargos_requeridos">Cargos requeridos</string>
+    <string name="email_hint">*Email</string>
+    <string name="phone_hint">*Telefone</string>
+    <string name="ou">OU</string>
+    <string name="receive_notifications">Receber Notificações</string>
+    <string name="not_receive_notifications">Não receber Notificações</string>
+    <string name="comments">Comentários</string>
+    <string name="posts">Publicações</string>
+    <string name="published">publicou:</string>
+    <string name="you">You</string>
+
+    <string-array name="array_tabs_titles">
+        <item>Publicações</item>
+        <item>Links</item>
+        <item>Usuários</item>
+    </string-array>
+
+    <string-array name="array_gender">
+        <item>Masculino</item>
+        <item>Feminino</item>
+    </string-array>
+    <string name="chat">Chat</string>
+    <string name="crash_toast_text">"     Ops! Aconteceu um erro, mas um relatório foi gerado, envie para mim, para que se possa solucionar o problema! "</string>
+    <string name="messages">Messages</string>
+    <string name="nothing_to_show">Nothing to be show!</string>
+    <string name="update_profile_error_message">Unable to update your data, check the internet connection.</string>
+    <string name="users">Peoples</string>
+    <string name="fail_title">Oops!</string>
+    <string name="home">Home</string>
+</resources>

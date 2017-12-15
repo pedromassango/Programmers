@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.StringRes;
 
-import com.pedromassango.programmers.interfaces.INewPostListener;
 import com.pedromassango.programmers.presentation.base.BaseContract;
 
 /**
@@ -36,10 +35,10 @@ class Contract {
 
         void onSuccess();
 
-        void onError(String error);
+        void onError();
     }
 
-    interface Presenter extends BaseContract.PresenterImpl, INewPostListener {
+    interface Presenter extends BaseContract.PresenterImpl {
 
         void initialize(Intent intent);
 
@@ -48,7 +47,6 @@ class Contract {
         void publishPostClicked();
 
         void onActivityResult(int requestCode, int resultCode, Intent data);
-
 
         void clearCurrentSelectedImageClicked();
     }

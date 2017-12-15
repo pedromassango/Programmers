@@ -17,22 +17,20 @@ class Contract {
 
         String getEmail();
 
-        void setEmailError(String emailError);
+        void setEmailError();
 
-        void showProgress(String string);
+        void showProgress();
 
         void dismissProgress();
 
-        void showError(String string, String error);
-
-        void showDialogNextStep(String title, String message);
+        void showError();
 
         void clearCurrentEmailText();
+
+        void showDialogSuccess();
     }
 
     interface Presenter {
-
-        Context getContext();
         void sendVerificationClicked();
     }
 

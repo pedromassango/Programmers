@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.pedromassango.programmers.R;
-import com.pedromassango.programmers.interfaces.IPostDeleteListener;
-import com.pedromassango.programmers.models.Post;
-import com.pedromassango.programmers.presentation.post.PostModel;
+import com.pedromassango.programmers.data.PostsRepository;
+import com.pedromassango.programmers.data.RepositoryManager;
 import com.pedromassango.programmers.extras.CategoriesUtils;
+import com.pedromassango.programmers.interfaces.Callbacks;
+import com.pedromassango.programmers.models.Post;
 
 import static com.pedromassango.programmers.extras.Constants.EXTRA_POST;
 
@@ -16,15 +17,16 @@ import static com.pedromassango.programmers.extras.Constants.EXTRA_POST;
  * Created by Pedro Massango on 23-02-2017 11:15.
  */
 
-public class Presenter implements Contract.Presenter, IPostDeleteListener {
+public class Presenter implements Contract.Presenter, Callbacks.IRequestCallback {
 
     private Contract.View view;
-    private PostModel postModel;
+    private PostsRepository postModel;
     private Post post;
+    private boolean deleting;
 
     Presenter(Contract.View view) {
         this.view = view;
-        this.postModel = new PostModel(this);
+        this.postModel = RepositoryManager.getInstance().getPostsRepository();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class Presenter implements Contract.Presenter, IPostDeleteListener {
         post.setCategory(pCategory);
 
         view.showProgress(R.string.updating_post);
-        postModel.update(this, post);
+        postModel.update(post, this);
     }
 
     @Override
@@ -76,7 +78,8 @@ public class Presenter implements Contract.Presenter, IPostDeleteListener {
             public void deletePostConfirmed() {
 
                 //Delete post on the server
-                postModel.deletePost(Presenter.this, post);
+                deleting = true;
+                postModel.delete(post, Presenter.this);
             }
         });
     }
@@ -88,27 +91,19 @@ public class Presenter implements Contract.Presenter, IPostDeleteListener {
     }
 
     @Override
-    public void updateSuccess() {
+    public void onSuccess() {       //update success
         view.dismissProgress();
-        view.actionPostUpdated();
+
+        if (deleting) {
+            view.postDeleted();
+        } else {
+            view.actionPostUpdated();
+        }
     }
 
     @Override
-    public void updateError(String message) {
+    public void onError() {      // update error
         view.dismissProgress();
-        view.showFailDialog(message);
-    }
-
-    @Override
-    public void onPostDeleteSuccess() {
-        view.dismissProgress();
-        view.postDeleted();
-    }
-
-    @Override
-    public void onPostDeleteError(String error) {
-
-        view.dismissProgress();
-        view.showFailDialog(error);
+        view.showFailDialog();
     }
 }

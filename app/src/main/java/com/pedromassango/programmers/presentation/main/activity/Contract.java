@@ -7,24 +7,14 @@ import android.support.annotation.StringRes;
 import android.view.MenuItem;
 
 import com.pedromassango.programmers.interfaces.IDialogRetryListener;
-import com.pedromassango.programmers.interfaces.IGetUserListener;
 import com.pedromassango.programmers.interfaces.IRecyclerScrollListener;
 import com.pedromassango.programmers.models.Usuario;
-import com.pedromassango.programmers.presentation.base.BaseContract;
 
 /**
  * Created by Pedro Massango on 23-02-2017 14:58.
  */
 
 public class Contract {
-
-    interface Model {
-        void getUser(IGetUserListener listener);
-
-        void logoutUser();
-
-        void onDestroy();
-    }
 
     /**
      * The {@link IRecyclerScrollListener} to listen
@@ -49,9 +39,7 @@ public class Contract {
 
         void showToast(String error);
 
-        void showDialogGetUserInfoError(String string, OnDialogListener listener);
-
-        void startReportBugActivity();
+        void showDialogGetUserInfoError(OnDialogListener listener);
 
         void quit();
 
@@ -61,20 +49,22 @@ public class Contract {
 
         void setFABVisibility(boolean visibility);
 
-        void startAboutActivity();
-
         void startDonateActivity();
 
-        void startNewLinkActivity();
-
         void startRateApp();
+
+        void showLogoutDialog();
+
+        void openChatDrawer();
+
+        void startLoginActivity();
+
+        void showDefaultFragment();
     }
 
-    interface Presenter extends BaseContract.PresenterImpl{
+    interface Presenter{
 
-        void initialize(Intent intent, Bundle savedState);
-
-        PackageInfo packageInfo();
+        void init();
 
         void onLogoutClicked();
 
@@ -83,8 +73,6 @@ public class Contract {
         boolean onOptionsItemSelected(MenuItem item);
 
         void onScrollStateChanged( int newState);
-
-        void leavingActivity();
 
         String getSkill(int skill);
 

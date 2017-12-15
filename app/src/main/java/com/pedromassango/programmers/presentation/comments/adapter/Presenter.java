@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.data.CommentsRepository;
+import com.pedromassango.programmers.data.RepositoryManager;
+import com.pedromassango.programmers.data.prefs.PrefsHelper;
+import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Comment;
-import com.pedromassango.programmers.presentation.comments.CommentsContract;
-import com.pedromassango.programmers.presentation.comments.CommentsModel;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.Util;
 
@@ -14,17 +16,20 @@ import com.pedromassango.programmers.extras.Util;
  * Created by Pedro Massango on 26-02-2017 22:27.
  */
 
-public class Presenter implements Contract.Presenter, CommentsContract.OnDeleteCommentListener, CommentsContract.OnSetUtilCommentListener {
+public class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Comment> {
 
     private Contract.View view;
-    private CommentsModel model;
+    private CommentsRepository model;
     private Context context;
 
     Presenter(Context context, Contract.View view) {
         this.view = view;
         this.context = context;
-        this.model = new CommentsModel(this);
+        this.model = RepositoryManager.getInstance().getCommentsRepository();
     }
+
+    // Return the current user id
+    private String getUserId(){ return PrefsHelper.getId();}
 
     @Override
     public Context getContext() {
@@ -37,7 +42,7 @@ public class Presenter implements Contract.Presenter, CommentsContract.OnDeleteC
         CharSequence[] actions = new CharSequence[1];
 
         //Can't mark your own sendComment
-        if (comment.getAuthorId().equals(model.getUserId())) {
+        if (comment.getAuthorId().equals(getUserId())) {
             actions[0] = getContext().getString(R.string.action_delete_comment);
             view.showDialogAction(adapterPosition, comment, actions);
             return;
@@ -47,7 +52,7 @@ public class Presenter implements Contract.Presenter, CommentsContract.OnDeleteC
         //else
         //Show mark sendComment
 
-        if (comment.getVotes().containsKey(model.getUserId())) {
+        if (comment.getVotes().containsKey(getUserId())) {
             actions[0] = getContext().getString(R.string.action_unmark_util);
             view.showDialogAction(adapterPosition, comment, actions);
         } else {
@@ -60,25 +65,34 @@ public class Presenter implements Contract.Presenter, CommentsContract.OnDeleteC
     public void onDialogActionItemClicked(int adapterPosition, Comment comment) {
 
         //Can't mark your own sendComment
-        if (comment.getAuthorId().equals(model.getUserId())) {
+        if (comment.getAuthorId().equals(getUserId())) {
 
             view.showProgessDialog(R.string.deleting_comment);
-            model.deleteComment(this, comment);
+            model.delete(comment, new Callbacks.IRequestCallback() {
+                @Override
+                public void onSuccess() {
+                    view.dismissProgessDialog();
+                }
+
+                @Override
+                public void onError() {
+                    view.dismissProgessDialog();
+                    view.showToastError();
+                }
+            });
             return;
         }
 
         //Show unmark sendComment
-        if (comment.getVotes().containsKey(model.getUserId())) {
-
-            view.showToast(getContext().getString(R.string.comment_unmarking));
-            model.unMarkCommentUtil(this, comment);
+        if (comment.getVotes().containsKey(getUserId())) {
+            model.markAsUtil(comment, false, this);
             return;
         }
 
         //Show mark sendComment
-        if (!comment.getVotes().containsKey(model.getUserId())) {
+        if (!comment.getVotes().containsKey(getUserId())) {
             view.showToast(getContext().getString(R.string.comment_marking));
-            model.markCommentUtil(this, comment);
+            model.markAsUtil(comment, true, this);
         }
     }
 
@@ -107,23 +121,14 @@ public class Presenter implements Contract.Presenter, CommentsContract.OnDeleteC
     }
 
     @Override
-    public void onError(String error) {
-        view.showToast(error);
-    }
-
-    //Delete result
-    @Override
-    public void onDeleteSuccess() {
+    public void onSuccess(Comment result) {
         //view.updateRecyclerView(adapterPosition);
         view.dismissProgessDialog();
         view.showToast(getContext().getString(R.string.comment_deleted_successfull));
     }
 
     @Override
-    public void onDeleteError() {
-        view.dismissProgessDialog();
-
-        view.showToast(getContext().getString(R.string.something_was_wrong));
+    public void onDataUnavailable() {
+        view.showToastError();
     }
-
 }

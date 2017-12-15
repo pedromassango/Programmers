@@ -127,10 +127,6 @@ class Presenter implements Contract.Presenter {
                 view.startShareAppIntent();
                 break;
 
-            case CATEGORY_BUG_REPPORT:
-                view.startBugRepportActivity();
-                break;
-
             case CATEGORY_CHANGE_PASSWORD:
                 view.showResetPasswordFragment();
                 break;
@@ -149,7 +145,7 @@ class Presenter implements Contract.Presenter {
 
             case CATEGORY_QUIT:
                 // Logout user
-                model.logout();
+                view.logout();
                 break;
         }
 

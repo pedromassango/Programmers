@@ -7,7 +7,6 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.extras.IntentUtils;
-import com.pedromassango.programmers.presentation.job.activity.JobActivity;
 import com.pedromassango.programmers.presentation.main.activity.Contract;
 
 /**
@@ -27,15 +26,11 @@ public class FabsController implements View.OnClickListener {
 
         fabMenu = mView.findViewById(R.id.main_fab);
         FloatingActionButton fab1 = fabMenu.findViewById(R.id.fab1);
-        FloatingActionButton fab2 = fabMenu.findViewById(R.id.fab2);
         FloatingActionButton fab3 = fabMenu.findViewById(R.id.fab3);
-        FloatingActionButton fab4 = fabMenu.findViewById(R.id.fab4);
 
         fabMenu.setOnClickListener(this);
         fab1.setOnClickListener(this);
-        fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
-        fab4.setOnClickListener(this);
     }
 
     @Override
@@ -44,20 +39,11 @@ public class FabsController implements View.OnClickListener {
 
             case R.id.fab1: // Fab share Clicked
                 IntentUtils.startShareApp(((Activity) mainView));
-                break;
 
-            case R.id.fab2: // Fab new Link Clicked
-                colapseFab();
-                mainView.startNewLinkActivity();
                 break;
             case R.id.fab3:
                 colapseFab();
                 mainView.startNewPostActivity();
-                break;
-
-            case R.id.fab4:
-                colapseFab();
-                IntentUtils.startActivity(((Activity) mainView), JobActivity.class);
                 break;
         }
     }

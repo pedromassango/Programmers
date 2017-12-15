@@ -12,7 +12,7 @@ import com.pedromassango.programmers.extras.CategoriesUtils;
 public class AppRules {
 
     // Topic for receive notifications
-    public static final String NEWS = "news";
+    public static final String NOTIFICATIONS = "notifications";
 
     // Votes
     private static final String LIKES = "likes";

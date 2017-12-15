@@ -24,28 +24,25 @@
             android:exported="false" />
 
         <activity
-            android:name=".presentation.splash.SplashActivity"
+            android:name=".presentation.main.activity.MainActivity"
             android:label="@string/app_name"
-            android:noHistory="true">
+            android:noHistory="false"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".presentation.main.activity.MainActivity"
-            android:label="@string/app_name"
-            android:noHistory="false"
-            android:windowSoftInputMode="adjustPan|adjustNothing">
+
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".mvp.post.search.SearchPostActivity" />
         </activity>
+
         <activity
             android:name=".presentation.profile.profile.ProfileActivity"
-            android:label=""/>
+            android:label="" />
         <activity
             android:name=".presentation.login.LoginActivity"
             android:launchMode="singleTop"
@@ -73,10 +70,6 @@
         </activity>
         <activity
             android:name=".presentation.post.edit.EditPostActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.repport.BugActivity"
-            android:label="@string/bug_repport"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.post.search.SearchPostActivity"
@@ -124,7 +117,7 @@
 
         <!-- FIREBASE SERVICES -->
 
-        <!--<service android:name=".services.firebase.AppFirebaseInstanceIdService">
+        <service android:name=".services.firebase.AppFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -133,8 +126,7 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>-->
-        <!-- FIREBASE SERVICES -->
+        </service>
 
         <activity
             android:name=".presentation.settings.activity.SettingsActivity"
@@ -161,14 +153,6 @@
                 android:value="com.pedromassango.programmers.presentation.main.activity.MainActivity" />
         </activity>
 
-        <activity
-            android:name=".presentation.link.views.LinkActivity"
-            android:label="@string/link_title"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.job.activity.JobActivity"
-            android:label="@string/job_title"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

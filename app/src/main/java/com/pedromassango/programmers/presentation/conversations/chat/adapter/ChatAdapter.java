@@ -16,6 +16,7 @@ import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.IGetDataCompleteListener;
 import com.pedromassango.programmers.models.Contact;
 import com.pedromassango.programmers.presentation.adapters.holders.ContactVH;
+import com.pedromassango.programmers.presentation.conversations.messages.MessagesActivity;
 import com.pedromassango.programmers.presentation.image.ViewImageDIalogFragment;
 import com.pedromassango.programmers.presentation.profile.profile.ProfileActivity;
 
@@ -101,8 +102,8 @@ public class ChatAdapter extends FirebaseRecyclerAdapter<Contact, ContactVH> imp
     @Override
     public void startMessageActivity(Bundle data) {
 
-        //IntentUtils.startActivity(activity, data, MessagesActivity.class);
-        Toast.makeText(activity, R.string.funtionality_off, Toast.LENGTH_SHORT).show();
+        IntentUtils.startActivity(activity, data, MessagesActivity.class);
+        //Toast.makeText(activity, R.string.funtionality_off, Toast.LENGTH_SHORT).show();
     }
 
     @Override

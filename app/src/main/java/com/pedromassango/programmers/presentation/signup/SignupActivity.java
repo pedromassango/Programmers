@@ -8,11 +8,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.presentation.login.LoginActivity;
 import com.pedromassango.programmers.presentation.policy.PrivacyPolicyDialogFragment;
 import com.pedromassango.programmers.presentation.profile.edit.EditProfileActivity;
 import com.pedromassango.programmers.ui.dialogs.FailDialog;
 import com.pedromassango.programmers.extras.IntentUtils;
 import com.vstechlab.easyfonts.EasyFonts;
+
+import static com.pedromassango.programmers.extras.Constants.EXTRA_SIGNUP;
+import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 
 public class SignupActivity extends AppCompatActivity implements Contract.View {
 
@@ -100,22 +105,27 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
 
     @Override
     public void showProgressDialog() {
-
-        dialog = new ProgressDialog(this);
-        dialog.setIndeterminate(true);
-        dialog.setMessage(getString(R.string.cadastrando));
+        if (dialog == null) {
+            dialog = new ProgressDialog(this);
+            dialog.setIndeterminate(true);
+            dialog.setMessage(getString(R.string.cadastrando));
+        }
         dialog.show();
     }
 
     @Override
     public void dismissProgressDialog() {
-        dialog.dismiss();
+        if (dialog != null)
+            dialog.dismiss();
     }
 
     @Override
     public void startLoginActivity() {
 
-        //IntentUtils.startActivity(this, LoginActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_SIGNUP, getEmail());
+
+        IntentUtils.startActivity(this, LoginActivity.class);
         this.finish();
     }
 
@@ -126,15 +136,9 @@ public class SignupActivity extends AppCompatActivity implements Contract.View {
     }
 
     @Override
-    public void startEditProfileActivity(Bundle bundle) {
+    public void showFailDialog() {
 
-        IntentUtils.startActivityCleaningTask(this, bundle, EditProfileActivity.class);
-    }
-
-    @Override
-    public void showFailDialog(String error) {
-
-        new FailDialog(this, getString(R.string.error), error, false)
+        new FailDialog(this, getString(R.string.error), getString(R.string.something_was_wrong), false)
                 .show();
     }
 

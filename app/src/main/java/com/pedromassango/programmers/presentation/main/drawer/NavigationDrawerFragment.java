@@ -136,8 +136,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         ImageUtils.loadImageUser(getContext(), usuario.getUrlPhoto(), userImage);
 
-        adapter = new CategoryAdapter(getContext(), usuario, CategoriesUtils.getCategories(getResources()), this);
-        recyclerCategories.setAdapter(adapter);
+        try {
+            adapter = new CategoryAdapter(getContext(), usuario, CategoriesUtils.getCategories(getResources()), this);
+            recyclerCategories.setAdapter(adapter);
+        }catch(IllegalStateException ex ){
+            ex.printStackTrace();
+        }
     }
 
     @Override

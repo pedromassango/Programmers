@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.SignInButton;
 import com.pedromassango.programmers.R;
+import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.IntentUtils;
 import com.pedromassango.programmers.extras.Util;
+import com.pedromassango.programmers.models.Usuario;
+import com.pedromassango.programmers.presentation.intro.IntroActivity;
 import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 import com.pedromassango.programmers.presentation.profile.edit.EditProfileActivity;
 import com.pedromassango.programmers.presentation.reset.password.ResetPasswordDialogFragment;
@@ -22,6 +25,8 @@ import com.pedromassango.programmers.presentation.signup.SignupActivity;
 import com.pedromassango.programmers.services.GoogleServices;
 import com.pedromassango.programmers.ui.dialogs.FailDialog;
 import com.vstechlab.easyfonts.EasyFonts;
+
+import static com.pedromassango.programmers.extras.Constants.EXTRA_USER;
 
 /**
  * A login screen that offers login via email/password.
@@ -79,11 +84,15 @@ public class LoginActivity extends AppCompatActivity implements Contract.View {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+        // Presenter
+        presenter = new Presenter(this);
+        presenter.checkFirstTimeStatus();
+
+        super.onCreate(savedInstanceState); // Login activity start here
         setContentView(R.layout.activity_login);
         this.init();
 
-        presenter = new Presenter(this);
         presenter.initialize();
         presenter.configGoogleSigin();
     }
@@ -153,6 +162,12 @@ public class LoginActivity extends AppCompatActivity implements Contract.View {
     }
 
     @Override
+    public void stratIntroActivity() {
+        IntentUtils.startActivity(this, IntroActivity.class);
+        finish();
+    }
+
+    @Override
     public void actionGoogleSignin(int RC_SIGN_IN, Intent signInIntent) {
 
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -165,21 +180,31 @@ public class LoginActivity extends AppCompatActivity implements Contract.View {
     }
 
     @Override
-    public void showFailDialog(String error) {
+    public void showFailDialog() {
 
         new FailDialog(this,
-                getString(R.string.str_login_error_title), error, true)
+                getString(R.string.str_login_error_title),
+                getString(R.string.something_was_wrong), true)
                 .show();
     }
 
     @Override
-    public void startMainActivity(Bundle userData) {
+    public void startMainActivity(Usuario usuario) {
 
-        IntentUtils.startActivity(this, userData, MainActivity.class);
+        Bundle bundle = new Bundle();
+        //bundle.putBoolean(Constants._FIRST_TIME, true);
+        bundle.putParcelable(EXTRA_USER, usuario);
+
+        IntentUtils.startActivity(this, bundle, MainActivity.class);
+        this.finish(); //Removing from list of activities
     }
 
     @Override
-    public void startEditProfileActivity(Bundle bundle) {
+    public void startEditProfileActivity(Usuario usuario) {
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants._FIRST_TIME, true);
+        bundle.putParcelable(EXTRA_USER, usuario);
 
         IntentUtils.startActivity(this, bundle, EditProfileActivity.class);
         this.finish(); //Removing from list of activities
