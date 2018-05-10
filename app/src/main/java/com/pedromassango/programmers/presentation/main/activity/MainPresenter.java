@@ -48,13 +48,13 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
                 if (Constants._DEVELOP_MODE) {
                     view.showHeaderInfo(Util.getUser());
 
-                    // Subscribe user to NEWS topic
-                    NotificationSender.subscribe( Constants.NotificationTopics.NEWS);
-
                     // set Empty, to get all default info on  all fragments
                     view.setFragmentByCategory("");
                     return;
                 }
+
+                // Subscribe user to NEWS topic
+                NotificationSender.subscribe( Constants.NotificationTopics.NEWS);
 
                 showLog("getiing info from - firebase");
 

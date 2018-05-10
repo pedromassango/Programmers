@@ -86,12 +86,12 @@
         </LinearLayout>
 
         <TextView
-            android:text="@string/ou"
-            android:paddingTop="16dp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="16dp"
+            android:text="@string/ou" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_google_login"

@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.pedromassango.programmers.AppRules;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
+import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Post;
 import com.pedromassango.programmers.server.Library;
@@ -55,6 +57,12 @@ public class PostsRepository implements PostsDataSource {
 
     @Override
     public void getAll(final Callbacks.IResultsCallback<Post> callback) {
+
+        if(Constants._DEVELOP_MODE){
+            callback.onSuccess(Util.getPosts());
+            return;
+        }
+
         localSource.getAll(new Callbacks.IResultsCallback<Post>() {
             @Override
             public void onSuccess(List<Post> results) {
@@ -91,6 +99,11 @@ public class PostsRepository implements PostsDataSource {
 
     @Override
     public void getAll(final String category, final Callbacks.IResultsCallback<Post> callback) {
+        if(Constants._DEVELOP_MODE){
+            callback.onSuccess(Util.getPosts());
+            return;
+        }
+
         localSource.getAll(category, new Callbacks.IResultsCallback<Post>() {
             @Override
             public void onSuccess(List<Post> results) {
@@ -184,7 +197,6 @@ public class PostsRepository implements PostsDataSource {
         DatabaseReference PostByCategoryRef = Library.getRootReference().child(AppRules.getPostsCategoryRef(post.getCategory(), postId));
         DatabaseReference postByUserRef = Library.getRootReference().child(AppRules.getPostUserRef(post.getAuthorId(), postId));
 
-        //TODO: work here.
         Worker.runPostViewsCountTransition(allPostRef);
         Worker.runPostViewsCountTransition(PostByCategoryRef);
         Worker.runPostViewsCountTransition(postByUserRef);

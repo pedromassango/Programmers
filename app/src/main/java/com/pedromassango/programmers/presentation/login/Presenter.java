@@ -19,6 +19,7 @@ import com.pedromassango.programmers.data.UsersRepository;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.extras.TextUtils;
+import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
@@ -53,6 +54,12 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
 
     @Override
     public void initialize() {
+
+        if(Constants._DEVELOP_MODE){
+            view.startMainActivity(Util.getUser());
+            return;
+        }
+
         String lastEmail = PrefsHelper.readString(Constants.LAST_EMAIL);
         view.setEmail(lastEmail);
     }

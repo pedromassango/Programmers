@@ -68,7 +68,6 @@ class Presenter implements Contract.Presenter, Callbacks.IResultCallback<Usuario
     //START Private Methods they are not in LinkContract class
     private void bindDataToViews(Usuario usuario) {
         this.usuario = usuario;
-        //TODO: remove this comments
         if (usuario.getId().equals(PrefsHelper.getId())) {
             view.setButtonEditVisibility(View.VISIBLE);
             view.setButtonMessageVisibility(View.GONE);

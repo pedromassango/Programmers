@@ -2,6 +2,7 @@ package com.pedromassango.programmers.data;
 
 import com.pedromassango.programmers.data.local.NotificationLocalDataSource;
 import com.pedromassango.programmers.data.remote.NotificationRemoteDataSource;
+import com.pedromassango.programmers.extras.Constants;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Notification;
 
@@ -35,6 +36,12 @@ public class NotificationRepository implements NotificationDataSOurce {
 
     @Override
     public void get(final String userId, final Callbacks.IResultsCallback<Notification> callback) {
+
+        if(Constants._DEVELOP_MODE){
+            callback.onSuccess(MockData.notifications);
+            return;
+        }
+
         localDataSource.get(userId, new Callbacks.IResultsCallback<Notification>() {
             @Override
             public void onSuccess(List<Notification> results) {

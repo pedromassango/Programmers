@@ -23,6 +23,7 @@ public class Notification extends RealmObject implements Parcelable {
     private String authorId;
     private String toUserId;
     private String postId;
+    private String postTitle;
     private long timestamp;
 
 
@@ -32,6 +33,7 @@ public class Notification extends RealmObject implements Parcelable {
         authorId = in.readString();
         toUserId = in.readString();
         postId = in.readString();
+        postTitle = in.readString();
         timestamp = in.readLong();
     }
 
@@ -42,6 +44,7 @@ public class Notification extends RealmObject implements Parcelable {
         dest.writeString(authorId);
         dest.writeString(toUserId);
         dest.writeString(postId);
+        dest.writeString(postTitle);
         dest.writeLong(timestamp);
     }
 
@@ -79,13 +82,22 @@ public class Notification extends RealmObject implements Parcelable {
     }
 
 
-    public Notification(String id, String authorId, String author, String toUserId, String postId, long timestamp) {
+    public Notification(String id, String authorId, String author, String toUserId, String postId, String postTitle, long timestamp) {
         this.id = id;
         this.authorId = authorId;
         this.author = author;
         this.toUserId = toUserId;
         this.postId = postId;
+        this.postTitle = postTitle;
         this.timestamp = timestamp;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 
     public String getToUserId() {

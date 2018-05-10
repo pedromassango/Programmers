@@ -6,6 +6,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.Util;
@@ -47,6 +48,7 @@ public class Programmers extends MultiDexApplication {
         //Setting up
         FirebaseApp.initializeApp(this);
         FirebaseAuth.getInstance();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true); // enable offline data persist
 
         // First setup
         PrefsHelper.getInstance();

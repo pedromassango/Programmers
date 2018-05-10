@@ -16,7 +16,7 @@ import com.pedromassango.programmers.presentation.profile.fragments.UserPostsFra
 
 public class ProfileTabsAdapter extends FragmentPagerAdapter {
 
-    private final String[] titles = {"Sobre", "Posts"};
+    private final String[] titles = {"About", "Articles"};
     private final Usuario usuario;
 
     public ProfileTabsAdapter(FragmentManager fm, Usuario usuario) {

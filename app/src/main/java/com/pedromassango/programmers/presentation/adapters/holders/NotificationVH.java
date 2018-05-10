@@ -29,11 +29,13 @@ import com.pedromassango.programmers.presentation.comments.activity.CommentsActi
 public class NotificationVH extends RecyclerView.ViewHolder {
 
     private final TextView tvDate;
+    private final TextView tvTitle;
     private final TextView tvDescription;
 
     public NotificationVH(View view) {
         super(view);
         tvDate = view.findViewById(R.id.tv_date);
+        tvTitle = view.findViewById(R.id.tv_title);
         tvDescription = view.findViewById(R.id.tv_description);
     }
 
@@ -45,6 +47,8 @@ public class NotificationVH extends RecyclerView.ViewHolder {
 
         final String notificationDescription =
                 String.format("%s %s", notification.getAuthor(), activity.getString(R.string.notification_current_user_text));
+
+        tvTitle.setText( notification.getPostTitle());
         tvDescription.setText(String.valueOf(notificationDescription));
 
         // For delete action

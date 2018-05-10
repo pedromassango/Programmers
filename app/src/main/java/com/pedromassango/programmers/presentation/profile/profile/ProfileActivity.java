@@ -36,7 +36,6 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
     ViewPager viewPager;
 
     private CircleImageView imgProfile;
-    private ImageView imgCover;
     private TextView tvName, tvEmail;
     private ImageButton btnEditProfile;
     private ImageButton btnMakeCall;
@@ -65,7 +64,6 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
         tvName = findViewById(R.id.tv_name);
         tvEmail = findViewById(R.id.tv_email);
 
-        imgCover = findViewById(R.id.materialup_profile_backdrop);
         imgProfile = findViewById(R.id.img_user);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +72,6 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
                 presenter.imgProfileClicked();
             }
         });
-
 
 
         btnSendMessage = findViewById(R.id.btn_message);
@@ -216,7 +213,6 @@ public class ProfileActivity extends BaseActivity implements Contract.View {
         tvEmail.setText(usuario.getEmail());
 
         ImageUtils.loadImageUser(this, usuario.getUrlPhoto(), imgProfile);
-        ImageUtils.loadCoverImage(this, usuario.getUrlPhoto(), imgCover);
 
         imgProfile.setVisibility(View.VISIBLE);
 

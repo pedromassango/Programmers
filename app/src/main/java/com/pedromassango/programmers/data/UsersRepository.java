@@ -9,6 +9,8 @@ import android.util.Log;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.pedromassango.programmers.data.prefs.PrefsHelper;
 import com.pedromassango.programmers.extras.CategoriesUtils;
+import com.pedromassango.programmers.extras.Constants;
+import com.pedromassango.programmers.extras.Util;
 import com.pedromassango.programmers.interfaces.Callbacks;
 import com.pedromassango.programmers.models.Usuario;
 
@@ -57,6 +59,11 @@ public class UsersRepository implements UserDataSource {
         showLog("USER ID: " + loggedUserId);
         showLog("USER ID: " + loggedUserId);
         showLog("USER ID: " + loggedUserId);
+
+        if(Constants._DEVELOP_MODE){
+            callback.onSuccess(Util.getUser());
+            return;
+        }
 
         localDataSource.getUserById(loggedUserId, new Callbacks.IResultCallback<Usuario>() {
             @Override

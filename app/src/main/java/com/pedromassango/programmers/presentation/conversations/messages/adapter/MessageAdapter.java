@@ -46,7 +46,6 @@ public class MessageAdapter extends FirebaseRecyclerAdapter<Message, MessageVH> 
     @Override
     public Message getMessageItem(int position) {
 
-        //TODO: bug here
         return getItem(position);
     }
 

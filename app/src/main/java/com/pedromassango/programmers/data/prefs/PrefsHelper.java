@@ -82,10 +82,10 @@ public class PrefsHelper {
     }
 
     public static long getLastTimeOpened(){
-        return preferences.getLong(KEY_SHOULD_FETCH_FROM_SERVER, 0);
+        return preferences.getLong(KEY_TIMES_THAT_THE_APP_WAS_OPENED, 0);
     }
     public static void saveLastTimeOpened(long timestamp){
-        editor.putLong(KEY_SHOULD_FETCH_FROM_SERVER, timestamp);
+        editor.putLong(KEY_TIMES_THAT_THE_APP_WAS_OPENED, timestamp);
         editor.apply();
     }
 

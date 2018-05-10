@@ -124,6 +124,7 @@ public class Presenter implements Contract.Presenter, Callbacks.IRequestCallback
         n.setAuthorId(userId);
         n.setToUserId(post.getAuthorId());
         n.setPostId(post.getId());
+        n.setPostTitle( post.getTitle());
         n.setTimestamp(currentTime);
 
         model.send(comment, n, this);
