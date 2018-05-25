@@ -42,16 +42,6 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
         usersRepository.checkLoggedInStatus(new Callbacks.IRequestCallback() {
             @Override
             public void onSuccess() {
-                // Do nothing here if the user is logged in
-
-                // Test only
-                if (Constants._DEVELOP_MODE) {
-                    view.showHeaderInfo(Util.getUser());
-
-                    // set Empty, to get all default info on  all fragments
-                    view.setFragmentByCategory("");
-                    return;
-                }
 
                 // Subscribe user to NEWS topic
                 NotificationSender.subscribe( Constants.NotificationTopics.NEWS);
@@ -124,22 +114,6 @@ public class MainPresenter implements Contract.Presenter, Callbacks.IResultCallb
     @Override
     public String getSkill(int skill) {
         return String.format("%s%s", skill, "%");
-    }
-
-    /**
-     * Hadle recyclerView scroll status
-     * just to show FAB
-     *
-     * @param newState the new state of the recyclerView
-     */
-    @Override
-    public void onScrollStateChanged(int newState) {
-        if (newState != RecyclerView.SCROLL_STATE_IDLE &&
-                newState != RecyclerView.SCROLL_STATE_DRAGGING) {
-            view.setFABVisibility(false);
-        } else {
-            view.setFABVisibility(true);
-        }
     }
 
     @Override

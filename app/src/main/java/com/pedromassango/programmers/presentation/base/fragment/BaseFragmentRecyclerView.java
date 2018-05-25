@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.pedromassango.programmers.R;
 import com.pedromassango.programmers.interfaces.IGetDataCompleteListener;
-import com.pedromassango.programmers.interfaces.IRecyclerScrollListener;
 import com.pedromassango.programmers.presentation.main.activity.MainActivity;
 
 /**
@@ -27,7 +26,6 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
 
     private static final String TAG = "fragment_recycler";
 
-    private IRecyclerScrollListener iRecyclerScrollListener;
     public RecyclerView recyclerView;
     private TextView tvEmpty;
 
@@ -59,8 +57,6 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (iRecyclerScrollListener != null)
-                    iRecyclerScrollListener.onScrollStateChanged(recyclerView, newState);
             }
         });
 
@@ -72,21 +68,6 @@ public abstract class BaseFragmentRecyclerView extends Fragment implements IGetD
         }
 
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (getActivity() instanceof MainActivity) {
-            iRecyclerScrollListener = (IRecyclerScrollListener) getActivity();
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (iRecyclerScrollListener != null)
-            iRecyclerScrollListener = null;
     }
 
     @Override

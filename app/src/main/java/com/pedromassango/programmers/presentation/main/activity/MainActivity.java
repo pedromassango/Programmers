@@ -276,19 +276,6 @@ public class MainActivity extends BaseActivity implements Contract.View, BottomN
         fabsController.setMainFABVisibility(b);
     }
 
-    /**
-     * Hadle recyclerView scroll status
-     * to hide/show FAB
-     *
-     * @param recyclerView the current recyclerView
-     * @param newState     the new state of the recyclerView
-     */
-    @Override
-    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
-        mainPresenter.onScrollStateChanged(newState);
-    }
-
     @Override
     public void showProgress(@StringRes int message) {
 

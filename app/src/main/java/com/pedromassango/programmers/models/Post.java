@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
@@ -219,7 +220,10 @@ public class Post extends RealmObject implements Parcelable {
     }
 
     public void setViews(int views) {
+        Realm r = Realm.getDefaultInstance();
+        r.beginTransaction();
         this.views = views;
+        r.commitTransaction();
     }
 
     public HashMap<String, Boolean> getLikes() {

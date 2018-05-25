@@ -36,7 +36,8 @@ public class IntentUtils {
     public static void replaceFragment(@IdRes int framelayout, FragmentManager fm, Fragment fragment){
         fm.beginTransaction()
                 .replace(framelayout, fragment, fragment.getTag())
-                .commit();
+                .commitAllowingStateLoss();
+                //.commit();
     }
 
     public static void showProgressFragmentDialog(Activity activity, boolean show) {

@@ -7,7 +7,6 @@ import android.support.annotation.StringRes;
 import android.view.MenuItem;
 
 import com.pedromassango.programmers.interfaces.IDialogRetryListener;
-import com.pedromassango.programmers.interfaces.IRecyclerScrollListener;
 import com.pedromassango.programmers.models.Usuario;
 
 /**
@@ -16,12 +15,7 @@ import com.pedromassango.programmers.models.Usuario;
 
 public class Contract {
 
-    /**
-     * The {@link IRecyclerScrollListener} to listen
-     * the recyclerView Scroll state
-     * and hadle FloatingActionButton
-     */
-    public interface View extends IRecyclerScrollListener {
+    public interface View {
 
         void setFragmentByCategory(String category);
 
@@ -71,8 +65,6 @@ public class Contract {
         void setFragmentByCategory(String category);
 
         boolean onOptionsItemSelected(MenuItem item);
-
-        void onScrollStateChanged( int newState);
 
         String getSkill(int skill);
 

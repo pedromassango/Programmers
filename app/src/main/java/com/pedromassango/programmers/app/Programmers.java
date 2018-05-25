@@ -21,7 +21,7 @@ import io.realm.RealmConfiguration;
 /// Coloque seu email para receber os erros.
 @ReportsCrashes(formKey = "", // will not be used
         mailTo = "pedromassango.developer@gmail.com",
-        customReportContent = { ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT },
+        customReportContent = {ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT},
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_toast_text
 )
@@ -33,7 +33,7 @@ public class Programmers extends MultiDexApplication {
 
     public static Context CONTEXT;
 
-    public static Context getContext(){
+    public static Context getContext() {
         return CONTEXT;
     }
 
@@ -41,7 +41,7 @@ public class Programmers extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        if(CONTEXT == null){
+        if (CONTEXT == null) {
             CONTEXT = getApplicationContext();
         }
 
@@ -54,26 +54,27 @@ public class Programmers extends MultiDexApplication {
         PrefsHelper.getInstance();
 
         // Setup Realm database
-        Realm.init( this);
+        Realm.init(this);
 
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("programmers-data.realm")
                 .schemaVersion(111)
-               // .migration(new MyMigration())
+                .deleteRealmIfMigrationNeeded()
                 .build();
 
         // Use the config
-        Realm realm = Realm.getInstance(config);
+        Realm.getInstance(config);
+        Realm.setDefaultConfiguration(config);
 
         // Manage the current date to manage wheter we need to fetch from server
         // in our models
         long lastTime = PrefsHelper.getLastTimeOpened();
 
-        PrefsHelper.setShouldFetchFromServer(Util.getTimeState( lastTime));
+        PrefsHelper.setShouldFetchFromServer(Util.getTimeState(lastTime));
 
 
         // Save the time that the app was opened
-        PrefsHelper.saveLastTimeOpened( System.currentTimeMillis());
+        PrefsHelper.saveLastTimeOpened(System.currentTimeMillis());
 
         //Whill persit the application data on device
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
